@@ -58,7 +58,7 @@ No environment variables, API keys, or database are needed. The shipped curated 
 
 The same route is written down in the [judge guide](docs/JUDGE_GUIDE.md).
 
-A persistent scenario bar controls the whole app:
+A persistent mission-scenario builder controls the whole app. It shows the UTC start/end, sample count, and current compute state, not just a date form:
 
 | Control | Options |
 | --- | --- |
