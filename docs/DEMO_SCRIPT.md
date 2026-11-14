@@ -27,7 +27,7 @@
 **On screen:**
 
 1. Point to the scenario bar: **2026-11-14**, **90 days**, **3 h**.
-2. Scroll to the **Decision snapshot** and the **In plain English** verdict. Read the one-sentence result.
+2. Scroll to the **Decision brief**. Read the best-fit site, score, and one-sentence trade-off.
 3. Click the **Malapert Massif** card.
 4. In the detail dialog, point to the 360 degree horizon panorama, then the sunlight and Earth visibility percentages, then the next sunset and next earthset values.
 5. Point to the local slope and horizon relief. Toggle **3D** in Terrain context and drag the surface once.

@@ -15,7 +15,7 @@ Start on **Compare**. The nine NASA regions are preloaded; **All 18** adds the r
 | # | Step | Do this | What to look for |
 | --- | --- | --- | --- |
 | 1 | **Scenario bar** | Pick a landing date, a 90-day window, and 3 h sampling; change one control. | *Everyone:* the whole app answers “what if this date and window?” and recomputes in the browser. *Technical:* one sample grid is shared by all sites; percentages are sample fractions, event times are bisection-refined off that grid. |
-| 2 | **Decision snapshot + “In plain English”** | Read the four tiles: best fit overall, most sunlight, most Earth visibility, gentlest terrain; then read the plain-language verdict below them. | *Everyone:* a shortlist in one glance. *Technical:* “best fit” is TOPSIS under the current weights, not objective truth; the other tiles are single-criterion leaders. Earth visibility is line of sight, not a link budget. |
+| 2 | **Decision brief** | Read the winner, its fit score, the three metric chips, and the trade-off panel; then use the leader rows to see the other criteria. | *Everyone:* a shortlist in one glance. *Technical:* “best fit” is TOPSIS under the current weights, not objective truth; the leader rows are single-criterion leaders. Earth visibility is line of sight, not a link budget. |
 | 3 | **Site cards** | Scan the 360° horizon panoramas and the sunlight/Earth percentages. | *Everyone:* the jagged line is the local skyline; the Sun and Earth dots show whether they clear it. *Technical:* each panorama is 1,440 horizon bins; markers sit at the start of the window; cards show sampled window percentages and next-event countdowns. |
 | 4 | **Detail dialog** | Open a card. Read the horizon and event clock, then switch **Terrain context** from MAP to 3D and drag it. | *Everyone:* the event clock answers “how long until sunset or earthset?” *Technical:* next event from scenario start; the 3D view is a 12 km LOLA tile, 60 m/px, 2.1× vertical exaggeration—visual only. |
 | 5 | **Timeline** | Close the dialog, open **Timeline**, press Play, scrub one day, and pause on a transition. | *Everyone:* a good average can hide a bad week. *Technical:* daily heatmap of sampled states; the cursor drives transition cards for the next four events; animation adds no new computation. |
@@ -69,7 +69,7 @@ The largest direction residual is **0.012°**; typical Sun/Earth direction accur
 | Power/comm metrics | Sunlight %, flux proxy, longest Sun window; Earth visibility %, longest Earth window | Screening proxies, not power sizing or a communications link budget. |
 | 2D maps and 3D visuals | 2D atlas, horizon panoramas, hillshade; 3D globe and local terrain | Globe is a locator; local terrain is a visual aid; numbers come from the 2D terrain model. |
 | Temporal animation | Timeline heatmap with play and scrub; transition cards below | Animates sampled daily summaries; it does not add a new simulation. |
-| Accessibility for experts/public | Plain-language snapshot and units; Method formulas and assumptions; keyboard/focus/reduced-motion and non-color encoding support | One interface with layered detail, not a public/expert toggle; not formally WCAG-certified. |
+| Accessibility for experts/public | Plain-language brief and units; Method formulas and assumptions; keyboard/focus/reduced-motion and non-color encoding support | One interface with layered detail, not a public/expert toggle; not formally WCAG-certified. |
 
 ## Five questions judges may ask
 

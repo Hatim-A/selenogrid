@@ -33,8 +33,8 @@ const STEPS = [
   },
   {
     icon: Trophy,
-    title: 'Read the snapshot',
-    body: 'Four cards surface the best fit overall, most sunlight, most Earth visibility and gentlest terrain before the tables.',
+    title: 'Read the brief',
+    body: 'The decision brief gives the best weighted fit, its score and trade-off, then the other criterion leaders before the tables.',
     tone: 'text-foreground',
   },
   {

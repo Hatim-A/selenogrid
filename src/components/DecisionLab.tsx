@@ -47,8 +47,11 @@ export function DecisionLab({
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 id="decision-heading" className="text-[15px] font-semibold tracking-[-0.02em]">
+          <div className="font-mono text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
+            03 · Ranking
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-2">
+            <h2 id="decision-heading" className="text-[17px] font-semibold tracking-[-0.02em]">
               Decision lab
             </h2>
             <Badge variant="terrain" className="font-mono">
@@ -56,7 +59,7 @@ export function DecisionLab({
             </Badge>
             <Badge variant="outline">4 criteria · 3 benefits + slope cost</Badge>
           </div>
-          <p className="mt-1 max-w-2xl text-[10.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-1 max-w-2xl text-[11.5px] leading-relaxed text-muted-foreground">
             A transparent multi-criteria screen. Scores are relative to the selected sites, so they
             change when the comparison set or weights change. This is a shortlist aid, not a
             flight-readiness decision.
@@ -82,7 +85,7 @@ export function DecisionLab({
             key={preset.id}
             type="button"
             onClick={() => onWeights({ ...preset.weights })}
-            className="rounded-full border border-border px-2.5 py-1 text-[10px] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+            className="rounded-full border border-border px-2.5 py-1 text-[10.5px] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
             title={preset.hint}
           >
             {preset.label}
@@ -98,7 +101,7 @@ export function DecisionLab({
               <div className="flex items-center justify-between gap-2">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="cursor-help text-[10.5px] font-medium">{meta.label}</span>
+                    <span className="cursor-help text-[11.5px] font-medium">{meta.label}</span>
                   </TooltipTrigger>
                   <TooltipContent>{meta.hint}</TooltipContent>
                 </Tooltip>
@@ -115,7 +118,7 @@ export function DecisionLab({
                 onValueChange={([v]) => setWeight(key, v)}
                 aria-label={`${meta.label} weight`}
               />
-              <div className="mt-1.5 text-[8.5px] text-muted-foreground/75">{meta.hint}</div>
+              <div className="mt-1.5 text-[9px] leading-relaxed text-muted-foreground/75">{meta.hint}</div>
             </div>
           )
         })}
@@ -150,9 +153,9 @@ export function DecisionLab({
             </Badge>
           </div>
           <div className="mt-2 overflow-x-auto">
-            <table className="w-full min-w-[500px] border-collapse text-[10px]">
+            <table className="w-full min-w-[500px] border-collapse text-[10.5px]">
               <thead>
-                <tr className="border-b border-border text-left font-mono text-[8px] tracking-wide text-muted-foreground uppercase">
+                <tr className="border-b border-border text-left font-mono text-[8.5px] tracking-wide text-muted-foreground uppercase">
                   <th className="py-1.5 pl-3.5 font-medium">#</th>
                   <th className="py-1.5 font-medium">Site</th>
                   <th className="py-1.5 text-right font-medium">Fit /100</th>

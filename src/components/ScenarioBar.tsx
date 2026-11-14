@@ -1,4 +1,5 @@
-import { CalendarDays, Loader2, RotateCcw } from 'lucide-react'
+import { useState } from 'react'
+import { CalendarDays, Check, Loader2, RotateCcw, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { addDays, fmtDateTimeUtc } from '@/lib/format'
@@ -32,8 +33,27 @@ export function ScenarioBar({
   computing: boolean
   computeMs: number
 }) {
+  const [copied, setCopied] = useState(false)
   const startMs = Date.parse(`${date}T${String(hour).padStart(2, '0')}:00:00.000Z`)
   const endMs = addDays(startMs, days)
+
+  const share = async () => {
+    const link = window.location.href
+    try {
+      await navigator.clipboard.writeText(link)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = link
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      textarea.remove()
+    }
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 1800)
+  }
 
   return (
     <section
@@ -128,15 +148,27 @@ export function ScenarioBar({
           </select>
         </label>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onReset}
-          className="ml-auto gap-1.5 text-muted-foreground"
-        >
-          <RotateCcw className="size-3.5" />
-          Reset
-        </Button>
+        <div className="ml-auto flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={share}
+            className="gap-1.5 text-muted-foreground"
+            aria-label="Copy a link to this scenario"
+          >
+            {copied ? <Check className="size-3.5 text-success" /> : <Share2 className="size-3.5" />}
+            {copied ? 'Copied' : 'Share'}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onReset}
+            className="gap-1.5 text-muted-foreground"
+          >
+            <RotateCcw className="size-3.5" />
+            Reset
+          </Button>
+        </div>
       </div>
 
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border/70 pt-2.5 text-[10px] text-muted-foreground">

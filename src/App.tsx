@@ -35,6 +35,62 @@ const DEFAULT_IDS = [
 
 const TODAY = toDateInputValue(Date.now())
 
+type UrlState = {
+  view?: View
+  date?: string
+  hour?: number
+  days?: number
+  stepHours?: number
+  selectedIds?: string[]
+  weights?: Weights
+}
+
+function readUrlState(): UrlState {
+  if (typeof window === 'undefined') return {}
+  const params = new URLSearchParams(window.location.search)
+  const view = params.get('view')
+  const date = params.get('date')
+  const hourParam = params.get('hour')
+  const daysParam = params.get('days')
+  const stepParam = params.get('step')
+  const hour = hourParam ? Number(hourParam) : Number.NaN
+  const days = daysParam ? Number(daysParam) : Number.NaN
+  const stepHours = stepParam ? Number(stepParam) : Number.NaN
+  const selectedIds = params
+    .get('sites')
+    ?.split(',')
+    .filter(Boolean)
+  const rawWeights = params
+    .get('w')
+    ?.split(',')
+    .map(Number)
+
+  const next: UrlState = {}
+  if (view === 'compare' || view === 'timeline' || view === 'atlas' || view === 'method') {
+    next.view = view
+  }
+  if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) next.date = date
+  if ([0, 6, 12, 18].includes(hour)) next.hour = hour
+  if ([30, 90, 180, 365].includes(days)) next.days = days
+  if ([1, 3, 6].includes(stepHours)) next.stepHours = stepHours
+  if (selectedIds?.length) next.selectedIds = selectedIds
+  if (
+    rawWeights?.length === 4 &&
+    rawWeights.every((value) => Number.isFinite(value) && value >= 0) &&
+    rawWeights.some((value) => value > 0)
+  ) {
+    next.weights = {
+      sunlight: rawWeights[0],
+      comm: rawWeights[1],
+      flux: rawWeights[2],
+      slope: rawWeights[3],
+    }
+  }
+  return next
+}
+
+const URL_STATE = readUrlState()
+
 function themeFromDom(): 'light' | 'dark' {
   if (typeof document === 'undefined') return 'dark'
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
@@ -42,14 +98,14 @@ function themeFromDom(): 'light' | 'dark' {
 
 export default function App() {
   const { data, error } = useSiteDataset()
-  const [view, setView] = useState<View>('compare')
+  const [view, setView] = useState<View>(URL_STATE.view ?? 'compare')
   const [theme, setTheme] = useState<'light' | 'dark'>(themeFromDom)
-  const [date, setDate] = useState(TODAY)
-  const [hour, setHour] = useState(12)
-  const [days, setDays] = useState(180)
-  const [stepHours, setStepHours] = useState(3)
-  const [selectedIds, setSelectedIds] = useState<string[]>(DEFAULT_IDS)
-  const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS })
+  const [date, setDate] = useState(URL_STATE.date ?? TODAY)
+  const [hour, setHour] = useState(URL_STATE.hour ?? 12)
+  const [days, setDays] = useState(URL_STATE.days ?? 180)
+  const [stepHours, setStepHours] = useState(URL_STATE.stepHours ?? 3)
+  const [selectedIds, setSelectedIds] = useState<string[]>(URL_STATE.selectedIds ?? DEFAULT_IDS)
+  const [weights, setWeights] = useState<Weights>(URL_STATE.weights ?? { ...DEFAULT_WEIGHTS })
   const [detailId, setDetailId] = useState<string | null>(null)
   const [timelineFocus, setTimelineFocus] = useState<string | undefined>(undefined)
   const [guideOpen, setGuideOpen] = useState(false)
@@ -104,6 +160,32 @@ export default function App() {
       // private mode: keep the in-memory preference
     }
   }, [theme])
+
+  useEffect(() => {
+    const params = new URLSearchParams()
+    params.set('view', view)
+    params.set('date', date)
+    params.set('hour', String(hour))
+    params.set('days', String(days))
+    params.set('step', String(stepHours))
+    const shareableSites = selectedIds.filter((id) => !id.startsWith('custom-'))
+    if (shareableSites.length) params.set('sites', shareableSites.join(','))
+    params.set(
+      'w',
+      [weights.sunlight, weights.comm, weights.flux, weights.slope]
+        .map((value) => value.toFixed(3))
+        .join(','),
+    )
+    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`)
+  }, [view, date, hour, days, stepHours, selectedIds, weights])
+
+  useEffect(() => {
+    if (!data) return
+    setSelectedIds((previous) => {
+      const valid = previous.filter((id) => allSites.some((site) => site.id === id))
+      return valid.length === previous.length ? previous : valid
+    })
+  }, [data, allSites])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })

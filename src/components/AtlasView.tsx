@@ -27,6 +27,80 @@ function ringRadius(latAbs: number): number {
   return 50 * (Math.tan((colat * Math.PI) / 180 / 2) / edge)
 }
 
+function AtlasPointRow({
+  site,
+  metric,
+  selected,
+  hovered,
+  onHover,
+  onOpen,
+  onAdd,
+}: {
+  site: Site
+  metric?: SiteMetrics
+  selected: boolean
+  hovered: boolean
+  onHover: (id: string | null) => void
+  onOpen: (id: string) => void
+  onAdd: (id: string) => void
+}) {
+  return (
+    <div
+      onMouseEnter={() => onHover(site.id)}
+      onMouseLeave={() => onHover(null)}
+      className={cn(
+        'group flex w-full items-center gap-1 rounded-lg px-1 py-0.5 transition-colors',
+        hovered ? 'bg-secondary/80' : 'hover:bg-secondary/50',
+      )}
+    >
+      <button
+        type="button"
+        onClick={() => onOpen(site.id)}
+        aria-label={`Open analysis for ${site.name}`}
+        className="flex min-w-0 flex-1 items-center gap-2 rounded-md px-1 py-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+      >
+        <span className="size-2 shrink-0 rounded-full" style={{ backgroundColor: site.color }} />
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-1.5">
+            <span className="truncate text-[11.5px] font-medium">{site.shortName}</span>
+            <span className="font-mono text-[8px] text-muted-foreground">
+              {CLASS_LABEL[site.terrainClass]}
+            </span>
+          </span>
+          <span className="block font-mono text-[8.5px] text-muted-foreground">
+            {fmtCoord(site.lat, site.lon)}
+          </span>
+        </span>
+        {metric && (
+          <span className="flex shrink-0 items-center gap-2 font-mono text-[9px]">
+            <span className="text-sun">{fmtPct(metric.sunlightPct)}</span>
+            <span className="text-earth">{fmtPct(metric.earthPct)}</span>
+          </span>
+        )}
+      </button>
+      {selected ? (
+        <span
+          className="inline-flex size-7 shrink-0 items-center justify-center rounded-full text-success"
+          title="Already in the comparison"
+          aria-label="Already in comparison"
+        >
+          <Check className="size-3.5" />
+        </span>
+      ) : (
+        <button
+          type="button"
+          aria-label={`Add ${site.shortName} to comparison`}
+          onClick={() => onAdd(site.id)}
+          className="inline-flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground/55 transition hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
+          title="Add to comparison"
+        >
+          <Plus className="size-3.5" />
+        </button>
+      )}
+    </div>
+  )
+}
+
 export function AtlasView({
   sites,
   metricsById,
@@ -60,6 +134,30 @@ export function AtlasView({
     setPinMode(false)
     onCustomCoord(lat, lon)
   }
+  const customSites = sites.filter((site) => site.tags.includes('Custom coordinate'))
+  const curatedSites = sites.filter((site) => !site.tags.includes('Custom coordinate'))
+  const groups = [
+    {
+      id: 'nasa',
+      label: 'NASA candidate regions',
+      sites: curatedSites.filter((site) => site.kind === 'nasa'),
+    },
+    {
+      id: 'reference',
+      label: 'Reference sites',
+      sites: curatedSites.filter(
+        (site) => site.kind === 'reference' && site.terrainClass !== 'psr',
+      ),
+    },
+    {
+      id: 'psr',
+      label: 'PSR / volatile benchmarks',
+      sites: curatedSites.filter(
+        (site) => site.kind === 'reference' && site.terrainClass === 'psr',
+      ),
+    },
+    { id: 'custom', label: 'Your custom pins', sites: customSites },
+  ].filter((group) => group.sites.length > 0)
 
   return (
     <div className="space-y-4">
@@ -354,71 +452,31 @@ export function AtlasView({
               <MapPin className="size-3.5 text-muted-foreground" />
             </div>
             <div className="mt-2 space-y-0.5 pr-1">
-              {sites.map((site) => {
-                const m = metricsById.get(site.id)
-                const inComparison = selectedIds.includes(site.id)
-                return (
+              {groups.map((group, index) => (
+                <div key={group.id}>
                   <div
-                    key={site.id}
-                    onMouseEnter={() => setHoverId(site.id)}
-                    onMouseLeave={() => setHoverId(null)}
                     className={cn(
-                      'group flex w-full items-center gap-1 rounded-lg px-1 py-0.5 transition-colors',
-                      site.id === hoverId ? 'bg-secondary/80' : 'hover:bg-secondary/50',
+                      'flex items-center justify-between gap-2 px-1 pb-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground uppercase',
+                      index > 0 && 'mt-2 border-t border-border/50 pt-2',
                     )}
                   >
-                    <button
-                      type="button"
-                      onClick={() => onOpen(site.id)}
-                      aria-label={`Open analysis for ${site.name}`}
-                      className="flex min-w-0 flex-1 items-center gap-2 rounded-md px-1 py-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-                    >
-                      <span
-                        className="size-2 shrink-0 rounded-full"
-                        style={{ backgroundColor: site.color }}
-                      />
-                      <span className="min-w-0 flex-1">
-                        <span className="flex items-center gap-1.5">
-                          <span className="truncate text-[11.5px] font-medium">
-                            {site.shortName}
-                          </span>
-                          <span className="font-mono text-[8px] text-muted-foreground">
-                            {CLASS_LABEL[site.terrainClass]}
-                          </span>
-                        </span>
-                        <span className="block font-mono text-[8.5px] text-muted-foreground">
-                          {fmtCoord(site.lat, site.lon)}
-                        </span>
-                      </span>
-                      {m && (
-                        <span className="flex shrink-0 items-center gap-2 font-mono text-[9px]">
-                          <span className="text-sun">{fmtPct(m.sunlightPct)}</span>
-                          <span className="text-earth">{fmtPct(m.earthPct)}</span>
-                        </span>
-                      )}
-                    </button>
-                    {inComparison ? (
-                      <span
-                        className="inline-flex size-7 shrink-0 items-center justify-center rounded-full text-success"
-                        title="Already in the comparison"
-                        aria-label="Already in comparison"
-                      >
-                        <Check className="size-3.5" />
-                      </span>
-                    ) : (
-                      <button
-                        type="button"
-                        aria-label={`Add ${site.shortName} to comparison`}
-                        onClick={() => onAdd(site.id)}
-                        className="inline-flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground/55 transition hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50"
-                        title="Add to comparison"
-                      >
-                        <Plus className="size-3.5" />
-                      </button>
-                    )}
+                    <span>{group.label}</span>
+                    <span className="tabular">{group.sites.length}</span>
                   </div>
-                )
-              })}
+                  {group.sites.map((site) => (
+                    <AtlasPointRow
+                      key={site.id}
+                      site={site}
+                      metric={metricsById.get(site.id)}
+                      selected={selectedIds.includes(site.id)}
+                      hovered={site.id === hoverId}
+                      onHover={setHoverId}
+                      onOpen={onOpen}
+                      onAdd={onAdd}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </section>
 

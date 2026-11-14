@@ -18,7 +18,7 @@ Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static R
 
 A landing site near the lunar south pole is not a pin on a map. It is a schedule. A site can be sunlit for most of a lunar day but radio-dark; another can see Earth continuously but sit on a steep slope. The Sun and Earth move slowly and unevenly across a polar horizon, so the usable windows depend on the date, the mission length, and the local terrain profile. Static illumination maps and slope maps show pieces of this. They do not let a scientist, engineer, or member of the public compare the whole trade in one place, on their own terms.
 
-The app is deliberately answer-first: the scenario bar, decision snapshot, and a plain-English verdict come before the evidence. A 60-second in-app guide does the same for a first-time judge. Compare preloads the **nine NASA regions**; click **All 18** to add the reference and PSR sites, or **Custom point** to pin any coordinate south of 80.15°S.
+The app is deliberately answer-first: the scenario bar, decision brief, and a plain-English verdict come before the evidence. A 60-second in-app guide does the same for a first-time judge. Compare preloads the **nine NASA regions**; click **All 18** to add the reference and PSR sites, or **Custom point** to pin any coordinate south of 80.15°S.
 
 SelenoGrid closes that gap with three ingredients:
 
@@ -77,6 +77,7 @@ Every view pairs plain-language summaries with the numbers, units, formulas, and
 | Explore the Moon in 3D | Interactive LROC-textured globe with all curated markers, hover metrics, rotate/zoom, and links into each site |
 | Compare dates | Change the scenario start and duration; all metrics and rankings recompute |
 | Read a horizon | 1,440-bin (0.25 degree) terrain horizon per site, with the elevation and distance of the blocking ridge |
+| Share a scenario | The **Share** button copies a link containing the view, date, window, site set and TOPSIS weights |
 | Check power potential | Sunlight percentage, mean solar flux proxy, longest continuous sun window, next sunset and sunrise |
 | Check communications | Earth visibility percentage, longest continuous Earth window, next earthset and earthrise |
 | Check terrain | Local slope, aspect, open-sky fraction, horizon relief, a 200 x 200 terrain tile at 60 m/pixel, and an interactive 3D perspective of the tile |

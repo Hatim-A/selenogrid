@@ -66,7 +66,7 @@ export function SiteCard({
               </span>
             )}
             <span className="size-2 shrink-0 rounded-full" style={{ backgroundColor: site.color }} />
-            <h3 className="truncate text-[13.5px] font-semibold tracking-[-0.015em]">
+            <h3 className="truncate text-[14.5px] font-semibold tracking-[-0.015em]">
               {site.name}
             </h3>
           </div>
@@ -86,7 +86,7 @@ export function SiteCard({
               {ranked.score.toFixed(1)}
             </div>
             <div
-              className="mt-0.5 font-mono text-[8px] tracking-wide text-muted-foreground"
+              className="mt-0.5 font-mono text-[8.5px] tracking-wide text-muted-foreground"
               title="Relative TOPSIS fit score under the current weights, from 0 to 100. Not a probability or mission recommendation."
             >
               fit / 100
@@ -152,7 +152,7 @@ export function SiteCard({
             <div className="tabular text-[22px] font-semibold leading-none tracking-[-0.04em] text-sun">
               {fmtPct(metrics.sunlightPct)}
             </div>
-            <div className="mt-1 text-[10.5px] text-muted-foreground">Sun visible in window</div>
+            <div className="mt-1 text-[11px] text-muted-foreground">Sun visible in window</div>
           </div>
           <div>
             <div className="tabular text-[22px] font-semibold leading-none tracking-[-0.04em] text-earth">
@@ -162,7 +162,7 @@ export function SiteCard({
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-border/60 pt-2.5 text-[10px]">
+        <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-border/60 pt-2.5 text-[10.5px]">
           <div className="flex items-center justify-between gap-1">
             <span className="text-muted-foreground">{sunEvent.label}</span>
             <span className="tabular truncate font-medium">{sunEvent.text}</span>
@@ -185,7 +185,7 @@ export function SiteCard({
           <span className="truncate font-mono text-[9px] text-muted-foreground">
             {site.lat.toFixed(2)}°, {site.lon.toFixed(2)}°
           </span>
-          <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground/80 transition group-hover:text-foreground">
+          <span className="inline-flex items-center gap-1 text-[10.5px] font-medium text-foreground/80 transition group-hover:text-foreground">
             Open analysis
             <ArrowUpRight className="size-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>

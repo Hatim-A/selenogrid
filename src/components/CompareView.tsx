@@ -1,9 +1,8 @@
 import { LayoutGrid, Telescope } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { DecisionBrief } from '@/components/DecisionBrief'
 import { DecisionLab } from '@/components/DecisionLab'
-import { DecisionSnapshot } from '@/components/DecisionSnapshot'
 import { MetricCheatSheet } from '@/components/MetricCheatSheet'
-import { ScenarioVerdict } from '@/components/ScenarioVerdict'
 import { SiteCard } from '@/components/SiteCard'
 import { SitePicker } from '@/components/SitePicker'
 import type { ParetoPoint, RankedSite, Site, SiteMetrics, Weights } from '@/types'
@@ -68,23 +67,17 @@ export function CompareView({
         </>
       ) : (
         <>
-          <DecisionSnapshot
+          <DecisionBrief
             ranked={ranked}
             sites={sites.filter((s) => selectedIds.includes(s.id))}
             metricsById={metricsById}
+            weights={weights}
             onOpen={onOpen}
             onEditSites={() =>
               document
                 .getElementById('site-picker')
                 ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
-          />
-
-          <ScenarioVerdict
-            ranked={ranked}
-            sites={sites.filter((s) => selectedIds.includes(s.id))}
-            metricsById={metricsById}
-            weights={weights}
           />
 
           <MetricCheatSheet />

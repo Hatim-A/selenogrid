@@ -31,13 +31,16 @@ export function SitePicker({
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-[13px] font-semibold">Sites in comparison</h2>
+          <div className="font-mono text-[9px] tracking-[0.16em] text-muted-foreground uppercase">
+            02 · Sites
+          </div>
+          <div className="mt-1 flex items-center gap-2">
+            <h2 className="text-[15px] font-semibold tracking-[-0.02em]">Sites in comparison</h2>
             <Badge variant="outline" className="font-mono">
               {selected.length} / {sites.length}
             </Badge>
           </div>
-          <p className="mt-1 max-w-xl text-[10.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-1 max-w-xl text-[11px] leading-relaxed text-muted-foreground">
             Nine NASA candidate regions plus nine literature, science and PSR reference sites.
             Coordinates are representative LOLA terrain points, not official landing ellipses.
           </p>
@@ -71,7 +74,7 @@ export function SitePicker({
               aria-pressed={active}
               title={site.summary}
               className={cn(
-                'group inline-flex h-8 items-center gap-1.5 rounded-full border px-2.5 text-[11px] transition-all',
+                'group inline-flex h-8 items-center gap-1.5 rounded-full border px-2.5 text-[11.5px] transition-all',
                 active
                   ? 'border-transparent bg-secondary text-foreground shadow-sm'
                   : 'border-border bg-transparent text-muted-foreground hover:border-foreground/20 hover:text-foreground',

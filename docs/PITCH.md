@@ -25,7 +25,7 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 - A detail dialog exposes the full numbers and assumptions, including an interactive 3D perspective of the local 12 km terrain tile. A ranking table and Pareto plot show the decision layer.
 - **Timeline** turns the same data into a daily heatmap with a play control and event markers.
 - **Moon** puts the sites on an interactive 3D lunar globe, with a 2D south-polar atlas one click away. **Method** shows the formulas, validation, and limitations. Each view pairs plain-language summaries with the technical detail rather than hiding the data.
-- An in-app **60-second guide**, an answer-first **Decision snapshot**, and an **“In plain English”** verdict make the first minute legible without dumbing down the method.
+- An in-app **60-second guide** and an answer-first **Decision brief** — winner, fit score, three leaders, and a plain-English trade-off — make the first minute legible without dumbing down the method.
 
 **Speaker note:** If time is short, demo Compare and Timeline, then show the weight sliders. The other views are supporting evidence.
 
