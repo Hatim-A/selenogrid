@@ -62,8 +62,8 @@ export function TimelineHeatmap({
     if (!canvas) return
     const computed = getComputedStyle(canvas)
     const colorMap = {
-      sun: computed.getPropertyValue('--sun').trim() || '#f5a623',
-      earth: computed.getPropertyValue('--earth').trim() || '#4aa8ff',
+      sun: computed.getPropertyValue('--sun').trim() || '#c98212',
+      earth: computed.getPropertyValue('--earth').trim() || '#4f8fd8',
       border: computed.getPropertyValue('--border').trim() || 'rgba(255,255,255,0.08)',
       grid: computed.getPropertyValue('--grid-line').trim() || 'rgba(128,128,128,0.12)',
       muted: computed.getPropertyValue('--muted-foreground').trim() || '#9b9ba3',

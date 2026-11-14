@@ -54,7 +54,7 @@ export function Starfield({ density = 1, speed = 1, className }: StarfieldProps)
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     let stars: Star[] = []
-    let inks = ['#ffffff', '#f0b45c', '#8ec5ff']
+    let inks = ['#ffffff', '#c98212', '#4f8fd8']
     let w = 0
     let h = 0
     let raf = 0

@@ -1251,7 +1251,7 @@ export function MoonGlobe({
               <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">
                 Sunlight
               </div>
-              <div className="mt-0.5 font-mono text-[12px] text-[#f5a623]">
+              <div className="mt-0.5 font-mono text-[12px] text-[#c98212]">
                 {fmtPct(hoveredMetrics?.sunlightPct ?? Number.NaN)}
               </div>
             </div>
@@ -1259,7 +1259,7 @@ export function MoonGlobe({
               <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">
                 Earth vis.
               </div>
-              <div className="mt-0.5 font-mono text-[12px] text-[#6cb6ff]">
+              <div className="mt-0.5 font-mono text-[12px] text-[#4f8fd8]">
                 {fmtPct(hoveredMetrics?.earthPct ?? Number.NaN)}
               </div>
             </div>
