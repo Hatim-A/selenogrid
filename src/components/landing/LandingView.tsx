@@ -176,12 +176,12 @@ const SOURCE_CHIPS = [
 
 const HEADLINE_LINES: ReactNode[] = [
   <>
-    See the <em className="text-sun italic">Sun</em>.
+    Compare <em className="text-sun italic">18 south-pole</em>
   </>,
   <>
-    Hear <em className="text-earth italic">Earth</em>.
+    sites on <em className="text-earth italic">sunlight</em> and
   </>,
-  <span className="text-muted-foreground">Pick the ground.</span>,
+  <span className="text-muted-foreground">Earth visibility.</span>,
 ]
 
 export function LandingView({
@@ -366,7 +366,7 @@ export function LandingView({
               <p className="mt-6 max-w-xl text-[14.5px] leading-relaxed text-muted-foreground sm:text-[15.5px]">
                 SelenoGrid compares {siteCount} south-pole terrain points — nine NASA candidate
                 regions plus nine reference sites — on real 20&nbsp;m LOLA horizons and
-                JPL-checked Sun/Earth geometry. Transparent ranking, no black boxes.
+                JPL-checked Sun/Earth geometry. Weights and horizons stay visible with the result.
               </p>
             </Reveal>
             <Reveal delay={250}>
@@ -717,8 +717,8 @@ export function LandingView({
           <Reveal>
             <p className="eyebrow">The mission lab</p>
             <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(40px,7vw,88px)] leading-[1.0] font-bold tracking-[-0.025em] text-balance">
-              Pick a <span className="lp-shimmer-text">date.</span> Pick what{' '}
-              <span className="lp-shimmer-text">matters.</span>
+              Set the window. Set{' '}
+              <span className="lp-shimmer-text">the priorities.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]">
               Nine NASA regions and nine reference sites on one screen. Change the scenario,

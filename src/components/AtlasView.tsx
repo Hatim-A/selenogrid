@@ -175,7 +175,7 @@ export function AtlasView({
           </p>
           <div className="mt-1.5 flex flex-wrap items-center gap-2">
             <h1 className="font-display text-[30px] leading-[1.02] tracking-[-0.02em] text-balance sm:text-[36px]">
-              Moon explorer
+              South-pole globe and atlas
             </h1>
             <Badge variant="earth" className="gap-1">
               <Globe2 className="size-2.5" />

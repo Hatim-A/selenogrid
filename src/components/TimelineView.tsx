@@ -209,7 +209,7 @@ export function TimelineView({
             Time · Sun &amp; Earth
           </div>
           <h1 className="mt-1 font-display text-[34px] leading-none tracking-[-0.02em] sm:text-[40px]">
-            Mission timeline
+            Sun and Earth across the window
           </h1>
           <p className="mt-2 max-w-xl text-[12px] leading-relaxed text-muted-foreground">
             Scrub or play through the window. Every cell is a 24 h average of the sampled Sun and

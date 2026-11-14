@@ -1142,7 +1142,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           current={active === 'chapter-01'}
           no="01"
           kicker="The problem"
-          title="A site is not a pin. It is a schedule."
+          title="Sunlight and the Earth link shift across the window."
           lede="Near the south pole the Sun circles the horizon instead of rising overhead, and Earth hangs almost still behind ridges. When the light arrives — and when the link drops — depends on the date, the mission length, and the ground underfoot."
           chips={ch1Chips}
         />
@@ -1159,7 +1159,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           <div className="pb-16 lg:pb-24 lg:pt-10">
             <Step
               index="01 / Light"
-              title="Sunlight comes in seasons, not days."
+              title="Polar sunlight arrives in weeks-long stretches."
               tone="sun"
               bars={
                 focusMetrics
@@ -1175,7 +1175,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="02 / Link"
-              title="Earth can vanish behind a ridge."
+              title="A ridge can cut the direct Earth link."
               tone="earth"
               bars={
                 focusMetrics
@@ -1191,7 +1191,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="03 / Clock"
-              title="So every site gets an event clock."
+              title="Every site gets sunset and earthset times."
               tone="mix"
               pull={
                 focusMetrics && next
@@ -1221,7 +1221,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           current={active === 'chapter-02'}
           no="02"
           kicker="Real terrain"
-          title="1,440 horizons, measured — not painted."
+          title="Full horizons from 20 m LOLA topography."
           lede="Every site carries a full 360° terrain horizon ray-marched on 20 m LOLA topography: one elevation angle every quarter degree, from 20 metres out to 220 kilometres."
           chips={ch2Chips}
         />
@@ -1232,7 +1232,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           <div className="pb-16 lg:pb-24 lg:pt-10">
             <Step
               index="01 / Grid"
-              title="20 metres per pixel, pole-wide."
+              title="20 m pixels across the south pole."
               tone="terrain"
               pull={{ value: '30,400²', label: 'pixels per side · 20 m LOLA grid' }}
             >
@@ -1245,7 +1245,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="02 / Rays"
-              title="Spherical geometry, every bin."
+              title="Rays traced with lunar curvature included."
               tone="terrain"
               pull={
                 focus
@@ -1265,7 +1265,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="03 / Honesty"
-              title="Points, not ellipses."
+              title="Representative points inside published regions."
               tone="mix"
               pull={{ value: `${sites.length}`, label: 'representative points · NASA + reference' }}
             >
@@ -1288,7 +1288,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           current={active === 'chapter-03'}
           no="03"
           kicker="Sun & Earth"
-          title="Two clocks, one sky."
+          title="Sun and Earth positions checked against terrain."
           lede="Topocentric Sun and Earth positions from a Meeus/IAU astronomy engine, tested against JPL Horizons — then masked by the real horizon, sample by sample, for your whole mission window."
           chips={ch3Chips}
         />
@@ -1303,7 +1303,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           <div className="pb-16 lg:pb-24 lg:pt-10">
             <Step
               index="01 / Rule"
-              title="The upper limb decides."
+              title="A body counts when its limb clears the ridge."
               tone="sun"
               pull={{ value: '+0.27° / +0.9°', label: 'Sun / Earth limb radii' }}
             >
@@ -1315,7 +1315,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="02 / Windows"
-              title="Windows, not averages."
+              title="Longest stretches and window shares."
               tone="earth"
               pull={
                 focusMetrics
@@ -1345,7 +1345,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           current={active === 'chapter-04'}
           no="04"
           kicker="Transparent ranking"
-          title="A ranking you can argue with."
+          title="Four criteria with weights you set."
           lede="Four criteria, one published method, every weight exposed. Nothing is hidden in a model file — the whole decision layer fits on one screen and recomputes live."
           chips={ch4Chips}
         />
@@ -1358,7 +1358,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           <div className="pb-16 lg:pb-24 lg:pt-10">
             <Step
               index="01 / TOPSIS"
-              title="Closeness to an explicit ideal."
+              title="Distance from the best and worst case."
               tone="mix"
               pull={{ value: '35 / 30 / 15 / 20', label: 'default weights % · Sun / Earth / Flux / Slope' }}
             >
@@ -1370,7 +1370,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="02 / Weights"
-              title="Your preferences, your rank."
+              title="Sliders move the ranking live."
               tone="sun"
               pull={
                 leader
@@ -1390,7 +1390,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             </Step>
             <Step
               index="03 / Frontier"
-              title="The Pareto check."
+              title="Sites unbeaten on both axes."
               tone="earth"
               pull={{ value: `${frontier.size} sites`, label: 'nothing beats them on both axes' }}
             >

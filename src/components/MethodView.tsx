@@ -172,7 +172,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
               Method · Data · Limits
             </p>
             <h1 className="font-display mt-2 max-w-xl text-[32px] leading-[1.02] tracking-[-0.02em] text-balance sm:text-[44px]">
-              Every number is inspectable.
+              How each number is calculated.
             </h1>
             <p className="mt-3 max-w-xl text-[13.5px] leading-relaxed text-pretty text-muted-foreground">
               SelenoGrid is a screening instrument, not a flight-certified landing

@@ -52,9 +52,9 @@ export function Hero({
 
           <Reveal delay={90}>
             <h1 className="mt-5 max-w-[16ch] font-display text-[42px] leading-[1.02] font-bold tracking-[-0.02em] text-balance sm:text-[60px] lg:text-[68px]">
-              Find the landing site that can see the{' '}
-              <em className="text-sun italic">Sun</em> and hear{' '}
-              <em className="text-earth italic">Earth</em>.
+              Compare south-pole sites on{' '}
+              <em className="text-sun italic">sunlight</em>, <em className="text-earth italic">Earth link</em>,
+              and slope.
             </h1>
           </Reveal>
 

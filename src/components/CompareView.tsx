@@ -107,7 +107,7 @@ export function CompareView({
             No sites in view
           </div>
           <h2 className="font-display relative mt-2 text-[34px] leading-tight tracking-[-0.02em] italic sm:text-[40px]">
-            Build your shortlist
+            Choose sites to compare
           </h2>
           <p className="relative mt-2 max-w-md text-[12px] leading-relaxed text-muted-foreground">
             Choose from the nine NASA candidate regions, the reference sites, or a custom point.
