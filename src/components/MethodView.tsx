@@ -64,7 +64,7 @@ const SOURCES = [
   {
     title: 'NASA Artemis III candidate regions',
     detail: 'Nine south-pole regions announced 28 October 2024. Region names and context.',
-    href: 'https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/',
+    href: 'https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/',
   },
   {
     title: 'Peña-Asensio et al. (2024)',
@@ -75,6 +75,11 @@ const SOURCES = [
     title: 'JPL Horizons',
     detail: 'Independent ephemeris check for the Sun and Earth directions at Shackleton.',
     href: 'https://ssd.jpl.nasa.gov/horizons/',
+  },
+  {
+    title: 'NASA SVS CGI Moon Kit',
+    detail: 'LROC WAC color mosaic used as the 3D globe texture. Visual context only.',
+    href: 'https://svs.gsfc.nasa.gov/4720',
   },
   {
     title: 'IAU WGCCRE 2009 lunar orientation',
@@ -164,7 +169,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           </h1>
           <p className="mt-1.5 max-w-2xl text-[12px] leading-relaxed text-muted-foreground">
             SelenoGrid is a screening instrument, not a flight-certified landing analysis. The
-            pipeline is deliberately simple: real terrain, standard ephemerides, a explicit
+            pipeline is deliberately simple: real terrain, standard ephemerides, an explicit
             visibility rule, and a decision model you can reweight.
           </p>
         </div>
@@ -172,6 +177,17 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           Back to comparison
           <ArrowUpRight />
         </Button>
+      </div>
+
+      <div className="grid gap-2 rounded-2xl border border-border bg-card/55 p-4 sm:grid-cols-[130px_1fr] sm:gap-4">
+        <div className="font-mono text-[8.5px] tracking-[0.12em] text-muted-foreground uppercase">
+          The question
+        </div>
+        <p className="max-w-3xl text-[11px] leading-relaxed text-muted-foreground">
+          For a chosen date and mission length, when are the Sun and Earth above each site&apos;s own
+          terrain horizon? SelenoGrid turns those windows into four criteria and ranks the sites. It
+          does not model power systems, thermal behavior, or communications link budgets.
+        </p>
       </div>
 
       <section className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -370,6 +386,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           <span>Meeus ch. 25 / 47</span>
           <span>TOPSIS after Hwang & Yoon</span>
           <span>Peña-Asensio et al. 2024</span>
+          <span>NASA SVS CGI Moon Kit</span>
         </div>
       </section>
 

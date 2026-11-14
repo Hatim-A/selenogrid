@@ -23,12 +23,12 @@
   --ring: #0071e3;
   --radius: 0.9rem;
 
-  --sun: #e08b1a;
-  --sun-soft: rgba(224, 139, 26, 0.14);
+  --sun: #b86f00;
+  --sun-soft: rgba(184, 111, 0, 0.14);
   --earth: #0071e3;
   --earth-soft: rgba(0, 113, 227, 0.12);
-  --terrain: #7c5cff;
-  --terrain-soft: rgba(124, 92, 255, 0.12);
+  --terrain: #6547d8;
+  --terrain-soft: rgba(101, 71, 216, 0.12);
   --success: #1f8f4e;
   --success-soft: rgba(31, 143, 78, 0.12);
   --danger: #d70015;

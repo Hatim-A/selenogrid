@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mountain, Radio, Sun, Trophy } from 'lucide-react'
+import { ArrowUpRight, Mountain, PencilLine, Radio, SlidersHorizontal, Sun, Trophy } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { fmtPct } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -9,11 +9,13 @@ export function DecisionSnapshot({
   sites,
   metricsById,
   onOpen,
+  onEditSites,
 }: {
   ranked: RankedSite[]
   sites: Site[]
   metricsById: Map<string, SiteMetrics>
   onOpen: (id: string) => void
+  onEditSites: () => void
 }) {
   if (ranked.length === 0) return null
 
@@ -31,10 +33,10 @@ export function DecisionSnapshot({
 
   const items = [
     {
-      label: 'Best overall',
+      label: 'Best fit overall',
       site: ranked[0].site,
       value: ranked[0].score.toFixed(1),
-      unit: 'score',
+      unit: 'fit / 100',
       sub: 'TOPSIS · current weights',
       icon: Trophy,
       accent: 'var(--foreground)',
@@ -50,11 +52,11 @@ export function DecisionSnapshot({
       accent: 'var(--sun)',
     },
     {
-      label: 'Best Earth link',
+      label: 'Most Earth visibility',
       site: mostEarth.site,
       value: fmtPct(mostEarth.metrics.earthPct),
       unit: '',
-      sub: 'direct-to-Earth visibility',
+      sub: 'line of sight · not a link budget',
       icon: Radio,
       accent: 'var(--earth)',
     },
@@ -70,19 +72,42 @@ export function DecisionSnapshot({
   ]
 
   return (
-    <section aria-labelledby="snapshot-heading">
-      <div className="mb-2.5 flex items-end justify-between gap-2">
+    <section id="snapshot" aria-labelledby="snapshot-heading" className="scroll-mt-20">
+      <div className="mb-2.5 flex flex-wrap items-end justify-between gap-2">
         <div>
           <h2 id="snapshot-heading" className="text-[13px] font-semibold">
             Decision snapshot
           </h2>
-          <p className="mt-0.5 text-[10px] text-muted-foreground">
-            What the current scenario is telling you, before the tables.
+          <p className="mt-0.5 max-w-xl text-[10px] text-muted-foreground">
+            The current scenario at a glance. “Best fit” is the best weighted mix, not the leader on
+            every metric; the score is relative, not a probability.
           </p>
         </div>
-        <Badge variant="outline" className="hidden font-mono sm:inline-flex">
-          {ranked.length} sites evaluated
-        </Badge>
+        <div className="flex items-center gap-1.5">
+          <Badge variant="outline" className="font-mono">
+            {ranked.length} sites evaluated
+          </Badge>
+          <button
+            type="button"
+            onClick={() =>
+              document
+                .getElementById('decision')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+            className="inline-flex h-6 items-center gap-1 rounded-full border border-border px-2 font-mono text-[8.5px] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+          >
+            <SlidersHorizontal className="size-2.5" />
+            Adjust weights
+          </button>
+          <button
+            type="button"
+            onClick={onEditSites}
+            className="inline-flex h-6 items-center gap-1 rounded-full border border-border px-2 font-mono text-[8.5px] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+          >
+            <PencilLine className="size-2.5" />
+            Edit sites
+          </button>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
         {items.map((item) => {
@@ -102,7 +127,7 @@ export function DecisionSnapshot({
                 style={{ backgroundColor: item.accent, opacity: 0.85 }}
               />
               <div className="flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1.5 font-mono text-[8.5px] tracking-[0.08em] text-muted-foreground uppercase">
+                <span className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-[0.08em] text-muted-foreground uppercase">
                   <Icon className="size-3" style={{ color: item.accent }} />
                   {item.label}
                 </span>
@@ -124,9 +149,9 @@ export function DecisionSnapshot({
                   className="size-1.5 shrink-0 rounded-full"
                   style={{ backgroundColor: item.site.color }}
                 />
-                <span className="truncate text-[10.5px] font-medium">{item.site.shortName}</span>
+                <span className="truncate text-[11.5px] font-medium">{item.site.shortName}</span>
               </div>
-              <div className="mt-0.5 truncate text-[9px] text-muted-foreground">{item.sub}</div>
+              <div className="mt-0.5 truncate text-[9.5px] text-muted-foreground">{item.sub}</div>
             </button>
           )
         })}

@@ -144,7 +144,19 @@ An annotated bibliography for the data, methods, and mission context used by Sel
 
 **Caveat:** The release is preliminary mission reporting, not a terrain validation. The outcome does not confirm or refute the suitability of the representative point, and it should not be used as evidence for or against the ranking.
 
-## 15. LOLA DEM label
+## 15. NASA SVS CGI Moon Kit
+
+**Product:** LROC WAC natural-color global mosaic, 2K equirectangular JPEG (`lroc_color_2k.jpg`, 2048 x 1024), from the NASA Scientific Visualization Studio CGI Moon Kit.
+
+**URL:** <https://svs.gsfc.nasa.gov/4720>
+
+**Direct file:** <https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_2k.jpg>
+
+**Used for:** The color texture on the interactive 3D Moon globe. The map is centered on 0° longitude. It is a visual context layer, not an analysis product.
+
+**Caveat:** The texture is optimized for aesthetics, not science; NASA says scientific applications should use the source data. It is not used to compute any visibility, slope, or ranking value. The globe markers are placed from the same representative coordinates as the 2D atlas. Credit: NASA's Scientific Visualization Studio / LRO LROC WAC.
+
+## 16. LOLA DEM label
 
 **Product label:** `ldem_80s_20m.lbl`, PDS Geosciences Node.
 

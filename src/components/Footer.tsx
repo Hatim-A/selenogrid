@@ -4,6 +4,7 @@ import { Logo } from '@/components/Logo'
 export function Footer({ onMethod }: { onMethod: () => void }) {
   return (
     <footer className="mt-12 border-t border-border py-7">
+      <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-sm">
           <div className="flex items-center gap-2">
@@ -36,6 +37,14 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
             >
               Site dataset
             </a>
+            <a
+              href="https://github.com/Hatim-A/selenogrid/blob/main/docs/JUDGE_GUIDE.md"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1 block text-muted-foreground hover:text-foreground"
+            >
+              Judge guide
+            </a>
           </div>
           <div>
             <div className="font-mono text-[7.5px] tracking-[0.1em] text-muted-foreground uppercase">
@@ -50,7 +59,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
               LOLA PDS
             </a>
             <a
-              href="https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+              href="https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
               target="_blank"
               rel="noreferrer"
               className="mt-1 block text-muted-foreground hover:text-foreground"
@@ -85,6 +94,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
           flight-certified analysis.
         </span>
         <span className="font-mono">NASA Space Apps Challenge 2026 · Meknes</span>
+      </div>
       </div>
     </footer>
   )

@@ -58,8 +58,8 @@ export const WEIGHT_META: Record<WeightKey, { label: string; short: string; hint
     hint: 'Mean sin(Sun elevation) while lit, a proxy for available solar power.',
   },
   slope: {
-    label: 'Terrain',
-    short: 'Terrain',
+    label: 'Slope (cost)',
+    short: 'Slope',
     hint: 'Local 1 km slope. Lower is better, so this is a cost criterion.',
   },
 }

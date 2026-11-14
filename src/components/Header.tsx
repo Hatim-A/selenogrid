@@ -1,6 +1,7 @@
-import { BookOpen, Clock3, LayoutGrid, Map } from 'lucide-react'
+import { BookOpen, Clock3, HelpCircle, LayoutGrid, Orbit } from 'lucide-react'
 import { Logo } from '@/components/Logo'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 export type View = 'compare' | 'timeline' | 'atlas' | 'method'
@@ -8,7 +9,7 @@ export type View = 'compare' | 'timeline' | 'atlas' | 'method'
 const NAV: { id: View; label: string; icon: typeof LayoutGrid }[] = [
   { id: 'compare', label: 'Compare', icon: LayoutGrid },
   { id: 'timeline', label: 'Timeline', icon: Clock3 },
-  { id: 'atlas', label: 'Atlas', icon: Map },
+  { id: 'atlas', label: 'Moon', icon: Orbit },
   { id: 'method', label: 'Method', icon: BookOpen },
 ]
 
@@ -17,11 +18,13 @@ export function Header({
   onView,
   theme,
   onTheme,
+  onGuide,
 }: {
   view: View
   onView: (view: View) => void
   theme: 'light' | 'dark'
   onTheme: () => void
+  onGuide: () => void
 }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 glass">
@@ -67,14 +70,27 @@ export function Header({
 
         <div className="ml-auto flex items-center gap-1.5">
           <span className="hidden items-center gap-2 rounded-full border border-border bg-card/60 px-2.5 py-1 font-mono text-[9px] tracking-wide text-muted-foreground lg:inline-flex">
-            <span className="size-1.5 rounded-full bg-success pulse-dot" />
-            LOLA 20 m · LIVE MODEL
+            <span className="size-1.5 rounded-full bg-success" />
+            LOLA 20 m · IN-BROWSER
           </span>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onGuide}
+            aria-label="Open the 60-second guide"
+            className="gap-1.5 px-2.5 text-muted-foreground"
+          >
+            <HelpCircle className="size-3.5" />
+            <span className="hidden sm:inline">Guide</span>
+          </Button>
           <ThemeToggle theme={theme} onToggle={onTheme} />
         </div>
       </div>
 
-      <div className="no-scrollbar overflow-x-auto border-t border-border/50 px-3 pb-2 md:hidden">
+      <nav
+        aria-label="Mobile primary"
+        className="no-scrollbar overflow-x-auto border-t border-border/50 px-3 pb-2 md:hidden"
+      >
         <div className="flex min-w-max items-center gap-1">
           {NAV.map((item) => {
             const Icon = item.icon
@@ -98,7 +114,7 @@ export function Header({
             )
           })}
         </div>
-      </div>
+      </nav>
     </header>
   )
 }

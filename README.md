@@ -6,7 +6,7 @@ SelenoGrid is a browser-based decision-support workbench for the lunar south pol
 
 Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static React app. No backend. No API keys. No hidden model weights.
 
-**[Live demo](https://hatim-a.github.io/selenogrid/)** · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Pitch outline](docs/PITCH.md)
+**[Live demo](https://hatim-a.github.io/selenogrid/)** · [Judge guide](docs/JUDGE_GUIDE.md) · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Pitch outline](docs/PITCH.md)
 
 > **What this is not.** NASA has not published official region centres or landing ellipses for these nine regions. The coordinates in SelenoGrid are representative terrain points selected from LOLA topography, not official landing ellipses. SelenoGrid is a comparative screening aid, not a flight-certified site-selection tool.
 
@@ -17,6 +17,8 @@ Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static R
 ## The problem
 
 A landing site near the lunar south pole is not a pin on a map. It is a schedule. A site can be sunlit for most of a lunar day but radio-dark; another can see Earth continuously but sit on a steep slope. The Sun and Earth move slowly and unevenly across a polar horizon, so the usable windows depend on the date, the mission length, and the local terrain profile. Static illumination maps and slope maps show pieces of this. They do not let a scientist, engineer, or member of the public compare the whole trade in one place, on their own terms.
+
+The app is deliberately answer-first: the scenario bar, decision snapshot, and a plain-English verdict come before the evidence. A 60-second in-app guide does the same for a first-time judge.
 
 SelenoGrid closes that gap with three ingredients:
 
@@ -43,12 +45,18 @@ No environment variables, API keys, or database are needed. The shipped dataset 
 | --- | --- | --- |
 | **Compare** | Rank and inspect sites under one scenario | Site cards with metric summaries and 360 degree horizon panoramas, a detail dialog with an interactive 3D terrain perspective, adjustable TOPSIS weights, ranking table, and Pareto scatter |
 | **Timeline** | See how visibility changes through time | Per-site daily heatmap of sunlight and Earth visibility, event markers, and a play control for temporal animation |
-| **Atlas** | Put the sites back on the Moon | South-polar map with site markers, terrain context, and links into the site detail view |
+| **Moon** | Put the sites back on the Moon | Interactive 3D lunar globe with every site marker and hover metrics, plus a 2D south-polar LOLA hillshade for terrain context |
 | **Method** | Check the reasoning | Formulas, assumptions, data provenance, validation table, and limitations, written for both expert and public readers |
 
-| Timeline | Atlas | 3D terrain |
+| Timeline | 3D Moon | 2D Atlas |
 | --- | --- | --- |
-| ![Timeline heatmap](docs/screenshots/timeline.webp) | ![South pole atlas](docs/screenshots/atlas.webp) | ![Interactive 3D terrain](docs/screenshots/terrain-3d.webp) |
+| ![Timeline heatmap](docs/screenshots/timeline.webp) | ![Interactive 3D lunar globe](docs/screenshots/moon.webp) | ![South pole atlas](docs/screenshots/atlas.webp) |
+
+### For judges
+
+![The 60-second in-app guide](docs/screenshots/guide.webp)
+
+The same route is written down in the [judge guide](docs/JUDGE_GUIDE.md).
 
 A persistent scenario bar controls the whole app:
 
@@ -65,6 +73,7 @@ Every view pairs plain-language summaries with the numbers, units, formulas, and
 | Capability | Detail |
 | --- | --- |
 | Compare 12 sites | Nine NASA candidate regions plus Peak near Shackleton, Connecting Ridge, and Shackleton Crater Floor |
+| Explore the Moon in 3D | Interactive LROC-textured globe with all 12 markers, hover metrics, rotate/zoom, and links into each site |
 | Compare dates | Change the scenario start and duration; all metrics and rankings recompute |
 | Read a horizon | 1,440-bin (0.25 degree) terrain horizon per site, with the elevation and distance of the blocking ridge |
 | Check power potential | Sunlight percentage, mean solar flux proxy, longest continuous sun window, next sunset and sunrise |
@@ -85,6 +94,8 @@ The terrain product is the NASA/GSFC LRO LOLA south polar DEM `ldem_80s_20m` fro
 - no-data value `-32768`
 - 80 degrees south to the pole, polar stereographic
 - source: <https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/>
+
+The Moon explorer globe uses the NASA SVS **CGI Moon Kit** 2K LROC WAC color texture (`public/data/moon-2k.jpg`) for global context. The texture is optimized for visualization, not science; it feeds no sunlight, visibility, or ranking calculation. All computed values still come from the 20 m LOLA horizons and the ephemeris.
 
 The 12 representative points are:
 
@@ -154,7 +165,7 @@ Typical accuracy is about 0.02 degrees for Sun and Earth directions. That is fit
 - Scenario percentages are sampled, not integrated. A visibility window shorter than the chosen time step can be missed. Default steps are 3 hours; event times are refined separately.
 - Representative points are not official region centres. A different point inside the same region can produce a different ranking.
 - The TOPSIS weights are user preferences, not mission requirements. The ranking is sensitive to them, which is why they are exposed.
-- The 3D view is a local perspective of a 12 km LOLA tile, vertically exaggerated. It is not a global terrain model, a landing simulation, or a hazard visualization.
+- The local terrain view is a perspective rendering of a 12 km LOLA tile, vertically exaggerated. The Moon globe is a locator textured with NASA's LROC color mosaic, not an analysis-grade terrain mesh. Neither is a landing simulation or hazard visualization.
 
 ## Challenge mapping
 
@@ -165,7 +176,7 @@ Typical accuracy is about 0.02 degrees for Sun and Earth directions. That is fit
 | Earth visibility and communications | Earth visibility percentage, longest Earth window, next earthset and earthrise |
 | Terrain | Slope, aspect, open-sky fraction, horizon relief, and terrain tiles |
 | Time to sunset and earthset | Event clocks in the site detail dialog; event times refined by bisection |
-| 2D and 3D visuals | 2D horizon panoramas, polar atlas, shaded relief, and an interactive 3D perspective of each local terrain tile |
+| 2D and 3D visuals | Interactive 3D lunar globe, 2D polar atlas, 360° horizon panoramas, shaded relief, and a 3D perspective of each local terrain tile |
 | Temporal animation | Timeline heatmap with play control and event markers |
 | Multi-site comparison | 12 sites side by side, ranking table, and Pareto frontier |
 | Custom coordinates | Supported by the offline pipeline (`tools/horizon.c` and `tools/build_sites.mjs`); the browser demo ships 12 precomputed sites because the DEM is 1.8 GB |
@@ -201,7 +212,7 @@ npm run build
 
 ## Stack
 
-React 19, Vite 8, TypeScript, Tailwind CSS v4, Radix-based shadcn-style components, and Recharts. All runtime computation runs in the browser. The astronomy and metrics code lives in `src/lib/astro.ts` and `src/lib/metrics.ts`; the offline terrain pipeline lives in `tools/`.
+React 19, Vite 8, TypeScript, Tailwind CSS v4, Radix-based shadcn-style components, Recharts, and Three.js for the interactive Moon globe. All runtime computation runs in the browser. The astronomy and metrics code lives in `src/lib/astro.ts` and `src/lib/metrics.ts`; the offline terrain pipeline lives in `tools/`.
 
 ## Team
 
@@ -224,3 +235,4 @@ Full annotations, URLs, and caveats are in [docs/SOURCES.md](docs/SOURCES.md).
 - NASA/JPL, [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/).
 - NASA, [Artemis III mission update](https://www.nasa.gov/missions/artemis/nasas-artemis-iii-mission-to-test-future-moon-lander-operations/) and [Artemis IV overview](https://www.nasa.gov/mission/artemis-iv/).
 - NASA, [CLPS landing: Intuitive Machines IM-2](https://www.nasa.gov/event/clps-landing-intuitive-machines-im-2/).
+- NASA Scientific Visualization Studio, [CGI Moon Kit](https://svs.gsfc.nasa.gov/4720), LROC WAC natural-color global mosaic used as the 3D globe texture.

@@ -14,7 +14,7 @@ interface Props {
   theme: 'light' | 'dark'
 }
 
-const LABEL_W = 126
+const LABEL_W = 132
 const RIGHT_PAD = 14
 const TOP = 26
 const ROW_H = 34
@@ -95,7 +95,7 @@ export function TimelineHeatmap({
       }
 
       ctx.fillStyle = isSelected ? colorMap.fg : colorMap.muted
-      ctx.font = `${isSelected ? 600 : 450} 10px "Inter Variable", system-ui, sans-serif`
+      ctx.font = `${isSelected ? 600 : 450} 11px "Inter Variable", system-ui, sans-serif`
       ctx.fillText(site.shortName.slice(0, 18), 8, y0 + 14)
 
       const lanes: [number, 'sun' | 'earth'][] = [

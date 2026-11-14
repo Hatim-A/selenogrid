@@ -5,11 +5,13 @@ import { CompareView } from '@/components/CompareView'
 import { Footer } from '@/components/Footer'
 import { Header, type View } from '@/components/Header'
 import { Hero } from '@/components/Hero'
+import { JudgeGuide } from '@/components/JudgeGuide'
 import { MethodView } from '@/components/MethodView'
 import { ScenarioBar } from '@/components/ScenarioBar'
 import { SiteDetailDialog } from '@/components/SiteDetailDialog'
 import { TimelineView } from '@/components/TimelineView'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useMissionMetrics } from '@/hooks/useMissionMetrics'
 import { useSiteDataset } from '@/hooks/useSiteDataset'
@@ -45,6 +47,8 @@ export default function App() {
   const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS })
   const [detailId, setDetailId] = useState<string | null>(null)
   const [timelineFocus, setTimelineFocus] = useState<string | undefined>(undefined)
+  const [guideOpen, setGuideOpen] = useState(false)
+  const [moonFocus, setMoonFocus] = useState<string | null>(null)
 
   const scenario: Scenario = useMemo(
     () => ({
@@ -102,6 +106,11 @@ export default function App() {
   const detailMetrics = detailId && metrics ? metrics.get(detailId) ?? null : null
   const detailRanked = ranked.find((r) => r.site.id === detailId) ?? null
 
+  const handleView = (next: View) => {
+    setView(next)
+    setMoonFocus(null)
+  }
+
   const resetScenario = () => {
     setDate(TODAY)
     setHour(12)
@@ -114,16 +123,21 @@ export default function App() {
       <div className="flex min-h-screen flex-col">
         <Header
           view={view}
-          onView={setView}
+          onView={handleView}
           theme={theme}
           onTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          onGuide={() => setGuideOpen(true)}
         />
 
         <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 sm:px-6">
           {view === 'compare' && (
             <Hero
-              onMethod={() => setView('method')}
-              onCompare={() => document.getElementById('scenario')?.scrollIntoView({ behavior: 'smooth' })}
+              onGuide={() => setGuideOpen(true)}
+              onCompare={() =>
+                document
+                  .getElementById('snapshot')
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
             />
           )}
 
@@ -179,10 +193,12 @@ export default function App() {
               />
             ) : (
               <AtlasView
+                key={moonFocus ?? 'moon'}
                 sites={data.sites}
                 metricsById={metrics}
                 selectedIds={selectedIds}
                 theme={theme}
+                focusId={moonFocus}
                 onOpen={openDetail}
                 onAdd={addSite}
               />
@@ -208,7 +224,32 @@ export default function App() {
           setDetailId(null)
           setView('timeline')
         }}
+        onMoon={(id) => {
+          setMoonFocus(id)
+          setDetailId(null)
+          setView('atlas')
+        }}
         onAdd={addSite}
+      />
+
+      <JudgeGuide
+        open={guideOpen}
+        onOpenChange={setGuideOpen}
+        onStart={() => {
+          setGuideOpen(false)
+          setView('compare')
+          window.setTimeout(() => {
+            document.getElementById('scenario')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }, 80)
+        }}
+        onMoon={() => {
+          setGuideOpen(false)
+          setView('atlas')
+        }}
+        onMethod={() => {
+          setGuideOpen(false)
+          setView('method')
+        }}
       />
     </TooltipProvider>
   )
@@ -251,11 +292,14 @@ function LoadingPanel({ mode }: { mode: 'data' | 'compute' }) {
 function ErrorPanel({ message }: { message: string }) {
   return (
     <div className="rounded-2xl border border-danger/30 bg-card px-6 py-12 text-center">
-      <div className="text-[14px] font-semibold">Could not start the model</div>
+      <div className="text-[14px] font-semibold">Could not load the terrain dataset</div>
       <p className="mx-auto mt-1 max-w-md text-[11px] leading-relaxed text-muted-foreground">
-        {message}. Check that <code className="font-mono">public/data/sites.json</code> is available,
-        then reload.
+        {message}. Reload the page to try again. If the problem persists, the shipped site dataset
+        may be incomplete.
       </p>
+      <Button className="mt-4" size="sm" onClick={() => window.location.reload()}>
+        Reload SelenoGrid
+      </Button>
     </div>
   )
 }

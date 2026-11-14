@@ -71,7 +71,7 @@ export function ScenarioBar({
               min="2024-01-01"
               max="2035-12-31"
               onChange={(e) => onDate(e.target.value)}
-              className="h-9 rounded-lg border border-border bg-background px-2.5 pr-1 font-mono text-[11px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+              className="h-9 rounded-lg border border-border bg-background px-2.5 pr-1 font-mono text-[16px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20 sm:text-[11px]"
             />
           </span>
         </label>
@@ -81,7 +81,7 @@ export function ScenarioBar({
           <select
             value={hour}
             onChange={(e) => onHour(Number(e.target.value))}
-            className="h-9 rounded-lg border border-border bg-background px-2.5 font-mono text-[11px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className="h-9 rounded-lg border border-border bg-background px-2.5 font-mono text-[16px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20 sm:text-[11px]"
           >
             {HOURS.map((h) => (
               <option key={h} value={h}>
@@ -118,7 +118,7 @@ export function ScenarioBar({
           <select
             value={stepHours}
             onChange={(e) => onStep(Number(e.target.value))}
-            className="h-9 rounded-lg border border-border bg-background px-2.5 font-mono text-[11px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className="h-9 rounded-lg border border-border bg-background px-2.5 font-mono text-[16px] text-foreground outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20 sm:text-[11px]"
           >
             {STEPS.map((s) => (
               <option key={s} value={s}>

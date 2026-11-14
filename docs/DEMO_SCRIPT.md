@@ -6,7 +6,7 @@
 
 - Open the app in a clean browser window at 1440 x 900, zoom 100 percent. Hide bookmarks and notifications.
 - Set the scenario to **2026-11-14 12:00 UTC**, **90 days**, **3 hour step**. Let the first computation finish completely.
-- Start on **Compare** with the six default sites selected. Close the detail dialog and any popovers.
+- Start on **Compare** with the six default sites selected. Close the detail dialog and any popovers. Close the 60-second guide if it is open.
 - Open a second tab with the same scenario already computed. This is the backup, not the primary.
 - Have a static screenshot of the Compare ranking and the Pareto plot ready in a third tab.
 - Do not refresh during the demo. Do not change the date unless the live compute is fast and you have rehearsed it.
@@ -14,11 +14,11 @@
 
 ## 0:00 to 0:20 | Hook: the problem
 
-**On screen:** Compare view. Six selected site cards visible, with the picker showing all twelve. Move the cursor slowly across the cards, then hover one horizon panorama so the profile is visible.
+**On screen:** Compare view at the top. Scroll past the hero to the scenario bar; six sites are preloaded. Click **See the ranking** once to show the answer-first jump, then return to the scenario bar. The header **Guide** button opens the same route for judges.
 
 **Narration:**
 
-> NASA has nine candidate regions near the lunar south pole. But a landing site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid puts those trade-offs on one screen.
+> NASA has nine candidate regions near the lunar south pole. But a landing site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid puts those trade-offs on one screen — scenario first, then the answer, then the evidence.
 
 **Do not:** open with the tech stack. Open with the decision.
 
@@ -27,10 +27,11 @@
 **On screen:**
 
 1. Point to the scenario bar: **2026-11-14**, **90 days**, **3 h**.
-2. Click the **Malapert Massif** card.
-3. In the detail dialog, point to the 360 degree horizon panorama, then the sunlight and Earth visibility percentages, then the next sunset and next earthset values.
-4. Point to the local slope and horizon relief. Toggle **3D** in Terrain context and drag the surface once.
-5. Close the dialog.
+2. Scroll to the **Decision snapshot** and the **In plain English** verdict. Read the one-sentence result.
+3. Click the **Malapert Massif** card.
+4. In the detail dialog, point to the 360 degree horizon panorama, then the sunlight and Earth visibility percentages, then the next sunset and next earthset values.
+5. Point to the local slope and horizon relief. Toggle **3D** in Terrain context and drag the surface once.
+6. Close the dialog.
 
 **Narration:**
 
@@ -75,7 +76,7 @@
 
 **On screen:**
 
-1. Click **Atlas**. Hover two or three markers. Click the **Shackleton** reference site.
+1. Click **Moon**. Drag the 3D globe once, hover two or three markers, then click a marker. Switch to **2D Atlas** for one beat, then back.
 2. Open the **Method** view. Scroll to the validation table.
 3. Point to the Sun and Earth residuals.
 4. Scroll to the limitations list. Point to "no thermal model" and "representative points, not ellipses."
@@ -83,7 +84,7 @@
 
 **Narration:**
 
-> The Atlas puts the points back on the Moon. The three reference sites, including Shackleton, give the NASA regions a familiar comparison. Open Method and the whole calculation is here: the DEM contract, the horizon geometry, the limb rule, and the validation. Against JPL Horizons, Sun and Earth directions agree to about one hundredth of a degree. That is screening accuracy, not flight dynamics. The limitations are listed in the same view, including what the model does not do. The method is written in plain language, then in formulas.
+> The Moon view puts the points back on a real lunar globe. The three reference sites, including Shackleton, give the NASA regions a familiar comparison. The globe texture is NASA's LROC color map, but every number still comes from the 20-metre terrain model. Open Method and the whole calculation is here: the DEM contract, the horizon geometry, the limb rule, and the validation. Against JPL Horizons, Sun and Earth directions agree to about one hundredth of a degree. That is screening accuracy, not flight dynamics. The limitations are listed in the same view, including what the model does not do. The method is written in plain language, then in formulas.
 
 **If the Atlas is slow:** use the site cards and say: "The Atlas is a spatial index; the same data is in the cards." Do not skip the validation table.
 

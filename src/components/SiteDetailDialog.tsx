@@ -4,6 +4,7 @@ import {
   CalendarClock,
   ExternalLink,
   Mountain,
+  Orbit,
   Radio,
   Sun,
 } from 'lucide-react'
@@ -42,7 +43,8 @@ function eventList(metrics: SiteMetrics) {
   ]
   return rows.map((r) => ({
     ...r,
-    relative: r.value === null ? 'Beyond window' : fmtHours((r.value - metrics.start) / 3_600_000),
+    relative:
+      r.value === null ? 'Beyond window' : `in ${fmtHours((r.value - metrics.start) / 3_600_000)}`,
     absolute: r.value === null ? '—' : fmtDateTimeUtc(r.value),
   }))
 }
@@ -56,6 +58,7 @@ export function SiteDetailDialog({
   open,
   onOpenChange,
   onTimeline,
+  onMoon,
   onAdd,
 }: {
   site: Site | null
@@ -66,6 +69,7 @@ export function SiteDetailDialog({
   open: boolean
   onOpenChange: (open: boolean) => void
   onTimeline: (id: string) => void
+  onMoon: (id: string) => void
   onAdd: (id: string) => void
 }) {
   const [terrainView, setTerrainView] = useState<'map' | '3d'>('map')
@@ -94,7 +98,7 @@ export function SiteDetailDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="overflow-y-auto px-5 py-4 sm:px-6">
+        <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 sm:px-6">
           <div className="overflow-hidden rounded-xl border border-border bg-background/40">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 px-3.5 py-2">
               <div className="font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">
@@ -132,7 +136,7 @@ export function SiteDetailDialog({
                 />
                 <RingGauge
                   value={metrics.earthPct}
-                  label="Earth link"
+                  label="Earth visibility"
                   color="var(--earth)"
                   hint={`${fmtPct(metrics.earthPct, 1)} of window`}
                 />
@@ -153,8 +157,10 @@ export function SiteDetailDialog({
                   <div className="mt-0.5 font-medium">{fmtHours(earthHours)}</div>
                 </div>
                 <div>
-                  <div className="text-muted-foreground">Mean solar flux</div>
-                  <div className="mt-0.5 font-medium">{(metrics.fluxMean * 100).toFixed(1)}%</div>
+                  <div className="text-muted-foreground">Solar flux proxy</div>
+                  <div className="mt-0.5 font-medium">
+                    {(metrics.fluxMean * 100).toFixed(1)} / 100
+                  </div>
                 </div>
                 <div>
                   <div className="text-muted-foreground">Open sky</div>
@@ -294,7 +300,7 @@ export function SiteDetailDialog({
                 <CriterionBar
                   label="Solar flux proxy"
                   value={ranked.criteria.flux}
-                  display={`${ranked.criteria.flux.toFixed(1)}%`}
+                  display={`${ranked.criteria.flux.toFixed(1)} / 100`}
                   color="var(--terrain)"
                   weight={nw.flux}
                 />
@@ -351,6 +357,10 @@ export function SiteDetailDialog({
             <Button variant="secondary" size="sm" onClick={() => onTimeline(site.id)}>
               Open in timeline
               <ArrowUpRight />
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => onMoon(site.id)}>
+              <Orbit />
+              Show on Moon
             </Button>
           </div>
           <DialogClose asChild>

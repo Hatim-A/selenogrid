@@ -1,19 +1,19 @@
-import { ArrowDown, BookOpen, Sparkles } from 'lucide-react'
+import { ArrowDown, Compass, Sparkles } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 const STATS = [
-  { value: '12', label: 'sites, incl. all nine NASA regions' },
-  { value: '1,440', label: 'terrain-horizon bins per site' },
+  { value: '12', label: 'terrain points across all 9 NASA regions' },
+  { value: '360°', label: 'horizon per site at 0.25° bins' },
   { value: '20 m', label: 'LRO LOLA elevation data' },
-  { value: '<0.02°', label: 'ephemeris error vs JPL Horizons' },
+  { value: '<0.02°', label: 'Sun/Earth pointing vs JPL Horizons' },
 ]
 
 export function Hero({
-  onMethod,
+  onGuide,
   onCompare,
 }: {
-  onMethod: () => void
+  onGuide: () => void
   onCompare: () => void
 }) {
   return (
@@ -22,7 +22,10 @@ export function Hero({
       <div className="relative">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline" className="font-mono tracking-[0.12em]">
-            NASA SPACE APPS 2026 · LUNAR LANDING SITE NAVIGATOR
+            <span className="sm:hidden">NASA SPACE APPS 2026</span>
+            <span className="hidden sm:inline">
+              NASA SPACE APPS 2026 · LUNAR LANDING SITE NAVIGATOR
+            </span>
           </Badge>
           <Badge variant="earth" className="gap-1">
             <Sparkles className="size-2.5" />
@@ -38,21 +41,24 @@ export function Hero({
 
         <div className="mt-5 flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground sm:text-[14.5px]">
-            SelenoGrid compares real LOLA terrain, sunlight and direct-to-Earth links across the
-            Artemis candidate regions, then ranks them with an explainable decision model you can
-            inspect, reweight and challenge.
+            SelenoGrid compares real LOLA terrain, sunlight and direct-to-Earth line of sight across
+            the Artemis candidate regions, then ranks them with an explainable decision model you
+            can inspect, reweight and challenge.
           </p>
           <div className="flex shrink-0 items-center gap-2">
-            <Button variant="secondary" size="sm" onClick={onMethod}>
-              <BookOpen />
-              How it works
+            <Button variant="secondary" size="sm" onClick={onGuide}>
+              <Compass />
+              60-second guide
             </Button>
             <Button size="sm" onClick={onCompare}>
-              Compare sites
+              See the ranking
               <ArrowDown />
             </Button>
           </div>
         </div>
+        <p className="mt-2 font-mono text-[9px] tracking-wide text-muted-foreground/80">
+          Preloaded: 6 sites · 180-day window · 3-hour step · live Sun/Earth computation
+        </p>
 
         <div className="mt-8 grid grid-cols-2 gap-y-5 border-y border-border py-4 sm:grid-cols-4 sm:divide-x sm:divide-border">
           {STATS.map((s) => (

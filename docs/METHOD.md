@@ -222,6 +222,8 @@ The result is a dimensionless number between 0 and 1. It describes how much of t
 ### 4.6 Terrain tile
 The extractor also produces a 200 x 200 tile centred on each site, with 60 m pixels and a 12 km span. The tile stores height, min-max stretched to 8 bits, encoded as base64 in `public/data/sites.json`. The browser can render it as shaded relief or as an interactive perspective surface. The 3D view uses the same 8-bit heights, resampled to 100 x 100 vertices, with a vertical exaggeration of 2.1 for legibility; drag rotates the view. The tile is a locator and context image, not a hazard map.
 
+The Moon explorer globe uses the NASA SVS CGI Moon Kit 2K color texture (`lroc_color_2k.jpg`, centered on 0° longitude) for global context only. Site markers are placed from the same representative latitude and longitude as every other view. The globe texture does not feed any metric; all computed values still come from the 20 m LOLA horizons and ephemeris. Credit: NASA Scientific Visualization Studio / LROC WAC.
+
 ### 4.7 Truncation and gaps
 The 220 km limit is a design choice. It captures the terrain that dominates the local horizon for these sites, but distant high relief beyond 220 km is not sampled. No formal truncation test has been performed. Near no-data pixels, the bilinear sampler rejects the sample, so a ray can skip a small patch rather than interpolate across it. The horizon is the maximum of the valid samples, so a rejected sample cannot create a false high ridge, but it can miss a real one.
 

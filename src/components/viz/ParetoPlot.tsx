@@ -58,7 +58,12 @@ export function ParetoPlot({
 
   return (
     <div className="relative">
-      <svg viewBox={`0 0 ${W} ${H}`} className="block w-full" role="img" aria-label="Pareto frontier of sunlight versus Earth visibility">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="block w-full"
+        role="group"
+        aria-label="Pareto frontier of sunlight versus Earth visibility. Select a site to open its analysis."
+      >
         <defs>
           <linearGradient id="pareto-fade" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="var(--sun)" stopOpacity="0.08" />
@@ -89,7 +94,7 @@ export function ParetoPlot({
               x={PAD.l - 9}
               y={y(t) + 3}
               textAnchor="end"
-              fontSize="9"
+              fontSize="10"
               fill="var(--muted-foreground)"
               fontFamily="var(--font-mono)"
             >
@@ -114,7 +119,7 @@ export function ParetoPlot({
                 x={x(v)}
                 y={H - PAD.b + 17}
                 textAnchor="middle"
-                fontSize="9"
+                fontSize="10"
                 fill="var(--muted-foreground)"
                 fontFamily="var(--font-mono)"
               >
@@ -189,7 +194,7 @@ export function ParetoPlot({
                   x={x(p.metrics.sunlightPct)}
                   y={y(p.metrics.earthPct) - 12}
                   textAnchor="middle"
-                  fontSize="9"
+                  fontSize="10"
                   fontWeight={active ? 650 : 500}
                   fill={active ? 'var(--foreground)' : 'var(--muted-foreground)'}
                 >
@@ -204,18 +209,18 @@ export function ParetoPlot({
           x={PAD.l + PW / 2}
           y={H - 7}
           textAnchor="middle"
-          fontSize="9.5"
+          fontSize="10.5"
           fill="var(--muted-foreground)"
         >
-          Sunlight over mission window (%)
+          Sun visible over mission window (%)
         </text>
         <text
           transform={`translate(14 ${PAD.t + PH / 2}) rotate(-90)`}
           textAnchor="middle"
-          fontSize="9.5"
+          fontSize="10.5"
           fill="var(--muted-foreground)"
         >
-          Earth visibility (%)
+          Earth visible (%)
         </text>
 
         {hovered && (

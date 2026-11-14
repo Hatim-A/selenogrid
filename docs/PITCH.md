@@ -24,7 +24,8 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 - **Compare** shows up to twelve site cards with 360 degree horizon panoramas, sunlight and Earth visibility percentages, longest windows, next sunset and earthset, slope, and relief.
 - A detail dialog exposes the full numbers and assumptions, including an interactive 3D perspective of the local 12 km terrain tile. A ranking table and Pareto plot show the decision layer.
 - **Timeline** turns the same data into a daily heatmap with a play control and event markers.
-- **Atlas** puts the sites back on the Moon. **Method** shows the formulas, validation, and limitations. Each view pairs plain-language summaries with the technical detail rather than hiding the data.
+- **Moon** puts the sites on an interactive 3D lunar globe, with a 2D south-polar atlas one click away. **Method** shows the formulas, validation, and limitations. Each view pairs plain-language summaries with the technical detail rather than hiding the data.
+- An in-app **60-second guide**, an answer-first **Decision snapshot**, and an **“In plain English”** verdict make the first minute legible without dumbing down the method.
 
 **Speaker note:** If time is short, demo Compare and Timeline, then show the weight sliders. The other views are supporting evidence.
 
@@ -66,7 +67,7 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 
 ## 30-second spoken version
 
-> NASA has nine candidate regions near the lunar south pole, but a site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid compares twelve sites on one screen using real 20-metre LOLA terrain and Sun/Earth geometry checked against JPL Horizons. Pick a date, change the weights, and see the ranking and Pareto frontier respond. It is transparent, reproducible, and built for engineers and the public. Not a landing certification. A better first question.
+> NASA has nine candidate regions near the lunar south pole, but a site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid compares twelve sites on one screen using real 20-metre LOLA terrain and Sun/Earth geometry checked against JPL Horizons. A plain-English verdict gives the shortlist, a 3D Moon shows where the sites are, and the weight sliders show why the ranking moves. It is transparent, reproducible, and built for engineers and the public. Not a landing certification. A better first question.
 
 ## Judge Q&A prep
 

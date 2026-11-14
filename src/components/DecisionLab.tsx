@@ -42,7 +42,7 @@ export function DecisionLab({
   return (
     <section
       id="decision"
-      className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)] sm:p-5"
+      className="scroll-mt-20 rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)] sm:p-5"
       aria-labelledby="decision-heading"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -54,7 +54,7 @@ export function DecisionLab({
             <Badge variant="terrain" className="font-mono">
               TOPSIS
             </Badge>
-            <Badge variant="outline">4 criteria · benefit + cost</Badge>
+            <Badge variant="outline">4 criteria · 3 benefits + slope cost</Badge>
           </div>
           <p className="mt-1 max-w-2xl text-[10.5px] leading-relaxed text-muted-foreground">
             A transparent multi-criteria screen. Scores are relative to the selected sites, so they
@@ -127,11 +127,11 @@ export function DecisionLab({
             <div>
               <div className="text-[11px] font-semibold">Pareto frontier</div>
               <div className="text-[9px] text-muted-foreground">
-                Sunlight vs Earth visibility · click a site
+                Sunlight vs Earth visibility · click a site · on frontier = neither axis dominated
               </div>
             </div>
             <Badge variant="outline" className="font-mono">
-              {pareto.filter((p) => p.onFrontier).length} non-dominated
+              {pareto.filter((p) => p.onFrontier).length} on frontier
             </Badge>
           </div>
           <ParetoPlot points={pareto} highlightId={ranked[0]?.site.id} onSelect={onOpen} />
@@ -142,7 +142,7 @@ export function DecisionLab({
             <div>
               <div className="text-[11px] font-semibold">Weighted ranking</div>
               <div className="text-[9px] text-muted-foreground">
-                Higher closeness coefficient is better
+                Higher = closer to your ideal mix
               </div>
             </div>
             <Badge variant="outline" className="font-mono">
@@ -150,15 +150,16 @@ export function DecisionLab({
             </Badge>
           </div>
           <div className="mt-2 overflow-x-auto">
-            <table className="w-full min-w-[430px] border-collapse text-[10px]">
+            <table className="w-full min-w-[500px] border-collapse text-[10px]">
               <thead>
                 <tr className="border-b border-border text-left font-mono text-[8px] tracking-wide text-muted-foreground uppercase">
                   <th className="py-1.5 pl-3.5 font-medium">#</th>
                   <th className="py-1.5 font-medium">Site</th>
-                  <th className="py-1.5 text-right font-medium">Score</th>
-                  <th className="py-1.5 text-right font-medium">Sun</th>
-                  <th className="py-1.5 text-right font-medium">Earth</th>
-                  <th className="py-1.5 pr-3.5 text-right font-medium">Slope</th>
+                  <th className="py-1.5 text-right font-medium">Fit /100</th>
+                  <th className="py-1.5 text-right font-medium">Sun %</th>
+                  <th className="py-1.5 text-right font-medium">Earth %</th>
+                  <th className="py-1.5 text-right font-medium">Flux /100</th>
+                  <th className="py-1.5 pr-3.5 text-right font-medium">Slope °</th>
                 </tr>
               </thead>
               <tbody>
@@ -167,9 +168,14 @@ export function DecisionLab({
                     key={r.site.id}
                     onClick={() => onOpen(r.site.id)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') onOpen(r.site.id)
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        onOpen(r.site.id)
+                      }
                     }}
                     tabIndex={0}
+                    role="button"
+                    aria-label={`Open analysis for ${r.site.shortName}`}
                     className={cn(
                       'cursor-pointer border-b border-border/45 transition-colors last:border-0 hover:bg-secondary/60',
                       r.rank === 1 && 'bg-secondary/40',
@@ -204,6 +210,9 @@ export function DecisionLab({
                     <td className="tabular py-2 text-right text-earth">
                       {fmtPct(r.metrics.earthPct)}
                     </td>
+                    <td className="tabular py-2 text-right text-terrain">
+                      {r.criteria.flux.toFixed(1)}
+                    </td>
                     <td className="tabular py-2 pr-3.5 text-right text-muted-foreground">
                       {r.site.slopeDeg.toFixed(1)}°
                     </td>
@@ -212,8 +221,9 @@ export function DecisionLab({
               </tbody>
             </table>
           </div>
-          <div className="border-t border-border/50 px-3.5 py-2 text-[8.5px] text-muted-foreground">
-            Score = D⁻ / (D⁺ + D⁻) × 100. Weights normalised to 100%.
+          <div className="border-t border-border/50 px-3.5 py-2 text-[8.5px] leading-relaxed text-muted-foreground">
+            Fit = D⁻ / (D⁺ + D⁻) × 100. Higher is closer to the ideal mix; not a probability.
+            Weights are normalised to 100%.
           </div>
         </div>
       </div>

@@ -23,7 +23,10 @@ export function SitePicker({
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card/45 p-4 sm:p-5">
+    <section
+      id="site-picker"
+      className="scroll-mt-20 rounded-2xl border border-border bg-card/45 p-4 sm:p-5"
+    >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">

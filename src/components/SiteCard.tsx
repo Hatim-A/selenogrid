@@ -19,7 +19,7 @@ function nextEvent(metrics: SiteMetrics, kind: 'sun' | 'earth') {
   return {
     label,
     value,
-    text: value === null ? 'None in window' : fmtHours((value - metrics.start) / 3_600_000),
+    text: value === null ? 'None in window' : `in ${fmtHours((value - metrics.start) / 3_600_000)}`,
   }
 }
 
@@ -85,8 +85,11 @@ export function SiteCard({
             <div className="tabular text-[15px] font-semibold leading-none text-foreground">
               {ranked.score.toFixed(1)}
             </div>
-            <div className="mt-0.5 font-mono text-[7.5px] tracking-wide text-muted-foreground">
-              TOPSIS
+            <div
+              className="mt-0.5 font-mono text-[8px] tracking-wide text-muted-foreground"
+              title="Relative TOPSIS fit score under the current weights, from 0 to 100. Not a probability or mission recommendation."
+            >
+              fit / 100
             </div>
           </div>
         )}
@@ -97,8 +100,9 @@ export function SiteCard({
               e.stopPropagation()
               onRemove()
             }}
+            onKeyDown={(e) => e.stopPropagation()}
             aria-label={`Remove ${site.name} from comparison`}
-            className="ml-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full text-muted-foreground opacity-0 transition hover:bg-secondary hover:text-foreground focus:opacity-100 group-hover:opacity-100"
+            className="ml-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground opacity-100 transition hover:bg-secondary hover:text-foreground focus:opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
             <X className="size-3.5" />
           </button>
@@ -125,7 +129,7 @@ export function SiteCard({
             )}
           >
             <span className={cn('size-1 rounded-full', sample.sunVisible ? 'bg-sun' : 'bg-muted-foreground')} />
-            SUN {sample.sunVisible ? 'UP' : 'DOWN'}
+            SUN {sample.sunVisible ? 'UP' : 'DOWN'} @ START
           </span>
           <span
             className={cn(
@@ -136,7 +140,7 @@ export function SiteCard({
             )}
           >
             <span className={cn('size-1 rounded-full', sample.earthVisible ? 'bg-earth' : 'bg-muted-foreground')} />
-            EARTH {sample.earthVisible ? 'UP' : 'DOWN'}
+            EARTH {sample.earthVisible ? 'UP' : 'DOWN'} @ START
           </span>
         </div>
       </div>
@@ -147,17 +151,17 @@ export function SiteCard({
             <div className="tabular text-[22px] font-semibold leading-none tracking-[-0.04em] text-sun">
               {fmtPct(metrics.sunlightPct)}
             </div>
-            <div className="mt-1 text-[9.5px] text-muted-foreground">Sunlight in window</div>
+            <div className="mt-1 text-[10.5px] text-muted-foreground">Sun visible in window</div>
           </div>
           <div>
             <div className="tabular text-[22px] font-semibold leading-none tracking-[-0.04em] text-earth">
               {fmtPct(metrics.earthPct)}
             </div>
-            <div className="mt-1 text-[9.5px] text-muted-foreground">Earth visibility</div>
+            <div className="mt-1 text-[10.5px] text-muted-foreground">Earth visible in window</div>
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-border/60 pt-2.5 text-[9.5px]">
+        <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-border/60 pt-2.5 text-[10px]">
           <div className="flex items-center justify-between gap-1">
             <span className="text-muted-foreground">{sunEvent.label}</span>
             <span className="tabular truncate font-medium">{sunEvent.text}</span>
@@ -177,7 +181,7 @@ export function SiteCard({
         </div>
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-3">
-          <span className="truncate font-mono text-[8.5px] text-muted-foreground">
+          <span className="truncate font-mono text-[9px] text-muted-foreground">
             {site.lat.toFixed(2)}°, {site.lon.toFixed(2)}°
           </span>
           <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground/80 transition group-hover:text-foreground">

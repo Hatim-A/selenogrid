@@ -197,6 +197,7 @@ export function TimelineView({
                 key={site.id}
                 type="button"
                 onClick={() => setFocusId(site.id)}
+                aria-pressed={active}
                 className={cn(
                   'inline-flex h-7 items-center gap-1.5 rounded-full border px-2.5 text-[10px] transition-all',
                   active
@@ -243,6 +244,7 @@ export function TimelineView({
             <select
               value={speed}
               onChange={(e) => setSpeed(Number(e.target.value))}
+              aria-label="Timeline playback speed"
               className="h-7 rounded-full border border-border bg-background px-2 font-mono text-[9px] outline-none focus:ring-2 focus:ring-ring/30"
             >
               {SPEEDS.map((s) => (
@@ -341,6 +343,14 @@ export function TimelineView({
               <div className="text-[9px] text-muted-foreground">
                 Positive means the body disk clears the local horizon
               </div>
+              <div className="mt-1.5 flex items-center gap-3 text-[8.5px] text-muted-foreground">
+                <span className="inline-flex items-center gap-1">
+                  <span className="h-0.5 w-3 rounded-full bg-sun" /> Sun
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <span className="h-0.5 w-3 rounded-full bg-earth" /> Earth
+                </span>
+              </div>
             </div>
             <Badge variant="outline" className="font-mono">
               {days} d
@@ -354,14 +364,20 @@ export function TimelineView({
                   dataKey="h"
                   type="number"
                   domain={[0, days * 24]}
-                  tickFormatter={(v: number) => `d${Math.max(1, Math.round(v / 24))}`}
-                  tick={{ fontSize: 8, fill: 'var(--muted-foreground)' }}
+                  tickFormatter={(v: number) =>
+                    new Intl.DateTimeFormat('en-GB', {
+                      day: 'numeric',
+                      month: 'short',
+                      timeZone: 'UTC',
+                    }).format(new Date(startMs + v * 3_600_000))
+                  }
+                  tick={{ fontSize: 9.5, fill: 'var(--muted-foreground)' }}
                   axisLine={{ stroke: 'var(--border)' }}
                   tickLine={false}
                 />
                 <YAxis
                   tickFormatter={(v: number) => `${v.toFixed(0)}°`}
-                  tick={{ fontSize: 8, fill: 'var(--muted-foreground)' }}
+                  tick={{ fontSize: 9.5, fill: 'var(--muted-foreground)' }}
                   axisLine={false}
                   tickLine={false}
                   width={34}
@@ -375,7 +391,9 @@ export function TimelineView({
                     fontSize: 10,
                     color: 'var(--popover-foreground)',
                   }}
-                  labelFormatter={(v) => `Day ${Math.max(1, Math.round(Number(v) / 24))}`}
+                  labelFormatter={(v) =>
+                    fmtDayUtc(startMs + Number(v) * 3_600_000)
+                  }
                   formatter={(value, name) => [
                     `${Number(value).toFixed(2)}°`,
                     name === 'sun' ? 'Sun' : 'Earth',
