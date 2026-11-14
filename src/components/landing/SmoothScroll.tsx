@@ -7,7 +7,7 @@ import '../../lenis.css'
 /**
  * App-wide buttery smooth scrolling (Lenis).
  *
- * - Inits Lenis once (`duration: 1.15, smoothWheel: true, anchors: true`)
+ * - Inits Lenis once (`duration: 1.25, lerp: 0.09, smoothWheel: true, anchors: true`)
  *   and drives it with its own rAF loop (no extra deps).
  * - Skips entirely under `prefers-reduced-motion` (native scroll untouched).
  * - Re-syncs dimensions on window `load`/`resize` (fonts/images shifting
@@ -30,7 +30,14 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       return
     }
 
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true, anchors: true })
+    const lenis = new Lenis({
+      duration: 1.25,
+      lerp: 0.09,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.4,
+      smoothWheel: true,
+      anchors: true,
+    })
     setLenis(lenis)
 
     let rafId = 0

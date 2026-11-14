@@ -67,3 +67,23 @@ export function scrollTopInstant(): void {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }
 }
+
+/** Smooth-scroll to the top through Lenis (no native fighting). */
+export function scrollTopSmooth(): void {
+  if (typeof window === 'undefined') return
+  if (lenisInstance && !prefersReducedMotion()) {
+    lenisInstance.scrollTo(0, { duration: 1.2, easing: easeInOutCubic })
+    return
+  }
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+}
+
+/** Smooth-scroll to an element through Lenis (no native fighting). */
+export function scrollToElement(element: HTMLElement | null): void {
+  if (!element || typeof document === 'undefined') return
+  if (lenisInstance && !prefersReducedMotion()) {
+    lenisInstance.scrollTo(element, { offset: -70, duration: 1.3, easing: easeInOutCubic })
+    return
+  }
+  element.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' })
+}

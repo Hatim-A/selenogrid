@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { Pause, Play, Radio, Sun, Sunrise, Sunset } from 'lucide-react'
 import {
   CartesianGrid,
@@ -169,6 +169,10 @@ export function TimelineView({
 
   const focus = sites.find((s) => s.id === focusId) ?? sites[0]
   const metrics = focus ? metricsById.get(focus.id) : undefined
+  // Event search runs bisection refinement per transition — defer it so the
+  // panorama and cursor stay buttery while scrubbing; the list catches up.
+  // (Hook must stay above the empty-state early return.)
+  const settledHour = useDeferredValue(cursorHour)
   const chronoOrder = ranked.map((r) => r.site).filter((s) => sites.some((x) => x.id === s.id))
   const orderedSites = chronoOrder.length ? chronoOrder : sites
 
@@ -192,7 +196,7 @@ export function TimelineView({
   }
 
   const sample = sampleAt(metrics, cursorHour)
-  const events = upcomingEvents(focus, metrics, cursorHour)
+  const events = upcomingEvents(focus, metrics, settledHour)
   const currentMs = startMs + cursorHour * 3_600_000
   const endMs = startMs + days * 24 * 3_600_000
 

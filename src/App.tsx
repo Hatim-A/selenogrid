@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useMissionMetrics } from '@/hooks/useMissionMetrics'
 import { useSiteDataset } from '@/hooks/useSiteDataset'
+import { scrollToElement, scrollTopInstant, scrollTopSmooth } from '@/hooks/useSmoothScroll'
 import { fromDateInputValue, toDateInputValue } from '@/lib/format'
 import { DEFAULT_WEIGHTS, rankSites, paretoFrontier } from '@/lib/or'
 import { extractCustomSite } from '@/lib/polarDem'
@@ -111,18 +112,8 @@ function themeFromDom(): 'light' | 'dark' {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
 }
 
-/** True when animated scrolling is appropriate (honours reduced-motion). */
-function motionOK(): boolean {
-  return (
-    typeof window === 'undefined' ||
-    typeof window.matchMedia !== 'function' ||
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
-}
-
 function scrollIntoViewCalm(element: HTMLElement | null) {
-  if (!element) return
-  element.scrollIntoView({ behavior: motionOK() ? 'smooth' : 'auto', block: 'start' })
+  scrollToElement(element)
 }
 
 export default function App() {
@@ -218,7 +209,7 @@ export default function App() {
   }, [data, allSites])
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    scrollTopInstant()
     setShowBackToTop(false)
   }, [view])
 
@@ -394,7 +385,7 @@ export default function App() {
       {showBackToTop && (
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: motionOK() ? 'smooth' : 'auto' })}
+          onClick={() => scrollTopSmooth()}
           aria-label="Back to top"
           className="fixed right-4 bottom-4 z-40 inline-flex size-10 animate-fade-in cursor-pointer items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-[var(--shadow-card)] backdrop-blur-md transition outline-none hover:-translate-y-0.5 hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 sm:right-6 sm:bottom-6"
         >

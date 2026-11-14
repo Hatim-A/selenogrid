@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/ui/Reveal'
 import { fmtCoord, fmtPct } from '@/lib/format'
+import { scrollToSection } from '@/hooks/useSmoothScroll'
 import { normalizeWeights, WEIGHT_META } from '@/lib/or'
 import type { RankedSite, Site, SiteMetrics, Weights } from '@/types'
 
@@ -346,9 +347,7 @@ export function DecisionBrief({
           </span>
           <button
             type="button"
-            onClick={() =>
-              document.getElementById('decision')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }
+            onClick={() => scrollToSection('decision')}
             className="inline-flex items-center gap-1 font-medium text-foreground/80 hover:text-foreground"
           >
             <SlidersHorizontal className="size-3" />
