@@ -85,7 +85,7 @@ export function SkyPlot({ site, metrics, sample }: Props) {
               stroke="var(--border)"
               strokeDasharray={el === 0 ? '3 4' : '2 5'}
             />
-            {el > 0 && el < 30 && (
+            {el >= 0 && el <= 20 && (
               <text
                 x={xy(322, rFor(el)).x}
                 y={xy(322, rFor(el)).y}
@@ -192,11 +192,13 @@ export function SkyPlot({ site, metrics, sample }: Props) {
       <g fontFamily="var(--font-mono)" fontSize="7.5" fill="var(--muted-foreground)">
         <circle cx={16} cy={SIZE - 22} r="2.5" fill="var(--sun)" />
         <text x={23} y={SIZE - 19.5}>
-          Sun track · {metrics.days.length} d
+          Sun {sample.sunEl >= 0 ? '+' : ''}
+          {sample.sunEl.toFixed(1)}° · {metrics.days.length} d
         </text>
-        <circle cx={126} cy={SIZE - 22} r="2.5" fill="var(--earth)" />
-        <text x={133} y={SIZE - 19.5}>
-          Earth track
+        <circle cx={150} cy={SIZE - 22} r="2.5" fill="var(--earth)" />
+        <text x={157} y={SIZE - 19.5}>
+          Earth {sample.earthEl >= 0 ? '+' : ''}
+          {sample.earthEl.toFixed(1)}°
         </text>
       </g>
     </svg>

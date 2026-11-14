@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import { Pause, Play, RotateCcw, ZoomIn } from 'lucide-react'
+import { Pause, Play, RotateCcw, Sun, ZoomIn } from 'lucide-react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import {
+  apply,
+  bodyToInertialMatrix,
+  dateToJD,
+  moonVectorJ2000,
+  sunVectorJ2000,
+  transpose,
+} from '@/lib/astro'
 import { fmtCoord, fmtPct } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import type { Site, SiteMetrics } from '@/types'
@@ -13,14 +21,17 @@ type LiveState = {
   metricsById: Map<string, SiteMetrics>
   selectedIds: string[]
   hoverId: string | null
+  pinMode: boolean
   theme: Theme
   onHover: (id: string | null) => void
   onOpen: (id: string) => void
+  onPickCoord?: (lat: number, lon: number) => void
 }
 
 type GlobeApi = {
   reset: () => void
   focusSites: () => void
+  focusSite: (id: string) => void
   applyTheme: (theme: Theme) => void
   rebuildMarkers: (sites: Site[]) => void
 }
@@ -159,17 +170,25 @@ export function MoonGlobe({
   metricsById,
   selectedIds,
   hoverId,
+  focusId,
+  scenarioStartIso,
+  pinMode = false,
   theme,
   onHover,
   onOpen,
+  onPickCoord,
 }: {
   sites: Site[]
   metricsById: Map<string, SiteMetrics>
   selectedIds: string[]
   hoverId: string | null
+  focusId?: string | null
+  scenarioStartIso?: string
+  pinMode?: boolean
   theme: 'light' | 'dark'
   onHover: (id: string | null) => void
   onOpen: (id: string) => void
+  onPickCoord?: (lat: number, lon: number) => void
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -180,10 +199,14 @@ export function MoonGlobe({
     metricsById,
     selectedIds,
     hoverId,
+    pinMode,
     theme,
     onHover,
     onOpen,
+    onPickCoord,
   })
+  const liveSunRef = useRef(false)
+  const sunDirectionRef = useRef(new THREE.Vector3(0, 0, 1))
   const siteListRef = useRef(sites)
   const autoRotateRef = useRef(false)
 
@@ -192,6 +215,25 @@ export function MoonGlobe({
   const [renderFailed, setRenderFailed] = useState(false)
   const [stageHoverId, setStageHoverId] = useState<string | null>(null)
   const [autoRotate, setAutoRotate] = useState(false)
+  const [liveSun, setLiveSun] = useState(false)
+
+  useEffect(() => {
+    liveSunRef.current = liveSun
+  }, [liveSun])
+
+  useEffect(() => {
+    try {
+      const jd = dateToJD(new Date(scenarioStartIso ?? Date.now()))
+      const rt = transpose(bodyToInertialMatrix(jd))
+      const sun = apply(rt, sunVectorJ2000(jd))
+      const moon = apply(rt, moonVectorJ2000(jd))
+      sunDirectionRef.current
+        .set(sun[0] - moon[0], sun[2] - moon[2], -(sun[1] - moon[1]))
+        .normalize()
+    } catch {
+      sunDirectionRef.current.set(0.4, 0.2, 1).normalize()
+    }
+  }, [scenarioStartIso])
 
   useEffect(() => {
     liveRef.current = {
@@ -199,9 +241,11 @@ export function MoonGlobe({
       metricsById,
       selectedIds,
       hoverId,
+      pinMode,
       theme,
       onHover,
       onOpen,
+      onPickCoord,
     }
   })
 
@@ -254,7 +298,7 @@ export function MoonGlobe({
     controls.dampingFactor = 0.065
     controls.rotateSpeed = 0.7
     controls.zoomSpeed = 0.8
-    controls.minDistance = 1.55
+    controls.minDistance = 1.18
     controls.maxDistance = 9
     controls.minPolarAngle = 0.12
     controls.maxPolarAngle = Math.PI - 0.12
@@ -278,6 +322,32 @@ export function MoonGlobe({
     const moonGeometry = new THREE.SphereGeometry(1, 96, 64)
     const moon = new THREE.Mesh(moonGeometry, moonMaterial)
     spin.add(moon)
+
+    const graticuleGeometries: THREE.BufferGeometry[] = []
+    const graticuleMaterial = new THREE.LineBasicMaterial({
+      color: themeNow === 'dark' ? 0x9ecbff : 0x446a99,
+      transparent: true,
+      opacity: themeNow === 'dark' ? 0.24 : 0.2,
+      depthWrite: false,
+    })
+    for (const lat of [-80, -85, -88]) {
+      const points: THREE.Vector3[] = []
+      for (let lon = 0; lon <= 360; lon += 2) {
+        points.push(latLonToDirection(lat, lon).multiplyScalar(1.003))
+      }
+      const geometry = new THREE.BufferGeometry().setFromPoints(points)
+      graticuleGeometries.push(geometry)
+      spin.add(new THREE.LineLoop(geometry, graticuleMaterial))
+    }
+    for (const lon of [0, 90, 180, 270]) {
+      const points: THREE.Vector3[] = []
+      for (let lat = -80; lat >= -90; lat -= 1) {
+        points.push(latLonToDirection(lat, lon).multiplyScalar(1.003))
+      }
+      const geometry = new THREE.BufferGeometry().setFromPoints(points)
+      graticuleGeometries.push(geometry)
+      spin.add(new THREE.Line(geometry, graticuleMaterial))
+    }
 
     const ambient = new THREE.AmbientLight(0xe8edff, 0.3)
     scene.add(ambient)
@@ -532,6 +602,8 @@ export function MoonGlobe({
       rim.visible = nextTheme === 'dark'
       const opacity = rimMaterial.uniforms.uOpacity
       if (opacity) opacity.value = nextTheme === 'dark' ? 0.34 : 0
+      graticuleMaterial.color.set(nextTheme === 'dark' ? 0x9ecbff : 0x446a99)
+      graticuleMaterial.opacity = nextTheme === 'dark' ? 0.24 : 0.2
       if (!moonMaterial.map) {
         moonMaterial.color.set(nextTheme === 'dark' ? 0x454a54 : 0xa5a099)
       }
@@ -558,14 +630,27 @@ export function MoonGlobe({
         to: new THREE.Vector3(
           0,
           0,
-          Math.max(controls.minDistance, fitDistance(camera.aspect, camera.fov) * 0.62),
+          Math.max(controls.minDistance, fitDistance(camera.aspect, camera.fov) * 0.46),
         ),
         start: performance.now(),
       }
       controls.target.set(0, 0, 0)
     }
 
-    apiRef.current = { reset, focusSites, applyTheme, rebuildMarkers }
+    const focusSite = (id: string) => {
+      const marker = markers.find((item) => item.site.id === id)
+      if (!marker) return
+      hasInteracted = true
+      const target = marker.group.getWorldPosition(new THREE.Vector3()).normalize().multiplyScalar(1.3)
+      resetTween = {
+        from: camera.position.clone(),
+        to: target,
+        start: performance.now(),
+      }
+      controls.target.set(0, 0, 0)
+    }
+
+    apiRef.current = { reset, focusSites, focusSite, applyTheme, rebuildMarkers }
 
     const resize = () => {
       const width = container.clientWidth
@@ -631,6 +716,22 @@ export function MoonGlobe({
       dragging = false
       updatePointer(event)
       if (dragMoved) return
+      const onPickCoord = liveRef.current.onPickCoord
+      const pinRequested = (liveRef.current.pinMode || event.shiftKey) && Boolean(onPickCoord)
+      if (pinRequested && onPickCoord) {
+        scene.updateMatrixWorld(true)
+        raycaster.setFromCamera(pointer, camera)
+        const hit = raycaster.intersectObject(moon, false)[0]
+        if (hit) {
+          const local = spin.worldToLocal(hit.point.clone()).normalize()
+          const lat = (Math.asin(Math.max(-1, Math.min(1, local.y))) * 180) / Math.PI
+          const lon = (Math.atan2(-local.z, local.x) * 180) / Math.PI
+          if (lat <= -80.15) {
+            onPickCoord(lat, lon)
+            return
+          }
+        }
+      }
       const marker = pickMarker()
       if (marker) liveRef.current.onOpen(marker.site.id)
     }
@@ -745,8 +846,15 @@ export function MoonGlobe({
       spinVelocity += (targetVelocity - spinVelocity) * Math.min(1, delta * 4)
       spin.rotation.y += spinVelocity * delta
 
-      lightOffset.set(-2.4, 1.5, 1.8).applyQuaternion(camera.quaternion)
-      sun.position.copy(camera.position).add(lightOffset)
+      if (liveSunRef.current) {
+        sun.position
+          .copy(sunDirectionRef.current)
+          .applyQuaternion(moonRoot.quaternion)
+          .multiplyScalar(5)
+      } else {
+        lightOffset.set(-2.4, 1.5, 1.8).applyQuaternion(camera.quaternion)
+        sun.position.copy(camera.position).add(lightOffset)
+      }
 
       scene.updateMatrixWorld(true)
 
@@ -857,6 +965,8 @@ export function MoonGlobe({
       starMaterial.dispose()
       rimGeometry.dispose()
       rimMaterial.dispose()
+      for (const geometry of graticuleGeometries) geometry.dispose()
+      graticuleMaterial.dispose()
       moonGeometry.dispose()
       moonMaterial.dispose()
       moonTexture?.dispose()
@@ -868,6 +978,10 @@ export function MoonGlobe({
   useEffect(() => {
     apiRef.current?.applyTheme(theme)
   }, [theme])
+
+  useEffect(() => {
+    if (focusId) apiRef.current?.focusSite(focusId)
+  }, [focusId, sites])
 
   const dark = theme === 'dark'
   const hoveredSite = stageHoverId ? sites.find((site) => site.id === stageHoverId) : undefined
@@ -974,6 +1088,18 @@ export function MoonGlobe({
         >
           <ZoomIn className="size-3" />
           <span className="hidden sm:inline">Focus</span>
+        </button>
+        <span className={cn('h-4 w-px', dark ? 'bg-white/10' : 'bg-black/10')} />
+        <button
+          type="button"
+          onClick={() => setLiveSun((value) => !value)}
+          aria-pressed={liveSun}
+          aria-label="Toggle real solar illumination"
+          title="Use the actual Sun direction for the scenario"
+          className={cn(controlButton, liveSun ? activeControl : undefined)}
+        >
+          <Sun className="size-3" />
+          <span className="hidden sm:inline">Live sun</span>
         </button>
         <span className={cn('h-4 w-px', dark ? 'bg-white/10' : 'bg-black/10')} />
         <button

@@ -186,9 +186,28 @@ export function TimelineHeatmap({
     <div ref={wrapRef} className="relative w-full select-none">
       <canvas
         ref={canvasRef}
-        className="block w-full"
+        className="block w-full outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         role="img"
-        aria-label="Daily sunlight and Earth-visibility heatmap for the selected sites."
+        tabIndex={0}
+        aria-label="Daily sunlight and Earth-visibility heatmap for the selected sites. Use left and right arrows to scrub, and up and down arrows to change site."
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            e.preventDefault()
+            const delta = e.key === 'ArrowLeft' ? -24 : 24
+            onCursor(Math.min(days * 24, Math.max(0, cursorHour + delta)))
+            return
+          }
+          if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            e.preventDefault()
+            const index = sites.findIndex((site) => site.id === selectedId)
+            const next = (index + (e.key === 'ArrowDown' ? 1 : -1) + sites.length) % sites.length
+            const site = sites[next]
+            if (site) {
+              onSelect(site.id)
+              onCursor(Math.floor(cursorHour / 24) * 24 + 12)
+            }
+          }
+        }}
         onMouseMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect()
           const x = e.clientX - rect.left
@@ -215,6 +234,11 @@ export function TimelineHeatmap({
           onCursor(day * 24 + 12)
         }}
       />
+
+      <div className="mt-1 flex items-center justify-between font-mono text-[8px] text-muted-foreground/70">
+        <span>← → scrub · ↑ ↓ change site</span>
+        <span className="hidden sm:inline">Click a cell to focus that day</span>
+      </div>
 
       {hover && (
         <div

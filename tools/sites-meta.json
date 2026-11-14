@@ -10,7 +10,7 @@
     "tags": ["NASA region", "High massif", "5.85 km"],
     "summary": "A broad, high massif west of the Nobile–Mouton area. This representative point sits on the summit ridge at 5.85 km, one of the highest terrain points in the south polar region, with a long western horizon.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "mons-mouton-plateau",
@@ -23,7 +23,7 @@
     "tags": ["NASA region", "IM-2 Athena site", "5.32 km"],
     "summary": "The gently sloping plateau that hosted Intuitive Machines' IM-2 Athena landing attempt in March 2025. This representative point lies at 5.32 km near 84.79°S, 29.20°E.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · IM-2 · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "nobile-rim-1",
@@ -36,7 +36,7 @@
     "tags": ["NASA region", "Crater rim", "1.85 km"],
     "summary": "A knoll on the eastern rim of Nobile Crater, where elevated terrain catches grazing sunlight. The representative point is 1.85 km above the reference sphere with a 3.0° local slope.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "nobile-rim-2",
@@ -49,7 +49,7 @@
     "tags": ["NASA region", "Low slope", "1.46 km"],
     "summary": "A flatter, lower bench on the Nobile rim near 84.14°S, 59.72°E. The representative point has a 0.3° local slope, but terrain to the west blocks part of the sky.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "cabeus-b-peak",
@@ -62,7 +62,7 @@
     "tags": ["NASA region", "High massif", "5.68 km"],
     "summary": "A 5.68 km massif on the western side of the south polar region, near Cabeus B. High ground improves solar access, but the surrounding terrain creates a deep western horizon.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "malapert-massif",
@@ -75,7 +75,7 @@
     "tags": ["NASA region", "Peak of eternal light", "5.17 km"],
     "summary": "The 5.17 km Malapert Massif, a classic 'peak of eternal light' candidate with near-continuous illumination and a comparatively open horizon toward Earth.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "de-gerlache-rim-2",
@@ -88,7 +88,7 @@
     "tags": ["NASA region", "Near-pole", "1.04 km"],
     "summary": "A rim segment on the western edge of de Gerlache crater, close to the pole. Low local slopes and a narrow skyline make it a compact, accessible benchmark site.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "haworth-rim",
@@ -101,7 +101,7 @@
     "tags": ["NASA region", "Terrain-shadowed", "−0.26 km"],
     "summary": "A knoll on the northern rim of Haworth crater. Low elevation and a prominent 18° terrain horizon to the north make it a useful contrast case for power and communication risk.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "slater-plain",
@@ -114,7 +114,7 @@
     "tags": ["NASA region", "Low plain", "−0.09 km"],
     "summary": "A broad, low plain near Slater crater at 87.74°S, 115.61°E. Regional slopes are gentle, but a roughly 10° northern horizon limits Sun and Earth visibility.",
     "source": "NASA Artemis III candidate regions (Oct 2024) · LOLA 20 m DEM",
-    "sourceUrl": "https://www.nasa.gov/news-release/nasa-identifies-candidate-landing-regions-for-artemis-iii-mission/"
+    "sourceUrl": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
   },
   {
     "id": "shackleton-peak",
@@ -143,6 +143,58 @@
     "sourceUrl": "https://arxiv.org/abs/2406.19863"
   },
   {
+    "id": "leibnitz-beta",
+    "name": "Leibnitz Beta Summit",
+    "shortName": "Leibnitz Beta",
+    "region": "Leibnitz Beta / Mons Mouton",
+    "kind": "reference",
+    "terrainClass": "massif",
+    "color": "#f6ad55",
+    "tags": ["Reference site", "7.02 km summit", "High solar access"],
+    "summary": "The 7.02 km summit crest on the Leibnitz Beta / eastern Mons Mouton massif near 84.67°S, 39.45°E. Its extreme elevation clears most of the northern skyline toward Earth and the Sun.",
+    "source": "Artemis 2022 candidate region · LOLA 20 m DEM",
+    "sourceUrl": "https://arxiv.org/abs/2406.19863"
+  },
+  {
+    "id": "amundsen-rim",
+    "name": "Amundsen Rim",
+    "shortName": "Amundsen Rim",
+    "region": "Amundsen Rim",
+    "kind": "reference",
+    "terrainClass": "rim",
+    "color": "#4fd1c5",
+    "tags": ["Reference site", "Eastern sector", "4.26 km"],
+    "summary": "A 4.26 km highland crest on the northern rim of Amundsen Crater (82.88°S, 77.97°E), one of NASA's 2022 candidate regions overlooking adjacent permanently shadowed cold traps.",
+    "source": "Artemis 2022 candidate region · LOLA 20 m DEM",
+    "sourceUrl": "https://arxiv.org/abs/2406.19863"
+  },
+  {
+    "id": "faustini-rim",
+    "name": "Faustini Rim A",
+    "shortName": "Faustini Rim",
+    "region": "Faustini Rim A",
+    "kind": "reference",
+    "terrainClass": "rim",
+    "color": "#63b3ed",
+    "tags": ["Reference site", "Crater rim", "1.18 km"],
+    "summary": "An elevated bench on the rim of Faustini Crater (86.49°S, 80.45°E) with a gentle 2.5° local slope and balanced eastern-sector visibility between Nobile and Shoemaker.",
+    "source": "Artemis 2022 candidate region · LOLA 20 m DEM",
+    "sourceUrl": "https://arxiv.org/abs/2406.19863"
+  },
+  {
+    "id": "de-gerlache-kocher",
+    "name": "de Gerlache–Kocher Massif",
+    "shortName": "Gerlache–Kocher",
+    "region": "de Gerlache–Kocher Massif",
+    "kind": "reference",
+    "terrainClass": "massif",
+    "color": "#a78bfa",
+    "tags": ["Reference site", "Western massif", "3.39 km"],
+    "summary": "A 3.39 km massif in the western south-polar sector (85.16°S, 117.24°W) with a 1.6° summit slope, providing a key far-western geometric baseline.",
+    "source": "LRO LOLA polar illumination literature · LOLA 20 m DEM",
+    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/"
+  },
+  {
     "id": "shackleton-floor",
     "name": "Shackleton Crater Floor",
     "shortName": "Shackleton Floor",
@@ -152,6 +204,32 @@
     "color": "#8a8f98",
     "tags": ["Reference site", "Permanently shadowed", "−2.75 km"],
     "summary": "The permanently shadowed floor of Shackleton crater, 2.75 km below the reference sphere. Included as a volatile-access reference, not as a crewed landing candidate.",
+    "source": "LOLA 20 m DEM · PSR reference",
+    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/"
+  },
+  {
+    "id": "cabeus-psr",
+    "name": "Cabeus Crater Floor (LCROSS)",
+    "shortName": "Cabeus PSR",
+    "region": "Cabeus Crater PSR",
+    "kind": "reference",
+    "terrainClass": "psr",
+    "color": "#64748b",
+    "tags": ["Reference site", "LCROSS water ice", "−3.93 km"],
+    "summary": "A deep (−3.93 km) cold-trap basin floor inside Cabeus Crater where NASA's LCROSS impactor confirmed water ice in 2009. Included as a volatile-sampling benchmark.",
+    "source": "NASA LCROSS (2009) · LOLA 20 m DEM",
+    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/"
+  },
+  {
+    "id": "haworth-psr",
+    "name": "Haworth Crater Floor PSR",
+    "shortName": "Haworth PSR",
+    "region": "Haworth Crater PSR",
+    "kind": "reference",
+    "terrainClass": "psr",
+    "color": "#718096",
+    "tags": ["Reference site", "Cold trap floor", "−3.96 km"],
+    "summary": "The flat (−3.96 km, 1.6° slope) permanently shadowed floor of Haworth Crater, contrasting directly with the illuminated Haworth rim above it.",
     "source": "LOLA 20 m DEM · PSR reference",
     "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/"
   }

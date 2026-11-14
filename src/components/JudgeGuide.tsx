@@ -28,7 +28,7 @@ const STEPS = [
   {
     icon: CalendarDays,
     title: 'Set the scenario',
-    body: 'Choose a landing date, mission window and sampling step. Every metric recomputes locally as you go.',
+    body: 'Choose a landing date, mission window and sampling step. Every metric recomputes locally; add a custom point if your site is not in the curated set.',
     tone: 'text-sun',
   },
   {
@@ -46,7 +46,7 @@ const STEPS = [
   {
     icon: Moon,
     title: 'Test the decision',
-    body: 'Explore the 3D Moon, then change TOPSIS weights to see the ranking and Pareto frontier move.',
+    body: 'Explore the 3D Moon, pin a custom coordinate, then change TOPSIS weights to see the ranking and Pareto frontier move.',
     tone: 'text-earth',
   },
 ]
@@ -65,12 +65,14 @@ export function JudgeGuide({
   onStart,
   onMoon,
   onMethod,
+  siteCount = 18,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
   onStart: () => void
   onMoon: () => void
   onMethod: () => void
+  siteCount?: number
 }) {
   const runAndClose = (action: () => void) => {
     onOpenChange(false)
@@ -95,9 +97,9 @@ export function JudgeGuide({
           </DialogTitle>
           <DialogDescription className="max-w-[720px] text-[11.5px] leading-relaxed sm:text-[12.5px]">
             SelenoGrid is a browser-based screening lab for the lunar south pole. It combines real
-            LOLA terrain, Sun and Earth geometry, and an explainable ranking to compare 12
-            south-pole sites. It is a screening instrument, not a flight-certified site-selection
-            tool.
+            LOLA terrain, Sun and Earth geometry, and an explainable ranking to compare{' '}
+            {siteCount} south-pole sites. It is a screening instrument, not a flight-certified
+            site-selection tool.
           </DialogDescription>
         </DialogHeader>
 

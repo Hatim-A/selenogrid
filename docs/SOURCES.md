@@ -10,7 +10,7 @@ An annotated bibliography for the data, methods, and mission context used by Sel
 
 **Direct files:** `ldem_80s_20m.img` and `ldem_80s_20m.lbl` in that directory. The image is about 1.85 GB.
 
-**Used for:** Every terrain quantity in SelenoGrid: site elevation, 360 degree horizon profiles, slope, aspect, open-sky fraction, horizon relief, and the 200 x 200 terrain tiles. The label supplied the 0.5 m DN scaling, the 1,737.4 km reference sphere, the 20 m pixel spacing, the polar stereographic projection, and the `-32768` no-data convention.
+**Used for:** Every terrain quantity in SelenoGrid: site elevation, 360 degree horizon profiles, slope, aspect, open-sky fraction, horizon relief, and the 200 x 200 terrain tiles. The label supplied the 0.5 m DN scaling, the 1,737.4 km reference sphere, the 20 m pixel spacing, the polar stereographic projection, and the `-32768` no-data convention. The browser custom-pin path uses a derived 950 x 950, 640 m/pixel Int16 grid (`public/data/polar-dem-640m.bin`), generated with `tools/build_polar_grid.py` from the 80 m product by an 8x stride. It is a screening product, not the 20 m analysis grid.
 
 **Caveat:** This is a shape/radius product on a sphere, not a certified landing hazard map. Its 20 m pixels cannot resolve rocks, boulders, small craters, or roughness below that scale. Product vertical accuracy was not independently assessed for this project. The 220 km horizon ray march also has a finite truncation.
 

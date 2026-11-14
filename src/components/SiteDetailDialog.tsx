@@ -75,6 +75,7 @@ export function SiteDetailDialog({
   const [terrainView, setTerrainView] = useState<'map' | '3d'>('map')
   if (!site || !metrics) return null
   const sample = metrics.samples[0]
+  const isCustom = site.tags.includes('Custom coordinate')
   const nw = normalizeWeights(weights)
   const events = eventList(metrics)
   const sunHours = metrics.longestSunHours
@@ -88,7 +89,7 @@ export function SiteDetailDialog({
             <span className="size-2.5 rounded-full" style={{ backgroundColor: site.color }} />
             <DialogTitle>{site.name}</DialogTitle>
             <Badge variant={site.kind === 'nasa' ? 'earth' : 'outline'}>
-              {site.kind === 'nasa' ? 'NASA candidate region' : 'Reference site'}
+              {isCustom ? 'Custom · 640 m grid' : site.kind === 'nasa' ? 'NASA candidate region' : 'Reference site'}
             </Badge>
             {ranked && <Badge variant="terrain">Rank #{ranked.rank}</Badge>}
           </div>
@@ -121,6 +122,7 @@ export function SiteDetailDialog({
               earthEl={sample.earthEl}
               sunVisible={sample.sunVisible}
               earthVisible={sample.earthVisible}
+              samples={metrics.samples}
               timeLabel={fmtDateTimeUtc(metrics.start)}
             />
           </div>
@@ -341,8 +343,9 @@ export function SiteDetailDialog({
               )}
             </div>
             <p className="mt-2 text-[8.5px] leading-relaxed text-muted-foreground/80">
-              Representative terrain point selected from LOLA topography. NASA has not published
-              official region centres or landing ellipses; this is not a flight-certified site.
+              {isCustom
+                ? 'Sampled live in your browser from the 640 m LOLA south-polar grid. Lower resolution than the curated 20 m sites; use it for screening, not landing certification.'
+                : 'Representative terrain point selected from LOLA topography. NASA has not published official region centres or landing ellipses; this is not a flight-certified site.'}
             </p>
           </div>
         </div>

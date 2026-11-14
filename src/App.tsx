@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { AtlasView } from '@/components/AtlasView'
 import { CompareView } from '@/components/CompareView'
+import { CustomPointDialog } from '@/components/CustomPointDialog'
 import { Footer } from '@/components/Footer'
 import { Header, type View } from '@/components/Header'
 import { Hero } from '@/components/Hero'
@@ -17,15 +18,19 @@ import { useMissionMetrics } from '@/hooks/useMissionMetrics'
 import { useSiteDataset } from '@/hooks/useSiteDataset'
 import { fromDateInputValue, toDateInputValue } from '@/lib/format'
 import { DEFAULT_WEIGHTS, rankSites, paretoFrontier } from '@/lib/or'
-import type { Scenario, Weights } from '@/types'
+import { extractCustomSite } from '@/lib/polarDem'
+import type { Scenario, Site, Weights } from '@/types'
 
 const DEFAULT_IDS = [
   'mons-mouton',
   'mons-mouton-plateau',
-  'malapert-massif',
+  'nobile-rim-1',
   'nobile-rim-2',
+  'cabeus-b-peak',
+  'malapert-massif',
+  'de-gerlache-rim-2',
   'haworth-rim',
-  'shackleton-floor',
+  'slater-plain',
 ]
 
 const TODAY = toDateInputValue(Date.now())
@@ -49,6 +54,16 @@ export default function App() {
   const [timelineFocus, setTimelineFocus] = useState<string | undefined>(undefined)
   const [guideOpen, setGuideOpen] = useState(false)
   const [moonFocus, setMoonFocus] = useState<string | null>(null)
+  const [customSites, setCustomSites] = useState<Site[]>([])
+  const [customOpen, setCustomOpen] = useState(false)
+  const [customSeed, setCustomSeed] = useState<{ lat: number; lon: number } | null>(null)
+  const [customBusy, setCustomBusy] = useState(false)
+  const [customError, setCustomError] = useState<string | null>(null)
+
+  const allSites = useMemo(
+    () => [...(data?.sites ?? []), ...customSites],
+    [data, customSites],
+  )
 
   const scenario: Scenario = useMemo(
     () => ({
@@ -60,14 +75,14 @@ export default function App() {
   )
 
   const { metrics, computing, computeMs } = useMissionMetrics(
-    data?.sites ?? [],
+    allSites,
     scenario,
     Boolean(data),
   )
 
   const selectedSites = useMemo(
-    () => (data ? data.sites.filter((s) => selectedIds.includes(s.id)) : []),
-    [data, selectedIds],
+    () => allSites.filter((s) => selectedIds.includes(s.id)),
+    [allSites, selectedIds],
   )
 
   const ranked = useMemo(() => {
@@ -102,7 +117,7 @@ export default function App() {
     setSelectedIds((prev) => prev.filter((x) => x !== id))
   }
 
-  const detailSite = data?.sites.find((s) => s.id === detailId) ?? null
+  const detailSite = allSites.find((s) => s.id === detailId) ?? null
   const detailMetrics = detailId && metrics ? metrics.get(detailId) ?? null : null
   const detailRanked = ranked.find((r) => r.site.id === detailId) ?? null
 
@@ -116,6 +131,29 @@ export default function App() {
     setHour(12)
     setDays(180)
     setStepHours(3)
+  }
+
+  const openCustom = (lat?: number, lon?: number) => {
+    setCustomSeed(lat !== undefined && lon !== undefined ? { lat, lon } : null)
+    setCustomError(null)
+    setCustomOpen(true)
+  }
+
+  const createCustomSite = async (lat: number, lon: number, name?: string) => {
+    setCustomBusy(true)
+    setCustomError(null)
+    try {
+      const site = await extractCustomSite(lat, lon, customSites.length + 1, name)
+      setCustomSites((prev) => (prev.some((s) => s.id === site.id) ? prev : [...prev, site]))
+      setSelectedIds((prev) => (prev.includes(site.id) ? prev : [...prev, site.id]))
+      setCustomOpen(false)
+      setCustomSeed(null)
+      setDetailId(site.id)
+    } catch (err) {
+      setCustomError(err instanceof Error ? err.message : 'Could not sample that coordinate.')
+    } finally {
+      setCustomBusy(false)
+    }
   }
 
   return (
@@ -132,6 +170,7 @@ export default function App() {
         <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 sm:px-6">
           {view === 'compare' && (
             <Hero
+              siteCount={allSites.length}
               onGuide={() => setGuideOpen(true)}
               onCompare={() =>
                 document
@@ -168,7 +207,7 @@ export default function App() {
               <LoadingPanel mode="compute" />
             ) : view === 'compare' ? (
               <CompareView
-                sites={data.sites}
+                sites={allSites}
                 selectedIds={selectedIds}
                 metricsById={metrics}
                 ranked={ranked}
@@ -178,6 +217,7 @@ export default function App() {
                 onWeights={setWeights}
                 onOpen={openDetail}
                 onRemove={removeSite}
+                onCustom={() => openCustom()}
               />
             ) : view === 'timeline' ? (
               <TimelineView
@@ -194,13 +234,16 @@ export default function App() {
             ) : (
               <AtlasView
                 key={moonFocus ?? 'moon'}
-                sites={data.sites}
+                sites={allSites}
                 metricsById={metrics}
                 selectedIds={selectedIds}
                 theme={theme}
                 focusId={moonFocus}
+                scenarioStartIso={scenario.startIso}
                 onOpen={openDetail}
                 onAdd={addSite}
+                onCustomOpen={() => openCustom()}
+                onCustomCoord={(lat, lon) => openCustom(lat, lon)}
               />
             )}
           </div>
@@ -232,11 +275,25 @@ export default function App() {
         onAdd={addSite}
       />
 
+      <CustomPointDialog
+        open={customOpen}
+        onOpenChange={(open) => {
+          setCustomOpen(open)
+          if (!open) setCustomSeed(null)
+        }}
+        initialLat={customSeed?.lat}
+        initialLon={customSeed?.lon}
+        busy={customBusy}
+        error={customError}
+        onCreate={createCustomSite}
+      />
+
       <JudgeGuide
         open={guideOpen}
         onOpenChange={setGuideOpen}
         onStart={() => {
           setGuideOpen(false)
+          setMoonFocus(null)
           setView('compare')
           window.setTimeout(() => {
             document.getElementById('scenario')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -244,12 +301,15 @@ export default function App() {
         }}
         onMoon={() => {
           setGuideOpen(false)
+          setMoonFocus(null)
           setView('atlas')
         }}
         onMethod={() => {
           setGuideOpen(false)
+          setMoonFocus(null)
           setView('method')
         }}
+        siteCount={allSites.length}
       />
     </TooltipProvider>
   )

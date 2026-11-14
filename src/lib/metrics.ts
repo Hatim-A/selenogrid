@@ -64,7 +64,7 @@ export function visibleAt(site: Site, jd: number, body: 'sun' | 'earth') {
 }
 
 /** Bisect a visibility transition to roughly one second. */
-function refineTransition(
+export function refineTransition(
   site: Site,
   tA: number,
   tB: number,

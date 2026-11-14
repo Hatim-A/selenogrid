@@ -66,8 +66,9 @@ export function MetricCheatSheet() {
 
       <div className="mt-2.5 flex items-start gap-1.5 text-[8.5px] leading-relaxed text-muted-foreground/80">
         <Info className="mt-px size-3 shrink-0" />
-        Percentages are sampled from the chosen time step. Event times are refined separately; the
-        full method and limits are in the Method tab.
+        Percentages are sampled from the chosen time step. Event times are refined separately;
+        custom pins use a 640 m browser grid, while curated sites use 20 m LOLA terrain. The full
+        method and limits are in the Method tab.
       </div>
     </details>
   )

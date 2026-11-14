@@ -101,6 +101,9 @@ $$
 
 Azimuth is measured from north toward east, in the range $[0^\circ, 360^\circ)$. Elevation is positive above the local horizontal.
 
+### 2.2.1 Browser custom-pin grid
+The static browser build also ships a compact **950 x 950, 640 m/pixel** Int16 grid covering 80°S to 90°S (`public/data/polar-dem-640m.bin`). It is an 8x downsample of the 80 m product, quantized to 0.5 m DN. When a user pins a custom coordinate south of 80.15°S, the browser samples this grid, computes slope and aspect over 500 m and 1000 m baselines, ray-marches 1,440 azimuths from 640 m to 220 km, and builds a 200 x 200 local tile. The same visibility rule is then applied to the custom point. This path is deliberately labelled screening resolution: it is coarser than the curated 20 m analysis and is not used for the verified site records.
+
 ## 3. Ephemeris
 ### 3.1 Time
 Timestamps are parsed as UTC and converted to a Julian Date with
@@ -250,7 +253,7 @@ $$
 
 and the number of samples is $N = N_{\text{int}} + 1$. The sample times are $t_i = t_0 + i\Delta t$ for $i=0,\dots,N_{\text{int}}$. The default step is 3 hours; the UI also offers 1 and 6 hours.
 
-The ephemeris and lunar orientation are evaluated once per timestep and shared across all sites. The per-site work is the local projection, horizon lookup, and visibility test. This is why 12 sites remain interactive in the browser.
+The ephemeris and lunar orientation are evaluated once per timestep and shared across all sites. The per-site work is the local projection, horizon lookup, and visibility test. This is why 18 curated sites plus custom pins remain interactive in the browser.
 
 ### 6.2 Sunlight and Earth visibility percentages
 $$
@@ -306,7 +309,7 @@ The heatmap is a visualization of the sampled states, not an independent calcula
 
 ## 7. TOPSIS ranking
 ### 7.1 Decision matrix
-There are $m=12$ sites and $n=4$ criteria. The decision matrix is $X = [x_{ij}]$, where
+There are $m=18$ curated sites (plus any live custom pins) and $n=4$ criteria. The decision matrix is $X = [x_{ij}]$, where
 
 | Criterion | Symbol | Direction |
 | --- | --- | --- |
@@ -372,7 +375,7 @@ $C_i$ lies in $[0,1]$, with larger values closer to the ideal best. Sites are ra
 TOPSIS does not model correlation between criteria. Sunlight percentage and solar flux proxy are correlated; a site with clear skies tends to score well on both. Keeping both is deliberate, because one measures availability and the other measures a crude intensity proxy, but it does mean the effective weight on "good Sun" is larger than either slider suggests. A future version could decorrelate the criteria or report a variance inflation diagnostic.
 
 ### 7.6 What the ranking means
-The closeness coefficient is a relative score within the 12-site set. It is not a probability, a safety margin, or a mission feasibility score. A site can rank first under one weighting and mid-pack under another. That sensitivity is a feature of the tool, not a bug, but it means the ranking must be presented with the weights and the underlying numbers visible.
+The closeness coefficient is a relative score within the selected 18-site set (or the current subset). It is not a probability, a safety margin, or a mission feasibility score. A site can rank first under one weighting and mid-pack under another. That sensitivity is a feature of the tool, not a bug, but it means the ranking must be presented with the weights and the underlying numbers visible.
 
 The UI should show the per-criterion values and the ideal/worst distances so a user can see why a site moved. A ranking without that context would be a black box, which is exactly what this project is trying to avoid.
 
@@ -391,7 +394,7 @@ If two sites have identical values on both objectives, neither strictly dominate
 
 The Pareto frontier is independent of the TOPSIS weights. It answers a different question: which sites are not worse on both power availability and communications availability? It does not include slope or flux. A site can be on the Pareto frontier and still be a poor choice because of steep terrain. The full ranking is the place to see that trade.
 
-The frontier is computed on the 12 sampled sites, not on a continuous design space. It is a comparison of the shipped representatives, not a proof that no better point exists inside a region.
+The frontier is computed on the 18 sampled sites, not on a continuous design space. It is a comparison of the shipped representatives, not a proof that no better point exists inside a region.
 
 ## 9. Validation and error budget
 ### 9.1 Astronomy comparison
@@ -448,6 +451,7 @@ The terrain horizon has not been compared against an independent illumination pr
 13. **3D is a local visual aid, not a model.** The detail dialog includes an interactive perspective rendering of the 12 km LOLA tile, with a vertical exaggeration. It is generated directly from the same elevation samples used for slope and hillshade. It is not a global terrain model, a landing simulation, or a hazard visualization.
 14. **Sampled scenarios.** Percentages, windows, and event detection inherit the chosen time step. Short windows can be missed.
 15. **Subjective weights.** TOPSIS weights are user preferences. The ranking is not a mission recommendation.
+16. **Custom pins are coarser.** Live custom points use the 640 m browser grid, not the 20 m curated terrain, and exist only in the current browser session.
 
 ## 11. Reproducibility
 ### 11.1 Data
@@ -464,6 +468,15 @@ The image is about 1.85 GB. The label documents the 0.5 m DN scaling, the 1,737.
 cc -O2 -o tools/horizon tools/horizon.c -lm
 ./tools/horizon data/lola/ldem_80s_20m.img 30400 20 tools/sites.raw.json tools/sites.csv
 ```
+
+The browser custom-pin grid is generated from the 80 m product with an 8x stride:
+
+```bash
+# 7600 x 7600, 80 m/px -> 950 x 950, 640 m/px, Int16 LE
+python3 tools/build_polar_grid.py
+```
+
+The shipped `public/data/polar-dem-640m.bin` is 1.8 MB. It is loaded only when the user opens the custom-pin dialog, not on first page load.
 
 `tools/sites.csv` has one row per site: `id,lat,lon,refine`. The optional `refine` flag can snap a point to the local maximum within a small search radius. The shipped sites use `refine = 0`, so the coordinates are exactly the representative points.
 

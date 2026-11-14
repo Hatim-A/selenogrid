@@ -6,7 +6,7 @@
 
 - Open the app in a clean browser window at 1440 x 900, zoom 100 percent. Hide bookmarks and notifications.
 - Set the scenario to **2026-11-14 12:00 UTC**, **90 days**, **3 hour step**. Let the first computation finish completely.
-- Start on **Compare** with the six default sites selected. Close the detail dialog and any popovers. Close the 60-second guide if it is open.
+- Start on **Compare** with the nine NASA default sites selected. Close the detail dialog and any popovers. Close the 60-second guide if it is open.
 - Open a second tab with the same scenario already computed. This is the backup, not the primary.
 - Have a static screenshot of the Compare ranking and the Pareto plot ready in a third tab.
 - Do not refresh during the demo. Do not change the date unless the live compute is fast and you have rehearsed it.
@@ -14,7 +14,7 @@
 
 ## 0:00 to 0:20 | Hook: the problem
 
-**On screen:** Compare view at the top. Scroll past the hero to the scenario bar; six sites are preloaded. Click **See the ranking** once to show the answer-first jump, then return to the scenario bar. The header **Guide** button opens the same route for judges.
+**On screen:** Compare view at the top. Scroll past the hero to the scenario bar; nine NASA sites are preloaded. Click **See the ranking** once to show the answer-first jump, then return to the scenario bar. The header **Guide** button opens the same route for judges.
 
 **Narration:**
 
@@ -84,7 +84,7 @@
 
 **Narration:**
 
-> The Moon view puts the points back on a real lunar globe. The three reference sites, including Shackleton, give the NASA regions a familiar comparison. The globe texture is NASA's LROC color map, but every number still comes from the 20-metre terrain model. Open Method and the whole calculation is here: the DEM contract, the horizon geometry, the limb rule, and the validation. Against JPL Horizons, Sun and Earth directions agree to about one hundredth of a degree. That is screening accuracy, not flight dynamics. The limitations are listed in the same view, including what the model does not do. The method is written in plain language, then in formulas.
+> The Moon view puts the points back on a real lunar globe. The reference sites, including Shackleton, Amundsen and the PSR floors, give the NASA regions a familiar comparison. The globe texture is NASA's LROC color map, but every curated number still comes from the 20-metre terrain model. You can also pin a custom coordinate and sample the 640-metre grid live. Open Method and the whole calculation is here: the DEM contract, the horizon geometry, the limb rule, and the validation. Against JPL Horizons, Sun and Earth directions agree to about one hundredth of a degree. That is screening accuracy, not flight dynamics. The limitations are listed in the same view, including what the model does not do. The method is written in plain language, then in formulas.
 
 **If the Atlas is slow:** use the site cards and say: "The Atlas is a spatial index; the same data is in the cards." Do not skip the validation table.
 
@@ -100,7 +100,7 @@
 
 Use this only if the app is visibly computing and you need to keep the demo moving:
 
-> The browser is recomputing twelve sites across ninety days. While that finishes, here is the same scenario precomputed.
+> The browser is recomputing 18 sites across ninety days. While that finishes, here is the same scenario precomputed.
 
 Then switch to the pre-warmed backup tab or the static screenshot. Say that it is precomputed. Do not claim it is live. If a control stalls for more than two seconds, keep narrating the method and move to the next section rather than refreshing.
 

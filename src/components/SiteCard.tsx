@@ -118,6 +118,7 @@ export function SiteCard({
           earthEl={sample.earthEl}
           sunVisible={sample.sunVisible}
           earthVisible={sample.earthVisible}
+          samples={metrics.samples}
         />
         <div className="pointer-events-none absolute top-1.5 left-2 flex items-center gap-1">
           <span

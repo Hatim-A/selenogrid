@@ -11,17 +11,17 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 - NASA announced nine candidate regions near the lunar south pole in October 2024. It did not publish official region centres or landing ellipses.
 - Every site trades four things: sunlight for power, Earth visibility for direct communications, terrain for landing and mobility, and time to the next sunset or earthset.
 - Those trade-offs change with the date, the mission length, and the local horizon. A static map cannot answer "which site, for this window?"
-- Public tools tend to show one site at a time, or one variable at a time. Comparing twelve sites across dates is manual, slow, and hard to explain.
+- Public tools tend to show one site at a time, or one variable at a time. Comparing 18 sites across dates is manual, slow, and hard to explain.
 - The gap is decision support: a transparent way for engineers and the public to see the same trade and argue about the weights.
 
 **Speaker note:** Do not open with "we built a dashboard." Open with the scheduling problem.
 
 ## Slide 2 | What SelenoGrid does
 
-**Title:** One screen, twelve sites, any date
+**Title:** One screen, 18 curated sites, any date
 
 - A scenario bar sets the start date, duration (30, 90, 180, or 365 days), and time step (1, 3, or 6 hours). Everything recomputes.
-- **Compare** shows up to twelve site cards with 360 degree horizon panoramas, sunlight and Earth visibility percentages, longest windows, next sunset and earthset, slope, and relief.
+- **Compare** shows up to 18 curated site cards with 360 degree horizon panoramas, sunlight and Earth visibility percentages, longest windows, next sunset and earthset, slope, and relief. Any custom coordinate south of 80.15°S can be added and sampled live.
 - A detail dialog exposes the full numbers and assumptions, including an interactive 3D perspective of the local 12 km terrain tile. A ranking table and Pareto plot show the decision layer.
 - **Timeline** turns the same data into a daily heatmap with a play control and event markers.
 - **Moon** puts the sites on an interactive 3D lunar globe, with a 2D south-polar atlas one click away. **Method** shows the formulas, validation, and limitations. Each view pairs plain-language summaries with the technical detail rather than hiding the data.
@@ -58,7 +58,7 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 **Title:** A screening layer, not a certification
 
 - Use it to shortlist sites for a date window, teach the south-pole trade-off, or sanity-check a higher-fidelity study.
-- Next: expose custom coordinates in the UI, validate the combined terrain-plus-ephemeris visibility against independent illumination products, and add thermal, power, and link-budget models.
+- Next: validate the 640 m custom-pin path against independent illumination products, add high-resolution 20 m custom points for shortlisted coordinates, and add thermal, power, and link-budget models.
 - The current limits are explicit: no thermal model, no power sizing, no delta-v, no human factors, no landing ellipses, and representative points rather than official sites.
 - The engineering bet is that transparency beats a single score. The data is open, the math is inspectable, and the app runs as a static site with no backend.
 - Ask: pilot it with a lunar site-selection or education team, and help us turn the screening layer into a validated comparison tool.
@@ -67,7 +67,7 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 
 ## 30-second spoken version
 
-> NASA has nine candidate regions near the lunar south pole, but a site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid compares twelve sites on one screen using real 20-metre LOLA terrain and Sun/Earth geometry checked against JPL Horizons. A plain-English verdict gives the shortlist, a 3D Moon shows where the sites are, and the weight sliders show why the ranking moves. It is transparent, reproducible, and built for engineers and the public. Not a landing certification. A better first question.
+> NASA has nine candidate regions near the lunar south pole, but a site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid compares 18 curated sites on one screen using real 20-metre LOLA terrain and Sun/Earth geometry checked against JPL Horizons — and you can pin any custom coordinate. A plain-English verdict gives the shortlist, a 3D Moon shows where the sites are, and the weight sliders show why the ranking moves. It is transparent, reproducible, and built for engineers and the public. Not a landing certification. A better first question.
 
 ## Judge Q&A prep
 
@@ -85,7 +85,7 @@ At a Shackleton-area site on 2026-11-14, Sun azimuth differs from JPL Horizons b
 
 ### 4. Why not ML?
 
-There is no labelled dataset of successful south-pole landings. Training on twelve points or synthetic labels would be less honest than a transparent multi-criteria method. The hard part here is geometry and data provenance, not classification. ML could later calibrate weights or emulate high-fidelity illumination, but it would need validation data we do not have.
+There is no labelled dataset of successful south-pole landings. Training on 18 points or synthetic labels would be less honest than a transparent multi-criteria method. The hard part here is geometry and data provenance, not classification. ML could later calibrate weights or emulate high-fidelity illumination, but it would need validation data we do not have.
 
 ### 5. What is novel?
 
@@ -101,7 +101,7 @@ NASA redefined Artemis III in 2026 as a low Earth orbit test flight and moved th
 
 ### 8. Can it handle custom coordinates?
 
-Yes at the pipeline level. `tools/horizon.c` accepts any latitude and longitude in the south-polar DEM, and `tools/build_sites.mjs` merges the result into the dataset. The browser demo ships twelve precomputed sites because the DEM is 1.8 GB and we did not want to fake an in-browser terrain lookup. Exposing a custom pin in the UI is a tiling or precompute problem, not a physics problem. We chose to be explicit about that boundary rather than claim a feature we did not ship.
+Yes. The app ships 18 curated sites, and the Moon explorer and Compare page let you pin any coordinate south of 80.15°S. The custom point is sampled live in the browser from a 640 m LOLA south-polar grid: elevation, slope, 1,440-bin horizon, Sun/Earth windows and a local 3D tile are recomputed locally. That is a screening point, deliberately lower resolution than the 20 m curated sites. A high-resolution custom point still goes through the offline 20 m pipeline (`tools/horizon.c` + `tools/build_sites.mjs`). We expose both boundaries instead of hiding them.
 
 ## If a judge pushes on the weakest point
 

@@ -8,10 +8,12 @@ export function SitePicker({
   sites,
   selected,
   onChange,
+  onCustom,
 }: {
   sites: Site[]
   selected: string[]
   onChange: (ids: string[]) => void
+  onCustom?: () => void
 }) {
   const nasa = sites.filter((s) => s.kind === 'nasa')
   const reference = sites.filter((s) => s.kind === 'reference')
@@ -36,8 +38,8 @@ export function SitePicker({
             </Badge>
           </div>
           <p className="mt-1 max-w-xl text-[10.5px] leading-relaxed text-muted-foreground">
-            All nine NASA candidate regions plus three literature reference sites. Coordinates are
-            representative LOLA terrain points, not official landing ellipses.
+            Nine NASA candidate regions plus nine literature, science and PSR reference sites.
+            Coordinates are representative LOLA terrain points, not official landing ellipses.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
@@ -48,8 +50,13 @@ export function SitePicker({
             References
           </Button>
           <Button variant="outline" size="sm" onClick={() => onChange(all)}>
-            All 12
+            All {sites.length}
           </Button>
+          {onCustom && (
+            <Button variant="secondary" size="sm" onClick={onCustom}>
+              + Custom point
+            </Button>
+          )}
         </div>
       </div>
 

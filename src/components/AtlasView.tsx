@@ -1,8 +1,10 @@
 import { lazy, Suspense, useState } from 'react'
-import { Check, Globe2, Info, Loader2, Map, MapPin, Plus } from 'lucide-react'
+import { Check, Crosshair, Globe2, Info, Loader2, Map, MapPin, MapPinPlus, Plus } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { fmtCoord, fmtPct } from '@/lib/format'
 import { atlasPosition } from '@/lib/data'
+import { atlasPctToLatLon } from '@/lib/polarDem'
 import { cn } from '@/lib/utils'
 import type { Site, SiteMetrics } from '@/types'
 
@@ -31,22 +33,33 @@ export function AtlasView({
   selectedIds,
   theme,
   focusId,
+  scenarioStartIso,
   onOpen,
   onAdd,
+  onCustomOpen,
+  onCustomCoord,
 }: {
   sites: Site[]
   metricsById: Map<string, SiteMetrics>
   selectedIds: string[]
   theme: 'light' | 'dark'
   focusId?: string | null
+  scenarioStartIso: string
   onOpen: (id: string) => void
   onAdd: (id: string) => void
+  onCustomOpen: () => void
+  onCustomCoord: (lat: number, lon: number) => void
 }) {
   const [mode, setMode] = useState<'globe' | 'map'>('globe')
+  const [pinMode, setPinMode] = useState(false)
   const [hoverId, setHoverId] = useState<string | null>(focusId ?? null)
   const [imageOk, setImageOk] = useState(true)
   const hovered = sites.find((s) => s.id === hoverId)
   const inView = sites.filter((s) => selectedIds.includes(s.id)).length
+  const handleCustomCoord = (lat: number, lon: number) => {
+    setPinMode(false)
+    onCustomCoord(lat, lon)
+  }
 
   return (
     <div className="space-y-4">
@@ -60,13 +73,37 @@ export function AtlasView({
             </Badge>
           </div>
           <p className="mt-1 max-w-2xl text-[11.5px] leading-relaxed text-muted-foreground">
-            {mode === 'globe'
-              ? 'All twelve curated points on a real lunar globe. Drag to rotate, scroll to zoom, and click a marker to open its analysis. Use the 2D atlas for the south-polar hillshade.'
-              : 'The south-polar LOLA hillshade with the same twelve points. The globe gives global context; the atlas gives the polar terrain detail.'}
+            {pinMode
+              ? 'Pin mode is on. Click anywhere south of 80.15°S on the globe or map to sample a custom LOLA point.'
+              : mode === 'globe'
+                ? `${sites.length} curated points on a real lunar globe. Drag to rotate, scroll to zoom, and click a marker to open its analysis.`
+                : `The south-polar LOLA hillshade with the same ${sites.length} points. The globe gives global context; the atlas gives the polar terrain detail.`}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
+          <Button
+            variant={pinMode ? 'secondary' : 'outline'}
+            size="sm"
+            className="gap-1.5"
+            onClick={() => setPinMode((value) => !value)}
+            aria-pressed={pinMode}
+          >
+            <Crosshair className="size-3.5" />
+            {pinMode ? 'Pin mode on' : 'Pin mode'}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => {
+              setPinMode(false)
+              onCustomOpen()
+            }}
+          >
+            <MapPinPlus className="size-3.5" />
+            Custom point
+          </Button>
           <div className="inline-flex rounded-full border border-border bg-card/60 p-0.5">
             {(
               [
@@ -92,7 +129,7 @@ export function AtlasView({
             ))}
           </div>
           <Badge variant="outline">LOLA · 80 m base</Badge>
-          <Badge variant="outline">20 m analysis</Badge>
+          <Badge variant="outline">20 m curated · 640 m custom</Badge>
         </div>
       </div>
 
@@ -113,15 +150,30 @@ export function AtlasView({
                 metricsById={metricsById}
                 selectedIds={selectedIds}
                 hoverId={hoverId}
+                focusId={focusId}
+                scenarioStartIso={scenarioStartIso}
+                pinMode={pinMode}
                 theme={theme}
                 onHover={setHoverId}
                 onOpen={onOpen}
+                onPickCoord={handleCustomCoord}
               />
             </Suspense>
           </section>
         ) : (
           <section className="overflow-hidden rounded-2xl border border-border bg-[#08090c] shadow-[var(--shadow-card)]">
-            <div className="relative aspect-square w-full select-none">
+            <div
+              className="relative aspect-square w-full select-none"
+              onClick={(event) => {
+                if (!pinMode) return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const xPct = ((event.clientX - rect.left) / rect.width) * 100
+                const yPct = ((event.clientY - rect.top) / rect.height) * 100
+                const coord = atlasPctToLatLon(xPct, yPct)
+                if (coord) handleCustomCoord(coord.lat, coord.lon)
+              }}
+              style={{ cursor: pinMode ? 'crosshair' : undefined }}
+            >
               {imageOk ? (
                 <img
                   src={`${import.meta.env.BASE_URL}data/${
@@ -212,7 +264,11 @@ export function AtlasView({
                   <button
                     key={site.id}
                     type="button"
-                    onClick={() => onOpen(site.id)}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      if (pinMode) handleCustomCoord(site.lat, site.lon)
+                      else onOpen(site.id)
+                    }}
                     onMouseEnter={() => setHoverId(site.id)}
                     onMouseLeave={() => setHoverId(null)}
                     onFocus={() => setHoverId(site.id)}
@@ -277,6 +333,11 @@ export function AtlasView({
               <div className="pointer-events-none absolute right-2.5 bottom-2.5 rounded-full bg-black/50 px-2 py-1 font-mono text-[7.5px] text-white/50 backdrop-blur">
                 {sites.length} sites · NASA + refs
               </div>
+              {pinMode && (
+                <div className="pointer-events-none absolute top-2.5 right-2.5 rounded-full border border-white/20 bg-black/55 px-2.5 py-1 font-mono text-[8px] text-white/80 backdrop-blur">
+                  CLICK TO PIN · SOUTH OF 80.15°S
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -376,8 +437,9 @@ export function AtlasView({
                 </p>
                 <p>
                   The surface texture is NASA&apos;s CGI Moon Kit (LROC WAC color map), provided for
-                  global context. All sunlight, Earth-link, horizon and slope values still come
-                  from the 20 m LOLA terrain model.
+                  global context. Curated sites use the 20 m LOLA model; custom pins are sampled
+                  live from a 640 m browser grid. Turn on <strong>Pin mode</strong> and click the
+                  globe, or use <strong>Custom point</strong> to type coordinates.
                 </p>
                 <p className="text-muted-foreground/75">
                   Markers are representative terrain points, not official landing ellipses. The

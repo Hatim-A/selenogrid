@@ -19,6 +19,7 @@ export function CompareView({
   onWeights,
   onOpen,
   onRemove,
+  onCustom,
 }: {
   sites: Site[]
   selectedIds: string[]
@@ -30,6 +31,7 @@ export function CompareView({
   onWeights: (w: Weights) => void
   onOpen: (id: string) => void
   onRemove: (id: string) => void
+  onCustom: () => void
 }) {
   const rankedById = new Map(ranked.map((r) => [r.site.id, r]))
   const cards = ranked
@@ -40,15 +42,20 @@ export function CompareView({
     <div className="space-y-4">
       {cards.length === 0 ? (
         <>
-          <SitePicker sites={sites} selected={selectedIds} onChange={onSelected} />
+          <SitePicker
+            sites={sites}
+            selected={selectedIds}
+            onChange={onSelected}
+            onCustom={onCustom}
+          />
           <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card/30 px-6 py-14 text-center">
             <span className="inline-flex size-10 items-center justify-center rounded-full bg-secondary">
               <LayoutGrid className="size-4 text-muted-foreground" />
             </span>
             <h2 className="mt-3 text-[14px] font-semibold">Pick at least one site</h2>
             <p className="mt-1 max-w-sm text-[11px] text-muted-foreground">
-              Choose from the nine NASA candidate regions or the three reference sites to start a
-              side-by-side comparison.
+              Choose from the nine NASA candidate regions, the reference sites, or a custom point
+              to start a side-by-side comparison.
             </p>
             <Button
               className="mt-4"
@@ -81,7 +88,12 @@ export function CompareView({
           />
 
           <MetricCheatSheet />
-          <SitePicker sites={sites} selected={selectedIds} onChange={onSelected} />
+          <SitePicker
+            sites={sites}
+            selected={selectedIds}
+            onChange={onSelected}
+            onCustom={onCustom}
+          />
 
           <section id="compare-cards" aria-labelledby="cards-heading">
             <div className="mb-2.5 flex items-end justify-between gap-2">

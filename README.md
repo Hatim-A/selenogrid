@@ -2,7 +2,7 @@
 
 **Compare lunar south-pole landing sites with real terrain, real Sun/Earth geometry, and math you can inspect.**
 
-SelenoGrid is a browser-based decision-support workbench for the lunar south pole. It puts the nine NASA candidate regions announced in October 2024 and three literature reference sites on the same footing. Pick a date and a mission length, then compare sunlight, Earth visibility, solar flux, slope, horizon relief, and time to the next sunset or earthset. Adjust what matters and watch the ranking and Pareto frontier respond.
+SelenoGrid is a browser-based decision-support workbench for the lunar south pole. It puts the nine NASA candidate regions announced in October 2024 and nine literature, science and PSR reference sites on the same footing. Pick a date and a mission length, then compare sunlight, Earth visibility, solar flux, slope, horizon relief, and time to the next sunset or earthset. Adjust what matters and watch the ranking and Pareto frontier respond. You can also pin any coordinate south of 80°S and analyse it live from a 640 m LOLA grid.
 
 Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static React app. No backend. No API keys. No hidden model weights.
 
@@ -18,7 +18,7 @@ Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static R
 
 A landing site near the lunar south pole is not a pin on a map. It is a schedule. A site can be sunlit for most of a lunar day but radio-dark; another can see Earth continuously but sit on a steep slope. The Sun and Earth move slowly and unevenly across a polar horizon, so the usable windows depend on the date, the mission length, and the local terrain profile. Static illumination maps and slope maps show pieces of this. They do not let a scientist, engineer, or member of the public compare the whole trade in one place, on their own terms.
 
-The app is deliberately answer-first: the scenario bar, decision snapshot, and a plain-English verdict come before the evidence. A 60-second in-app guide does the same for a first-time judge.
+The app is deliberately answer-first: the scenario bar, decision snapshot, and a plain-English verdict come before the evidence. A 60-second in-app guide does the same for a first-time judge. Compare preloads the **nine NASA regions**; click **All 18** to add the reference and PSR sites, or **Custom point** to pin any coordinate south of 80.15°S.
 
 SelenoGrid closes that gap with three ingredients:
 
@@ -37,7 +37,7 @@ npm run build     # type-check and produce a static dist/
 npm run preview   # serve the production build locally
 ```
 
-No environment variables, API keys, or database are needed. The shipped dataset at `public/data/sites.json` is about 786 KB, so the 1.8 GB LOLA DEM is **not** required to run the app. The DEM is only needed to rebuild the terrain products.
+No environment variables, API keys, or database are needed. The shipped curated dataset at `public/data/sites.json` is about 1.2 MB and the custom-pin grid is 1.8 MB, so the 1.8 GB LOLA DEM is **not** required to run the app. The DEM is only needed to rebuild the terrain products.
 
 ## Four views
 
@@ -72,8 +72,9 @@ Every view pairs plain-language summaries with the numbers, units, formulas, and
 
 | Capability | Detail |
 | --- | --- |
-| Compare 12 sites | Nine NASA candidate regions plus Peak near Shackleton, Connecting Ridge, and Shackleton Crater Floor |
-| Explore the Moon in 3D | Interactive LROC-textured globe with all 12 markers, hover metrics, rotate/zoom, and links into each site |
+| Compare 18 curated sites | Nine NASA candidate regions plus nine literature, science and PSR reference sites |
+| Pin a custom coordinate | Any point south of 80.15°S, sampled live from a 640 m LOLA grid with its own horizon and local terrain tile |
+| Explore the Moon in 3D | Interactive LROC-textured globe with all curated markers, hover metrics, rotate/zoom, and links into each site |
 | Compare dates | Change the scenario start and duration; all metrics and rankings recompute |
 | Read a horizon | 1,440-bin (0.25 degree) terrain horizon per site, with the elevation and distance of the blocking ridge |
 | Check power potential | Sunlight percentage, mean solar flux proxy, longest continuous sun window, next sunset and sunrise |
@@ -95,9 +96,15 @@ The terrain product is the NASA/GSFC LRO LOLA south polar DEM `ldem_80s_20m` fro
 - 80 degrees south to the pole, polar stereographic
 - source: <https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/>
 
-The Moon explorer globe uses the NASA SVS **CGI Moon Kit** 2K LROC WAC color texture (`public/data/moon-2k.jpg`) for global context. The texture is optimized for visualization, not science; it feeds no sunlight, visibility, or ranking calculation. All computed values still come from the 20 m LOLA horizons and the ephemeris.
+The Moon explorer globe uses the NASA SVS **CGI Moon Kit** 2K LROC WAC color texture (`public/data/moon-2k.jpg`) for global context. The texture is optimized for visualization, not science; it feeds no sunlight, visibility, or ranking calculation. Curated values still come from the 20 m LOLA horizons and the ephemeris.
 
-The 12 representative points are:
+### Custom coordinates
+
+Open **Moon → Custom point**, or **Compare → + Custom point**. You can enter a latitude/longitude or turn on **Pin mode** and click the globe or the 2D atlas. The point is sampled live from `public/data/polar-dem-640m.bin`, a 950 × 950, 640 m/pixel south-polar grid (8× downsample of the LOLA 80 m product). The browser computes elevation, slope, a 1,440-bin horizon, Sun/Earth windows, and a local 3D terrain tile.
+
+This is deliberately a **screening** path: curated sites use 20 m terrain, custom pins use 640 m terrain. Any custom point south of 80.15°S is allowed; it is not an official landing ellipse or a flight-certified analysis.
+
+The 18 representative points are:
 
 | Site | Kind | Lat (deg) | Lon (deg E) | Elevation (m) | Local slope (deg) |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -112,11 +119,17 @@ The 12 representative points are:
 | Slater Plain | NASA region | -87.7360 | 115.6100 | -90.1 | 7.04 |
 | Peak near Shackleton | Reference | -89.0051 | 125.3093 | 1181.9 | 2.55 |
 | Connecting Ridge | Reference | -89.5343 | -150.0523 | 1652.5 | 3.68 |
+| Leibnitz Beta Summit | Reference | -84.6667 | 39.4548 | 7023.4 | 1.95 |
+| Amundsen Rim | Reference | -82.8833 | 77.9734 | 4262.4 | 6.38 |
+| Faustini Rim A | Reference | -86.4867 | 80.4514 | 1175.2 | 2.50 |
+| de Gerlache–Kocher Massif | Reference | -85.1635 | -117.2391 | 3387.7 | 1.56 |
 | Shackleton Crater Floor | Reference | -89.6300 | 129.7800 | -2748.2 | 6.27 |
+| Cabeus Crater Floor (LCROSS) | Reference | -85.4200 | -40.5000 | -3926.8 | 9.53 |
+| Haworth Crater Floor PSR | Reference | -87.9833 | 0.8333 | -3956.0 | 1.58 |
 
-These are representative points, not the centres of official ellipses. The three reference sites are included because they are widely discussed in the literature and give the NASA regions a familiar comparison set. The Mons Mouton Plateau point is near the intended IM-2 / Athena landing area. IM-2 touched down in March 2025 about 400 m from its intended site and ended on its side; that outcome does not validate or invalidate this representative point.
+These are representative points, not the centres of official ellipses. The nine reference sites are included because they are widely discussed in the literature or are important PSR/volatile benchmarks, and they give the NASA regions a familiar comparison set. The Mons Mouton Plateau point is near the intended IM-2 / Athena landing area. IM-2 touched down in March 2025 about 400 m from its intended site and ended on its side; that outcome does not validate or invalidate this representative point.
 
-The elevation range across the 12 points is 5,848.5 m to -2,748.2 m relative to the reference sphere. Local slopes range from 0.27 to 11.81 degrees. These are properties of the sampled points, not regional averages.
+The elevation range across the 18 points is 7,023.4 m to -3,956.0 m relative to the reference sphere. Local slopes range from 0.27 to 11.81 degrees. These are properties of the sampled points, not regional averages.
 
 ## Method at a glance
 
@@ -164,6 +177,7 @@ Typical accuracy is about 0.02 degrees for Sun and Earth directions. That is fit
 - The DEM has finite vertical accuracy and 0.5 m quantization. It is a shape product, not a certified hazard map.
 - Scenario percentages are sampled, not integrated. A visibility window shorter than the chosen time step can be missed. Default steps are 3 hours; event times are refined separately.
 - Representative points are not official region centres. A different point inside the same region can produce a different ranking.
+- Custom pins are sampled from a 640 m browser grid, not the 20 m curated terrain, and live only for the current browser session. They are screening points, not landing-ellipse analyses.
 - The TOPSIS weights are user preferences, not mission requirements. The ranking is sensitive to them, which is why they are exposed.
 - The local terrain view is a perspective rendering of a 12 km LOLA tile, vertically exaggerated. The Moon globe is a locator textured with NASA's LROC color mosaic, not an analysis-grade terrain mesh. Neither is a landing simulation or hazard visualization.
 
@@ -171,15 +185,15 @@ Typical accuracy is about 0.02 degrees for Sun and Earth directions. That is fit
 
 | Challenge ask | How SelenoGrid addresses it |
 | --- | --- |
-| Compare landing sites and dates | Scenario bar plus 12-site Compare view; every metric and rank recomputes |
+| Compare landing sites and dates | Scenario bar plus an 18-site Compare view; every metric and rank recomputes |
 | Sunlight | Sun visibility percentage, mean flux proxy, longest Sun window, next sunset and sunrise |
 | Earth visibility and communications | Earth visibility percentage, longest Earth window, next earthset and earthrise |
 | Terrain | Slope, aspect, open-sky fraction, horizon relief, and terrain tiles |
 | Time to sunset and earthset | Event clocks in the site detail dialog; event times refined by bisection |
 | 2D and 3D visuals | Interactive 3D lunar globe, 2D polar atlas, 360° horizon panoramas, shaded relief, and a 3D perspective of each local terrain tile |
 | Temporal animation | Timeline heatmap with play control and event markers |
-| Multi-site comparison | 12 sites side by side, ranking table, and Pareto frontier |
-| Custom coordinates | Supported by the offline pipeline (`tools/horizon.c` and `tools/build_sites.mjs`); the browser demo ships 12 precomputed sites because the DEM is 1.8 GB |
+| Multi-site comparison | 18 curated sites side by side, ranking table, Pareto frontier, and custom pins |
+| Custom coordinates | Pin any point south of 80.15°S in the Moon explorer or Compare; it is analysed live from a 640 m browser grid. The offline 20 m pipeline remains available for high-resolution curated points |
 | Expert and public accessibility | Public cards and tooltips; expert numbers, units, formulas, and assumptions |
 
 ## Accessibility
@@ -195,11 +209,14 @@ The UI is designed for keyboard navigation, visible focus, reduced-motion prefer
 # 2. Build the horizon extractor
 cc -O2 -o tools/horizon tools/horizon.c -lm
 
-# 3. Extract the 12 sites
+# 3. Extract the curated sites
 ./tools/horizon data/lola/ldem_80s_20m.img 30400 20 tools/sites.raw.json tools/sites.csv
 
 # 4. Merge machine output with human-written metadata
 node tools/build_sites.mjs
+
+# 4b. Build the 640 m browser grid for custom pins
+python3 tools/build_polar_grid.py
 
 # 5. Spot-check the astronomy engine
 node --experimental-strip-types tools/check_astro2.mjs

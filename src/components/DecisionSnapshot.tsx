@@ -109,7 +109,7 @@ export function DecisionSnapshot({
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3">
         {items.map((item) => {
           const Icon = item.icon
           return (
@@ -135,7 +135,7 @@ export function DecisionSnapshot({
               </div>
               <div className="mt-2 flex items-baseline gap-1.5">
                 <span
-                  className="tabular text-[21px] font-semibold leading-none tracking-[-0.04em]"
+                  className="tabular text-[24px] font-semibold leading-none tracking-[-0.04em]"
                   style={{ color: item.accent }}
                 >
                   {item.value}

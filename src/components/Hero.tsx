@@ -2,20 +2,22 @@ import { ArrowDown, Compass, Sparkles } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-const STATS = [
-  { value: '12', label: 'terrain points across all 9 NASA regions' },
-  { value: '360°', label: 'horizon per site at 0.25° bins' },
-  { value: '20 m', label: 'LRO LOLA elevation data' },
-  { value: '<0.02°', label: 'Sun/Earth pointing vs JPL Horizons' },
-]
-
 export function Hero({
+  siteCount,
   onGuide,
   onCompare,
 }: {
+  siteCount: number
   onGuide: () => void
   onCompare: () => void
 }) {
+  const stats = [
+    { value: String(siteCount), label: 'terrain points: 9 NASA regions + references' },
+    { value: '360°', label: 'horizon per site at 0.25° bins' },
+    { value: '20 m', label: 'LRO LOLA elevation data + 640 m custom grid' },
+    { value: '<0.02°', label: 'Sun/Earth pointing vs JPL Horizons' },
+  ]
+
   return (
     <section className="relative overflow-hidden pt-9 pb-7 sm:pt-14 sm:pb-9">
       <div className="grid-fade pointer-events-none absolute inset-x-0 -top-16 h-64 opacity-50" />
@@ -57,11 +59,11 @@ export function Hero({
           </div>
         </div>
         <p className="mt-2 font-mono text-[9px] tracking-wide text-muted-foreground/80">
-          Preloaded: 6 sites · 180-day window · 3-hour step · live Sun/Earth computation
+          Preloaded: nine NASA sites · 180-day window · 3-hour step · live Sun/Earth computation
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-y-5 border-y border-border py-4 sm:grid-cols-4 sm:divide-x sm:divide-border">
-          {STATS.map((s) => (
+          {stats.map((s) => (
             <div key={s.label} className="px-0 sm:px-5 sm:first:pl-0">
               <div className="tabular text-[19px] font-semibold tracking-[-0.03em]">{s.value}</div>
               <div className="mt-0.5 max-w-[180px] text-[10.5px] leading-snug text-muted-foreground">

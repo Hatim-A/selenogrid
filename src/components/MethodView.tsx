@@ -62,6 +62,11 @@ const SOURCES = [
     href: 'https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/',
   },
   {
+    title: 'LOLA 640 m custom grid',
+    detail: 'Eight-times downsampled south-polar DEM for live custom pins. Screening resolution.',
+    href: 'https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/img/',
+  },
+  {
     title: 'NASA Artemis III candidate regions',
     detail: 'Nine south-pole regions announced 28 October 2024. Region names and context.',
     href: 'https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/',
@@ -337,6 +342,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
               'No thermal, power-system, delta-v, communications-link-budget or human-factors model.',
               'Hard shadows and an airless Moon; no terrain reflectance or secondary scattering.',
               'The 20 m DEM limits sub-resolution slopes and small boulders.',
+              'Custom pins are sampled from a 640 m browser grid; they are fast screening points, not 20 m analyses.',
               'Sunlight percentage counts any visible solar limb; use the flux proxy for power intuition.',
               'Earth–Sun radio interference and ground-station scheduling are not modelled.',
               'The terrain horizon is marched to 220 km; distant massifs beyond that are not included.',

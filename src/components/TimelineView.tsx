@@ -16,6 +16,7 @@ import { Slider } from '@/components/ui/slider'
 import { HorizonPanorama } from '@/components/viz/HorizonPanorama'
 import { TimelineHeatmap } from '@/components/viz/TimelineHeatmap'
 import { fmtDateTimeUtc, fmtDayUtc, fmtHours, signed } from '@/lib/format'
+import { refineTransition } from '@/lib/metrics'
 import { cn } from '@/lib/utils'
 import type { RankedSite, Site, SiteMetrics, SiteSample } from '@/types'
 
@@ -29,25 +30,32 @@ function sampleAt(metrics: SiteMetrics, hour: number): SiteSample {
   return metrics.samples[idx]
 }
 
-function upcomingEvents(metrics: SiteMetrics, hour: number) {
+function upcomingEvents(site: Site, metrics: SiteMetrics, hour: number) {
   const startIdx = Math.min(
     metrics.samples.length - 1,
     Math.max(0, Math.floor(hour / (metrics.stepMs / 3_600_000))),
   )
+  const cursorMs = metrics.start + hour * 3_600_000
   const out: { label: string; t: number; kind: 'sun' | 'earth'; up: boolean }[] = []
-  for (let i = startIdx + 1; i < metrics.samples.length && out.length < 4; i++) {
+  for (let i = startIdx + 1; i < metrics.samples.length && out.length < 6; i++) {
     const a = metrics.samples[i - 1]
     const b = metrics.samples[i]
     if (a.sunVisible !== b.sunVisible) {
-      out.push({ label: b.sunVisible ? 'Sunrise' : 'Sunset', t: (a.t + b.t) / 2, kind: 'sun', up: b.sunVisible })
+      const t = refineTransition(site, a.t, b.t, 'sun', b.sunVisible)
+      if (t >= cursorMs) {
+        out.push({ label: b.sunVisible ? 'Sunrise' : 'Sunset', t, kind: 'sun', up: b.sunVisible })
+      }
     }
     if (a.earthVisible !== b.earthVisible) {
-      out.push({
-        label: b.earthVisible ? 'Earthrise' : 'Earthset',
-        t: (a.t + b.t) / 2,
-        kind: 'earth',
-        up: b.earthVisible,
-      })
+      const t = refineTransition(site, a.t, b.t, 'earth', b.earthVisible)
+      if (t >= cursorMs) {
+        out.push({
+          label: b.earthVisible ? 'Earthrise' : 'Earthset',
+          t,
+          kind: 'earth',
+          up: b.earthVisible,
+        })
+      }
     }
   }
   return out.sort((x, y) => x.t - y.t).slice(0, 4)
@@ -165,7 +173,7 @@ export function TimelineView({
   }
 
   const sample = sampleAt(metrics, cursorHour)
-  const events = upcomingEvents(metrics, cursorHour)
+  const events = upcomingEvents(focus, metrics, cursorHour)
   const currentMs = startMs + cursorHour * 3_600_000
 
   return (
@@ -309,6 +317,7 @@ export function TimelineView({
             earthEl={sample.earthEl}
             sunVisible={sample.sunVisible}
             earthVisible={sample.earthVisible}
+            samples={metrics.samples}
             timeLabel={fmtDayUtc(currentMs)}
           />
           <div className="grid grid-cols-2 gap-y-3 border-t border-border/60 px-4 py-3 sm:grid-cols-4">
