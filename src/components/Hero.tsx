@@ -78,7 +78,7 @@ export function Hero({
                 onClick={onGuide}
                 className="group inline-flex h-11 min-h-[44px] items-center gap-1 px-3 text-[13px] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring rounded-full"
               >
-                60-second guide
+                30-second guide
                 <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-px group-hover:-translate-y-px" />
               </button>
             </div>

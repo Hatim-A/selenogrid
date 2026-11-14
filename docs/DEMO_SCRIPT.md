@@ -6,7 +6,7 @@
 
 - Open the app in a clean browser window at 1440 x 900, zoom 100 percent. Hide bookmarks and notifications.
 - Set the scenario to **2026-11-14 12:00 UTC**, **90 days**, **3 hour step**. Let the first computation finish completely.
-- Open the app on the **landing story** (default view). For a cold open, scroll the hero and film, then click **Open the mission lab**. To skip straight to the tool, open `?view=compare`. In **Compare**, nine NASA sites are preloaded. Close the detail dialog and any popovers. Close the 60-second guide if it is open.
+- Open the app on the **landing story** (default view). For a cold open, scroll the hero and film, then click **Open the mission lab**. To skip straight to the tool, open `?view=compare`. In **Compare**, nine NASA sites are preloaded. Close the detail dialog and any popovers. Close the 30-second guide if it is open.
 - Open a second tab with the same scenario already computed. This is the backup, not the primary.
 - Have a static screenshot of the Compare ranking and the Pareto plot ready in a third tab.
 - Do not refresh during the demo. Do not change the date unless the live compute is fast and you have rehearsed it.

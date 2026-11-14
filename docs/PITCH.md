@@ -1,6 +1,8 @@
 # SelenoGrid Pitch
 
-**Event:** NASA Space Apps Challenge Meknes 2026. **Format:** 5 slides, 3 minutes plus questions. **Project:** SelenoGrid, solo entrant.
+**Event:** NASA Space Apps Challenge Meknes 2026. **Format:** 5 minute pitch + 2 minute jury Q&A (updated by organizers; was 3 + 2). Required beats: the problem, your solution, NASA data you used, demo, impact and next steps. **Project:** SelenoGrid, solo entrant.
+
+**Pacing:** about 1 minute per slide. Slides 1 and 2 carry the story, slide 3 carries the proof, slide 5 lands the close. Keep one live demo beat inside slide 2 (move a weight slider, watch the rank move) with the backup video ready. Rehearse with a timer.
 
 The through-line: a south-pole landing site is a time-dependent decision, and the public tools do not make that decision legible. SelenoGrid does, with real LOLA terrain, validated Sun/Earth geometry, and an OR layer the user can inspect and change.
 
@@ -25,7 +27,7 @@ The through-line: a south-pole landing site is a time-dependent decision, and th
 - A detail dialog exposes the full numbers and assumptions, including an interactive 3D perspective of the local 12 km terrain tile. A ranking table and Pareto plot show the decision layer.
 - **Timeline** turns the same data into a daily heatmap with a play control and event markers.
 - **Moon** puts the sites on an interactive 3D lunar globe, with a 2D south-polar atlas one click away. **Method** shows the formulas, validation, and limitations. Each view pairs plain-language summaries with the technical detail rather than hiding the data.
-- An in-app **60-second guide** and an answer-first **Decision brief**: winner, fit score, three leaders, and a plain-English trade-off, make the first minute legible without dumbing down the method.
+- An in-app **30-second guide** and an answer-first **Decision brief**: winner, fit score, three leaders, and a plain-English trade-off, make the first minute legible without dumbing down the method.
 
 **Speaker note:** If time is short, demo Compare and Timeline, then show the weight sliders. The other views are supporting evidence.
 

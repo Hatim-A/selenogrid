@@ -8,7 +8,7 @@
 
 **Links:** [Live demo](https://hatim-a.github.io/selenogrid/) · [Method](METHOD.md) · [Sources](SOURCES.md). The in-app **Guide** button opens a shorter four-step version.
 
-## 60-second route
+## 30-second route
 
 Start on the **landing story** (the default view): scroll the hero, the four pinned chapters, and the scrubbed-mission film, then click **Open the mission lab**. In **Compare**, the nine NASA regions are preloaded; open the site library from **Edit sites** to add references, choose **All 18**, or add a live custom coordinate. The order moves from the decision to the evidence.
 

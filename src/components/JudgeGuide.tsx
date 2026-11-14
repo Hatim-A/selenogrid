@@ -85,7 +85,7 @@ export function JudgeGuide({
         <DialogHeader className="shrink-0 gap-2 px-5 py-5 pr-14 sm:px-7">
           <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="outline" className="font-mono tracking-[0.12em]">
-              60-SECOND GUIDE
+              30-SECOND GUIDE
             </Badge>
             <Badge variant="earth" className="gap-1">
               <Sparkles className="size-2.5" />

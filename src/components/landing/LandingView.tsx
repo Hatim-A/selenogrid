@@ -384,7 +384,7 @@ export function LandingView({
                   onClick={onGuide}
                   className="group inline-flex h-12 min-h-[44px] cursor-pointer items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  60-second guide
+                  30-second guide
                   <ArrowUpRight
                     className="size-3.5 transition-transform duration-200 group-hover:translate-x-px group-hover:-translate-y-px"
                     aria-hidden="true"
@@ -740,7 +740,7 @@ export function LandingView({
                 onClick={onGuide}
                 className="group inline-flex h-11 min-h-[44px] cursor-pointer items-center gap-1.5 rounded-full px-4 text-[13px] font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               >
-                Take the 60-second guide
+                Take the 30-second guide
                 <ArrowUpRight
                   className="size-3.5 transition-transform duration-200 group-hover:translate-x-px group-hover:-translate-y-px"
                   aria-hidden="true"

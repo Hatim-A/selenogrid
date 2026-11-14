@@ -104,7 +104,7 @@ export function Header({
             variant="ghost"
             size="sm"
             onClick={onGuide}
-            aria-label="Open the 60-second guide"
+            aria-label="Open the 30-second guide"
             className="h-8 gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 text-[12px] font-medium text-foreground/80 hover:bg-secondary hover:text-foreground"
           >
             <HelpCircle className="size-3.5" />
