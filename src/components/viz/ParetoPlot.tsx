@@ -4,7 +4,7 @@ import type { ParetoPoint } from '@/types'
 
 const W = 640
 const H = 360
-const PAD = { l: 52, r: 24, t: 24, b: 44 }
+const PAD = { l: 48, r: 24, t: 24, b: 48 }
 const PW = W - PAD.l - PAD.r
 const PH = H - PAD.t - PAD.b
 
@@ -18,6 +18,7 @@ export function ParetoPlot({
   onSelect: (id: string) => void
 }) {
   const [hover, setHover] = useState<string | null>(null)
+  const [focus, setFocus] = useState<string | null>(null)
 
   const { xMin, xMax, yMin, yMax, ticks } = useMemo(() => {
     if (points.length === 0) {
@@ -54,20 +55,25 @@ export function ParetoPlot({
     .map((p, i) => `${i === 0 ? 'M' : 'L'}${x(p.metrics.sunlightPct)},${y(p.metrics.earthPct)}`)
     .join(' ')
 
-  const hovered = points.find((p) => p.site.id === hover)
+  const activeId = hover ?? focus
+  const hovered = points.find((p) => p.site.id === activeId)
 
   return (
     <div className="relative">
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        className="block w-full"
+        className="block h-auto w-full"
         role="group"
         aria-label="Pareto frontier of sunlight versus Earth visibility. Select a site to open its analysis."
       >
         <defs>
           <linearGradient id="pareto-fade" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="var(--sun)" stopOpacity="0.08" />
+            <stop offset="0%" stopColor="var(--sun)" stopOpacity="0.07" />
             <stop offset="100%" stopColor="var(--earth)" stopOpacity="0.02" />
+          </linearGradient>
+          <linearGradient id="pareto-frontier-stroke" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="var(--sun)" />
+            <stop offset="100%" stopColor="var(--earth)" />
           </linearGradient>
         </defs>
         <rect
@@ -75,7 +81,7 @@ export function ParetoPlot({
           y={PAD.t}
           width={PW}
           height={PH}
-          rx="8"
+          rx="10"
           fill="url(#pareto-fade)"
           stroke="var(--border)"
         />
@@ -88,13 +94,14 @@ export function ParetoPlot({
               y1={y(t)}
               y2={y(t)}
               stroke="var(--border)"
-              strokeDasharray="2 6"
+              strokeOpacity="0.6"
+              strokeWidth="1"
             />
             <text
-              x={PAD.l - 9}
-              y={y(t) + 3}
+              x={PAD.l - 8}
+              y={y(t) + 3.5}
               textAnchor="end"
-              fontSize="10"
+              fontSize="11"
               fill="var(--muted-foreground)"
               fontFamily="var(--font-mono)"
             >
@@ -113,13 +120,14 @@ export function ParetoPlot({
                 y1={PAD.t}
                 y2={PAD.t + PH}
                 stroke="var(--border)"
-                strokeDasharray="2 6"
+                strokeOpacity="0.6"
+                strokeWidth="1"
               />
               <text
                 x={x(v)}
-                y={H - PAD.b + 17}
+                y={H - PAD.b + 19}
                 textAnchor="middle"
-                fontSize="10"
+                fontSize="11"
                 fill="var(--muted-foreground)"
                 fontFamily="var(--font-mono)"
               >
@@ -130,71 +138,98 @@ export function ParetoPlot({
         })}
 
         {frontier.length > 1 && (
-          <path
-            d={frontierPath}
-            fill="none"
-            stroke="var(--foreground)"
-            strokeOpacity="0.32"
-            strokeWidth="1.2"
-            strokeDasharray="4 4"
-          />
+          <g fill="none" strokeLinecap="round">
+            <path
+              d={frontierPath}
+              stroke="url(#pareto-frontier-stroke)"
+              strokeOpacity="0.28"
+              strokeWidth="5"
+            />
+            <path
+              d={frontierPath}
+              stroke="url(#pareto-frontier-stroke)"
+              strokeOpacity="0.85"
+              strokeWidth="1.6"
+            />
+          </g>
         )}
 
         {points.map((p) => {
           const active = p.site.id === highlightId
-          const isHover = p.site.id === hover
-          const showLabel =
-            active ||
-            p.onFrontier ||
-            (p.metrics.sunlightPct > xMax - (xMax - xMin) * 0.18 &&
-              p.metrics.earthPct > yMax - (yMax - yMin) * 0.2)
+          const lit = p.site.id === activeId
+          const showLabel = active || p.onFrontier
           return (
             <g
               key={p.site.id}
               onMouseEnter={() => setHover(p.site.id)}
               onMouseLeave={() => setHover(null)}
+              onFocus={() => setFocus(p.site.id)}
+              onBlur={() => setFocus(null)}
               onClick={() => onSelect(p.site.id)}
-              className="cursor-pointer"
+              className="cursor-pointer outline-none [&:focus-visible_.focus-ring]:opacity-100"
               tabIndex={0}
               role="button"
               aria-label={`${p.site.name}: ${fmtPct(p.metrics.sunlightPct)} sunlight, ${fmtPct(
                 p.metrics.earthPct,
-              )} Earth visibility`}
+              )} Earth visibility${p.onFrontier ? ', on the frontier' : ''}`}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') onSelect(p.site.id)
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onSelect(p.site.id)
+                }
               }}
             >
               <circle
                 cx={x(p.metrics.sunlightPct)}
                 cy={y(p.metrics.earthPct)}
-                r={p.onFrontier || active ? 13 : 10}
+                r={p.onFrontier || active ? 14 : 11}
                 fill="transparent"
               />
+              <circle
+                className="focus-ring"
+                cx={x(p.metrics.sunlightPct)}
+                cy={y(p.metrics.earthPct)}
+                r={12.5}
+                fill="none"
+                stroke="var(--ring)"
+                strokeWidth="1.6"
+                opacity="0"
+              />
+              {active && (
+                <circle
+                  cx={x(p.metrics.sunlightPct)}
+                  cy={y(p.metrics.earthPct)}
+                  r={11.5}
+                  fill={p.site.color}
+                  opacity="0.16"
+                />
+              )}
               {p.onFrontier && (
                 <circle
                   cx={x(p.metrics.sunlightPct)}
                   cy={y(p.metrics.earthPct)}
-                  r={active ? 9 : 7.5}
+                  r={active ? 9.5 : 8.5}
                   fill="none"
                   stroke="var(--foreground)"
-                  strokeOpacity="0.35"
-                  strokeWidth="1"
+                  strokeOpacity={active ? 0.7 : 0.4}
+                  strokeWidth={active ? 1.5 : 1.1}
                 />
               )}
               <circle
                 cx={x(p.metrics.sunlightPct)}
                 cy={y(p.metrics.earthPct)}
-                r={active || isHover ? 6.5 : 5.2}
+                r={active || lit ? 6 : 5}
                 fill={p.site.color}
                 stroke="var(--card)"
                 strokeWidth="2"
+                style={{ transition: 'r 180ms ease' }}
               />
               {showLabel && (
                 <text
                   x={x(p.metrics.sunlightPct)}
-                  y={y(p.metrics.earthPct) - 12}
+                  y={y(p.metrics.earthPct) - 14}
                   textAnchor="middle"
-                  fontSize="10"
+                  fontSize="11"
                   fontWeight={active ? 650 : 500}
                   fill={active ? 'var(--foreground)' : 'var(--muted-foreground)'}
                 >
@@ -207,18 +242,20 @@ export function ParetoPlot({
 
         <text
           x={PAD.l + PW / 2}
-          y={H - 7}
+          y={H - 8}
           textAnchor="middle"
-          fontSize="10.5"
+          fontSize="12"
           fill="var(--muted-foreground)"
+          letterSpacing="0.02em"
         >
           Sun visible over mission window (%)
         </text>
         <text
-          transform={`translate(14 ${PAD.t + PH / 2}) rotate(-90)`}
+          transform={`translate(16 ${PAD.t + PH / 2}) rotate(-90)`}
           textAnchor="middle"
-          fontSize="10.5"
+          fontSize="12"
           fill="var(--muted-foreground)"
+          letterSpacing="0.02em"
         >
           Earth visible (%)
         </text>
@@ -227,37 +264,38 @@ export function ParetoPlot({
           <g pointerEvents="none">
             <rect
               x={Math.min(
-                x(hovered.metrics.sunlightPct) + 10,
-                PAD.l + PW - 156,
+                x(hovered.metrics.sunlightPct) + 12,
+                PAD.l + PW - 158,
               )}
-              y={Math.max(4, y(hovered.metrics.earthPct) - 54)}
-              width="150"
-              height="46"
-              rx="7"
+              y={Math.max(4, y(hovered.metrics.earthPct) - 56)}
+              width="152"
+              height="48"
+              rx="8"
               fill="var(--popover)"
               stroke="var(--border)"
             />
             <text
               x={
-                Math.min(x(hovered.metrics.sunlightPct) + 20, PAD.l + PW - 146)
+                Math.min(x(hovered.metrics.sunlightPct) + 22, PAD.l + PW - 148)
               }
-              y={Math.max(4, y(hovered.metrics.earthPct) - 54) + 17}
-              fontSize="9.5"
+              y={Math.max(4, y(hovered.metrics.earthPct) - 56) + 18}
+              fontSize="10"
               fontWeight="600"
               fill="var(--popover-foreground)"
             >
               {hovered.site.shortName}
+              {hovered.onFrontier ? ' · ringed' : ''}
             </text>
             <text
               x={
-                Math.min(x(hovered.metrics.sunlightPct) + 20, PAD.l + PW - 146)
+                Math.min(x(hovered.metrics.sunlightPct) + 22, PAD.l + PW - 148)
               }
-              y={Math.max(4, y(hovered.metrics.earthPct) - 54) + 32}
-              fontSize="8.5"
+              y={Math.max(4, y(hovered.metrics.earthPct) - 56) + 33}
+              fontSize="9"
               fill="var(--muted-foreground)"
               fontFamily="var(--font-mono)"
             >
-              ☀ {fmtPct(hovered.metrics.sunlightPct)} · ◉{' '}
+              Sun {fmtPct(hovered.metrics.sunlightPct)} · Earth{' '}
               {fmtPct(hovered.metrics.earthPct)}
             </text>
           </g>

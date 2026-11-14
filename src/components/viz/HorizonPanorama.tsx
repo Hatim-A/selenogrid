@@ -105,12 +105,14 @@ export function HorizonPanorama({
     >
       <defs>
         <linearGradient id={groundId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={site.color} stopOpacity="0.34" />
-          <stop offset="100%" stopColor={site.color} stopOpacity="0.03" />
+          <stop offset="0%" stopColor={site.color} stopOpacity="0.32" />
+          <stop offset="45%" stopColor={site.color} stopOpacity="0.1" />
+          <stop offset="100%" stopColor={site.color} stopOpacity="0.02" />
         </linearGradient>
         <linearGradient id={skyId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--earth)" stopOpacity="0.035" />
-          <stop offset="100%" stopColor="var(--earth)" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--earth)" stopOpacity="0.1" />
+          <stop offset="55%" stopColor="var(--earth)" stopOpacity="0.025" />
+          <stop offset="100%" stopColor="var(--sun)" stopOpacity="0.07" />
         </linearGradient>
       </defs>
 
@@ -119,10 +121,20 @@ export function HorizonPanorama({
         y={PAD.t}
         width={PLOT_W}
         height={PLOT_H}
-        rx="6"
+        rx="8"
         fill="var(--background)"
       />
-      <rect x={PAD.l} y={PAD.t} width={PLOT_W} height={PLOT_H} rx="6" fill={`url(#${skyId})`} />
+      <rect x={PAD.l} y={PAD.t} width={PLOT_W} height={PLOT_H} rx="8" fill={`url(#${skyId})`} />
+      <rect
+        x={PAD.l}
+        y={PAD.t}
+        width={PLOT_W}
+        height={PLOT_H}
+        rx="8"
+        fill="none"
+        stroke="var(--border)"
+        strokeOpacity="0.55"
+      />
 
       {[0, 10, 20].map((el) => (
         <g key={el}>
@@ -131,16 +143,19 @@ export function HorizonPanorama({
             x2={W - PAD.r}
             y1={yFor(el)}
             y2={yFor(el)}
-            stroke="var(--border)"
-            strokeDasharray={el === 0 ? '3 4' : '2 6'}
+            stroke="var(--grid-line)"
+            strokeWidth={el === 0 ? 1.1 : 1}
+            strokeDasharray={el === 0 ? '4 3' : '1 4'}
           />
           <text
             x={PAD.l - 5}
             y={yFor(el) + 3}
             textAnchor="end"
-            fontSize="8"
+            fontSize="7.5"
             fill="var(--muted-foreground)"
+            fillOpacity="0.85"
             fontFamily="var(--font-mono)"
+            style={{ letterSpacing: '0.06em' }}
           >
             {el}°
           </text>
@@ -152,9 +167,10 @@ export function HorizonPanorama({
           d={sunTrack}
           fill="none"
           stroke="var(--sun)"
-          strokeWidth="1"
-          strokeOpacity="0.3"
-          strokeDasharray="3 3"
+          strokeWidth="1.2"
+          strokeOpacity="0.42"
+          strokeDasharray="2 4"
+          strokeLinecap="round"
         />
       )}
       {earthTrack && (
@@ -162,14 +178,17 @@ export function HorizonPanorama({
           d={earthTrack}
           fill="none"
           stroke="var(--earth)"
-          strokeWidth="1"
-          strokeOpacity="0.3"
-          strokeDasharray="3 3"
+          strokeWidth="1.2"
+          strokeOpacity="0.4"
+          strokeDasharray="2 4"
+          strokeLinecap="round"
         />
       )}
 
       <path d={area} fill={`url(#${groundId})`} />
-      <path d={line} fill="none" stroke={site.color} strokeOpacity="0.9" strokeWidth="1.4" />
+      {/* soft underglow for the ridgeline */}
+      <path d={line} fill="none" stroke={site.color} strokeOpacity="0.16" strokeWidth="4" strokeLinejoin="round" />
+      <path d={line} fill="none" stroke={site.color} strokeOpacity="0.9" strokeWidth="1.4" strokeLinejoin="round" />
 
       {interactive && (
         <rect
@@ -202,60 +221,64 @@ export function HorizonPanorama({
             y1={PAD.t}
             y2={H - PAD.b}
             stroke="var(--foreground)"
-            strokeOpacity="0.24"
+            strokeOpacity="0.28"
             strokeDasharray="2 3"
           />
           <circle
             cx={hoverX}
             cy={hoverY}
-            r="2.8"
+            r="3"
             fill="var(--foreground)"
             stroke="var(--background)"
-            strokeWidth="1"
+            strokeWidth="1.2"
           />
           <rect
             x={PAD.l + 4}
             y={PAD.t + 3}
-            width="250"
-            height="18"
-            rx="5"
+            width="268"
+            height="20"
+            rx="6"
             fill="var(--card)"
-            fillOpacity="0.92"
+            fillOpacity="0.94"
             stroke="var(--border)"
           />
           <text
-            x={PAD.l + 10}
-            y={PAD.t + 15}
+            x={PAD.l + 12}
+            y={PAD.t + 16}
             fontSize="8.5"
             fill="var(--foreground)"
             fontFamily="var(--font-mono)"
+            style={{ letterSpacing: '0.04em' }}
           >
-            Az {hover.az.toFixed(1)}° · ridge {signed(hover.horizon)}° ·{' '}
-            {hover.distKm > 0 ? `${hover.distKm.toFixed(1)} km away` : 'local terrain'}
+            AZ {hover.az.toFixed(1)}° · RIDGE {signed(hover.horizon)}° ·{' '}
+            {hover.distKm > 0 ? `${hover.distKm.toFixed(1)} KM` : 'LOCAL TERRAIN'}
           </text>
         </g>
       )}
 
       {/* Sun marker */}
       <g opacity={sunVisible ? 1 : 0.4} pointerEvents="none">
-        <circle cx={sunX} cy={sunY} r="11" fill="var(--sun)" opacity="0.13" />
+        <circle cx={sunX} cy={sunY} r="13" fill="var(--sun)" opacity="0.1" />
+        <circle cx={sunX} cy={sunY} r="7.5" fill="var(--sun)" opacity="0.22" />
         <circle
           cx={sunX}
           cy={sunY}
           r="4.6"
           fill="var(--sun)"
-          stroke={sunVisible ? 'none' : 'var(--background)'}
+          stroke={sunVisible ? 'var(--sun)' : 'var(--background)'}
           strokeWidth="1"
           strokeDasharray={sunVisible ? undefined : '1.5 1.5'}
         />
+        <circle cx={sunX} cy={sunY} r="4.6" fill="none" stroke="var(--background)" strokeOpacity="0.35" strokeWidth="0.6" />
         <text
           x={sunX}
-          y={Math.max(10, sunY - 9)}
+          y={Math.max(10, sunY - 11)}
           textAnchor="middle"
-          fontSize="9"
+          fontSize="8.5"
           fontWeight="600"
           fill="var(--sun)"
-          style={{ letterSpacing: '0.04em' }}
+          fontFamily="var(--font-mono)"
+          style={{ letterSpacing: '0.14em' }}
         >
           SUN
         </text>
@@ -263,24 +286,27 @@ export function HorizonPanorama({
 
       {/* Earth marker */}
       <g opacity={earthVisible ? 1 : 0.4} pointerEvents="none">
+        <circle cx={earthX} cy={earthY} r="9" fill="var(--earth)" opacity="0.12" />
         <circle
           cx={earthX}
           cy={earthY}
           r="5.5"
           fill="none"
           stroke="var(--earth)"
-          strokeWidth="0.8"
+          strokeWidth="0.9"
+          strokeOpacity="0.8"
           strokeDasharray={earthVisible ? undefined : '1.5 1.5'}
         />
         <circle cx={earthX} cy={earthY} r="3" fill="var(--earth)" />
         <text
           x={earthX}
-          y={Math.min(H - PAD.b - 6, earthY + 14)}
+          y={Math.min(H - PAD.b - 6, earthY + 15)}
           textAnchor="middle"
-          fontSize="8"
+          fontSize="7.5"
           fontWeight="600"
           fill="var(--earth)"
-          style={{ letterSpacing: '0.04em' }}
+          fontFamily="var(--font-mono)"
+          style={{ letterSpacing: '0.14em' }}
         >
           EARTH
         </text>
@@ -297,9 +323,11 @@ export function HorizonPanorama({
           x={xFor(az as number)}
           y={H - 5}
           textAnchor="middle"
-          fontSize="8.5"
+          fontSize="8"
           fill="var(--muted-foreground)"
+          fillOpacity="0.8"
           fontFamily="var(--font-mono)"
+          style={{ letterSpacing: '0.14em' }}
         >
           {label}
         </text>
@@ -307,12 +335,13 @@ export function HorizonPanorama({
 
       {timeLabel && (
         <text
-          x={W - PAD.r - 4}
-          y={PAD.t + 11}
+          x={W - PAD.r - 6}
+          y={PAD.t + 12}
           textAnchor="end"
-          fontSize="8.5"
+          fontSize="8"
           fill="var(--muted-foreground)"
           fontFamily="var(--font-mono)"
+          style={{ letterSpacing: '0.1em', textTransform: 'uppercase' }}
         >
           {timeLabel}
         </text>

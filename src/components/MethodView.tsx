@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Reveal } from '@/components/ui/Reveal'
 
 const STEPS = [
   {
@@ -163,246 +164,371 @@ function VisibilityDiagram() {
 
 export function MethodView({ onCompare }: { onCompare: () => void }) {
   return (
-    <div className="space-y-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <Badge variant="outline" className="font-mono tracking-[0.12em]">
-            METHOD · DATA · LIMITS
-          </Badge>
-          <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.035em] sm:text-[32px]">
-            Every number is inspectable.
-          </h1>
-          <p className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-            SelenoGrid is a screening instrument, not a flight-certified landing analysis. The
-            pipeline is deliberately simple: real terrain, standard ephemerides, an explicit
-            visibility rule, and a decision model you can reweight.
-          </p>
-        </div>
-        <Button size="sm" onClick={onCompare}>
-          Back to comparison
-          <ArrowUpRight />
-        </Button>
-      </div>
-
-      <div className="grid gap-2 rounded-2xl border border-border bg-card/55 p-4 sm:grid-cols-[130px_1fr] sm:gap-4">
-        <div className="font-mono text-[9.5px] tracking-[0.12em] text-muted-foreground uppercase">
-          The question
-        </div>
-        <p className="max-w-3xl text-[12px] leading-relaxed text-muted-foreground">
-          For a chosen date and mission length, when are the Sun and Earth above each site&apos;s own
-          terrain horizon? SelenoGrid turns those windows into four criteria and ranks the sites. It
-          does not model power systems, thermal behavior, or communications link budgets.
-        </p>
-      </div>
-
-      <section className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {STEPS.map((step, i) => {
-          const Icon = step.icon
-          return (
-            <div key={step.title} className="rounded-xl border border-border bg-card/55 p-4">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex size-7 items-center justify-center rounded-lg bg-secondary">
-                  <Icon className="size-3.5" />
-                </span>
-                <span className="font-mono text-[9px] text-muted-foreground">0{i + 1}</span>
-              </div>
-              <div className="mt-3 text-[12px] font-semibold">{step.title}</div>
-              <p className="mt-1 text-[10.5px] leading-relaxed text-muted-foreground">{step.body}</p>
-            </div>
-          )
-        })}
-      </section>
-
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-        <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-          <div className="flex items-center gap-2">
-            <Sun className="size-4 text-sun" />
-            <h2 className="text-[14px] font-semibold">The visibility rule</h2>
-            <Badge variant="outline" className="font-mono">
-              upper limb
-            </Badge>
+    <div className="mx-auto w-full max-w-4xl space-y-8 sm:space-y-10">
+      <Reveal>
+        <header className="flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0 max-w-2xl">
+            <p className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+              Method · Data · Limits
+            </p>
+            <h1 className="font-display mt-2 max-w-xl text-[32px] leading-[1.02] tracking-[-0.02em] text-balance sm:text-[44px]">
+              Every number is inspectable.
+            </h1>
+            <p className="mt-3 max-w-xl text-[13.5px] leading-relaxed text-pretty text-muted-foreground">
+              SelenoGrid is a screening instrument, not a flight-certified landing
+              analysis. The pipeline is deliberately simple: real terrain, standard
+              ephemerides, an explicit visibility rule, and a decision model you can
+              reweight.
+            </p>
           </div>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
-            A body counts as visible when any part of its disk clears the local terrain horizon.
-            This is deliberately inclusive for communication and conservative for power: a one-pixel
-            solar sliver counts as sunlight, while the flux proxy still collapses toward zero.
-          </p>
-          <div className="mt-3 rounded-xl border border-border/60 bg-background/30 p-2">
-            <VisibilityDiagram />
-          </div>
-          <div className="mt-3 rounded-lg border border-border/70 bg-background/40 px-3 py-2 font-mono text-[10px] text-muted-foreground">
-            visible(az, el) = el + asin(R_body / d) − horizon(az) &gt; 0
-          </div>
-        </section>
-
-        <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-          <div className="flex items-center gap-2">
-            <Radio className="size-4 text-earth" />
-            <h2 className="text-[14px] font-semibold">What we compute</h2>
-          </div>
-          <div className="mt-2 divide-y divide-border/60">
-            {METRICS.map(([name, body]) => (
-              <div key={name} className="py-2">
-                <div className="text-[11.5px] font-medium">{name}</div>
-                <div className="mt-0.5 text-[10px] leading-relaxed text-muted-foreground">{body}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-        <div className="flex flex-wrap items-center gap-2">
-          <Sigma className="size-4 text-terrain" />
-          <h2 className="text-[14px] font-semibold">Decision layer: TOPSIS + Pareto</h2>
-          <Badge variant="terrain" className="font-mono">
-            explainable MCDA
-          </Badge>
-        </div>
-        <p className="mt-1.5 max-w-3xl text-[11px] leading-relaxed text-muted-foreground">
-          We use four criteria: sunlight %, Earth visibility %, mean solar flux, and local slope.
-          The first three are benefits; slope is a cost. TOPSIS rewards similarity to the ideal
-          point and distance from the anti-ideal. Scores are relative to the current comparison set.
-        </p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ['1 · normalise', 'rᵢⱼ = xᵢⱼ / √(Σ xᵢⱼ²)'],
-            ['2 · weight', 'vᵢⱼ = wⱼ · rᵢⱼ'],
-            ['3 · ideal points', 'A⁺ = max benefit, min cost'],
-            ['4 · closeness', 'Cᵢ = Dᵢ⁻ / (Dᵢ⁺ + Dᵢ⁻)'],
-          ].map(([title, formula]) => (
-            <div key={title} className="rounded-lg border border-border/70 bg-background/35 p-2.5">
-              <div className="font-mono text-[9px] tracking-wide text-muted-foreground uppercase">
-                {title}
-              </div>
-              <div className="mt-1.5 font-mono text-[11px]">{formula}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-[10px] text-muted-foreground">
-          <span className="inline-flex items-center gap-1">
-            <GitBranch className="size-3" />
-            Pareto frontier: sites not dominated on sunlight and Earth visibility simultaneously.
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <ShieldCheck className="size-3" />
-            Weights normalised to 100%; presets are starting points, not recommendations.
-          </span>
-        </div>
-      </section>
-
-      <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
-        <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="size-4 text-success" />
-              <h2 className="text-[14px] font-semibold">Validation against JPL Horizons</h2>
-            </div>
-            <Badge variant="success" className="font-mono">
-              Shackleton · ephemeris check
-            </Badge>
-          </div>
-          <div className="mt-2 overflow-x-auto">
-            <table className="w-full min-w-[420px] text-left text-[10.5px]">
-              <thead>
-                <tr className="border-b border-border font-mono text-[9px] tracking-wide text-muted-foreground uppercase">
-                  <th className="py-1.5 font-medium">Quantity</th>
-                  <th className="py-1.5 text-right font-medium">SelenoGrid</th>
-                  <th className="py-1.5 text-right font-medium">Horizons</th>
-                  <th className="py-1.5 text-right font-medium">Δ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {VALIDATION.map(([name, ours, ref, delta]) => (
-                  <tr key={name} className="border-b border-border/50 last:border-0">
-                    <td className="py-1.5">{name}</td>
-                    <td className="tabular py-1.5 text-right font-mono">{ours}</td>
-                    <td className="tabular py-1.5 text-right font-mono text-muted-foreground">{ref}</td>
-                    <td className="tabular py-1.5 text-right font-mono text-success">{delta}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-2 text-[9.5px] leading-relaxed text-muted-foreground">
-            Directions agree to ~0.02°, well inside the terrain and DEM error budget. The Earth
-            diameter difference is dominated by the adopted Earth radius and lunar distance, not
-            pointing.
-          </p>
-        </section>
-
-        <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="size-4 text-sun" />
-            <h2 className="text-[14px] font-semibold">Limits we will not hide</h2>
-          </div>
-          <ul className="mt-2 space-y-1.5 text-[10.5px] leading-relaxed text-muted-foreground">
-            {[
-              'Representative points, not official landing ellipses or hazard maps.',
-              'No thermal, power-system, delta-v, communications-link-budget or human-factors model.',
-              'Hard shadows and an airless Moon; no terrain reflectance or secondary scattering.',
-              'The 20 m DEM limits sub-resolution slopes and small boulders.',
-              'Custom pins are sampled from a 640 m browser grid; they are fast screening points, not 20 m analyses.',
-              'Sunlight percentage counts any visible solar limb; use the flux proxy for power intuition.',
-              'Earth–Sun radio interference and ground-station scheduling are not modelled.',
-              'The terrain horizon is marched to 220 km; distant massifs beyond that are not included.',
-              'Scenario windows are sampled (1/3/6 h); event times are refined separately.',
-            ].map((item) => (
-              <li key={item} className="flex gap-1.5">
-                <span className="mt-[5px] size-1 shrink-0 rounded-full bg-muted-foreground/60" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Database className="size-4 text-earth" />
-            <h2 className="text-[14px] font-semibold">Data & sources</h2>
-          </div>
-          <Button variant="outline" size="sm" asChild>
-            <a href={`${import.meta.env.BASE_URL}data/sites.json`} download>
-              Download site data
-            </a>
+          <Button size="sm" onClick={onCompare} className="shrink-0">
+            Back to comparison
+            <ArrowUpRight aria-hidden />
           </Button>
+        </header>
+      </Reveal>
+
+      <Reveal>
+        <section
+          aria-label="The question"
+          className="grid gap-3 rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)] sm:grid-cols-[140px_1fr] sm:gap-5 sm:p-6"
+        >
+          <p className="font-mono text-[10px] font-medium tracking-[0.16em] text-muted-foreground uppercase sm:pt-1">
+            The question
+          </p>
+          <p className="max-w-prose text-[13px] leading-relaxed text-pretty text-foreground/85">
+            For a chosen date and mission length, when are the Sun and Earth above
+            each site&apos;s own terrain horizon? SelenoGrid turns those windows
+            into four criteria and ranks the sites. It does not model power systems,
+            thermal behavior, or communications link budgets.
+          </p>
+        </section>
+      </Reveal>
+
+      <section aria-label="Pipeline">
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+            01 — Pipeline
+          </h2>
+          <span className="hidden font-mono text-[9px] text-muted-foreground/70 sm:inline">
+            Four moves, no black boxes
+          </span>
         </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {SOURCES.map((source) => (
-            <a
-              key={source.title}
-              href={source.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group rounded-lg border border-border/70 bg-background/30 p-3 transition hover:border-foreground/20"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <span className="text-[11px] font-medium">{source.title}</span>
-                <ArrowUpRight className="size-3 shrink-0 text-muted-foreground transition group-hover:text-foreground" />
-              </div>
-              <p className="mt-1 text-[9.5px] leading-relaxed text-muted-foreground">{source.detail}</p>
-            </a>
-          ))}
-        </div>
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 pt-2.5 text-[9px] text-muted-foreground">
-          <span>LOLA 20 m DEM · PDS Geosciences</span>
-          <span>IAU 2009 lunar orientation</span>
-          <span>Meeus ch. 25 / 47</span>
-          <span>TOPSIS after Hwang & Yoon</span>
-          <span>Peña-Asensio et al. 2024</span>
-          <span>NASA SVS CGI Moon Kit</span>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {STEPS.map((step, i) => {
+            const Icon = step.icon
+            return (
+              <Reveal key={step.title} delay={i * 60}>
+                <div className="h-full rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)] transition-colors duration-150 hover:border-foreground/20 motion-reduce:transition-none">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex size-8 items-center justify-center rounded-xl border border-border/70 bg-secondary/60">
+                      <Icon className="size-3.5" aria-hidden />
+                    </span>
+                    <span className="tabular font-mono text-[10px] text-muted-foreground">
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <h3 className="mt-3 text-[12.5px] font-semibold tracking-[-0.01em]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                    {step.body}
+                  </p>
+                </div>
+              </Reveal>
+            )
+          })}
         </div>
       </section>
 
-      <div className="rounded-xl border border-dashed border-border px-4 py-3 text-[9.5px] leading-relaxed text-muted-foreground">
-        <strong className="font-medium text-foreground/80">Not affiliated with NASA.</strong> NASA
-        candidate region names are used for context. All site coordinates are representative points
-        selected from LOLA topography for comparison. NASA has not published official region centres
-        or landing ellipses. This tool is not a flight-certified analysis and must not be used for
-        actual mission planning.
-      </div>
+      <section aria-label="Visibility and metrics">
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+            02 — Visibility rule &amp; metrics
+          </h2>
+        </div>
+        <div className="grid items-start gap-4 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal>
+            <div className="h-full rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)]">
+              <div className="flex flex-wrap items-center gap-2">
+                <Sun className="size-4 text-sun" aria-hidden />
+                <h3 className="text-[14px] font-semibold tracking-[-0.01em]">
+                  The visibility rule
+                </h3>
+                <Badge variant="outline" className="font-mono">
+                  upper limb
+                </Badge>
+              </div>
+              <p className="mt-2 max-w-prose text-[11.5px] leading-relaxed text-muted-foreground">
+                A body counts as visible when any part of its disk clears the local
+                terrain horizon. This is deliberately inclusive for communication
+                and conservative for power: a one-pixel solar sliver counts as
+                sunlight, while the flux proxy still collapses toward zero.
+              </p>
+              <div className="mt-4 rounded-xl border border-border/60 bg-background/30 p-2">
+                <VisibilityDiagram />
+              </div>
+              <div className="tabular mt-3 overflow-x-auto rounded-lg border border-border/70 bg-background/40 px-3 py-2 font-mono text-[10px] whitespace-nowrap text-muted-foreground">
+                visible(az, el) = el + asin(R_body / d) − horizon(az) &gt; 0
+              </div>
+              <details className="group mt-3 rounded-xl border border-dashed border-border px-3.5 py-2.5">
+                <summary className="cursor-pointer list-none text-[11px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+                  How the horizon is sampled
+                  <span className="ml-2 font-mono text-[9px] text-muted-foreground group-open:hidden">
+                    +
+                  </span>
+                  <span className="ml-2 hidden font-mono text-[9px] text-muted-foreground group-open:inline">
+                    −
+                  </span>
+                </summary>
+                <p className="mt-1.5 text-[10.5px] leading-relaxed text-muted-foreground">
+                  1,440 azimuth bins at 0.25° steps, ray-marched to 220 km with exact
+                  lunar curvature and bilinear DEM sampling. Scenario windows are
+                  sampled at 1–6 h steps; event times are refined separately by
+                  bisection.
+                </p>
+              </details>
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <div className="h-full rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)]">
+              <div className="flex items-center gap-2">
+                <Radio className="size-4 text-earth" aria-hidden />
+                <h3 className="text-[14px] font-semibold tracking-[-0.01em]">
+                  What we compute
+                </h3>
+              </div>
+              <dl className="mt-2 divide-y divide-border/60">
+                {METRICS.map(([name, body]) => (
+                  <div key={name} className="py-2.5">
+                    <dt className="text-[12px] font-medium">{name}</dt>
+                    <dd className="mt-0.5 max-w-prose text-[10.5px] leading-relaxed text-muted-foreground">
+                      {body}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <Reveal>
+        <section
+          aria-label="Decision layer"
+          className="rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)] sm:p-6"
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            <Sigma className="size-4 text-terrain" aria-hidden />
+            <h2 className="text-[14px] font-semibold tracking-[-0.01em]">
+              Decision layer: TOPSIS + Pareto
+            </h2>
+            <Badge variant="terrain" className="font-mono">
+              explainable MCDA
+            </Badge>
+          </div>
+          <p className="mt-2 max-w-3xl text-[11.5px] leading-relaxed text-muted-foreground">
+            We use four criteria: sunlight %, Earth visibility %, mean solar flux,
+            and local slope. The first three are benefits; slope is a cost. TOPSIS
+            rewards similarity to the ideal point and distance from the anti-ideal.
+            Scores are relative to the current comparison set.
+          </p>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['1 · normalise', 'rᵢⱼ = xᵢⱼ / √(Σ xᵢⱼ²)'],
+              ['2 · weight', 'vᵢⱼ = wⱼ · rᵢⱼ'],
+              ['3 · ideal points', 'A⁺ = max benefit, min cost'],
+              ['4 · closeness', 'Cᵢ = Dᵢ⁻ / (Dᵢ⁺ + Dᵢ⁻)'],
+            ].map(([title, formula]) => (
+              <div
+                key={title}
+                className="rounded-xl border border-border/70 bg-background/35 p-3"
+              >
+                <p className="font-mono text-[9px] tracking-[0.08em] text-muted-foreground uppercase">
+                  {title}
+                </p>
+                <p className="tabular mt-1.5 font-mono text-[11.5px]">{formula}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/60 pt-3 text-[10.5px] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <GitBranch className="size-3.5" aria-hidden />
+              Pareto frontier: sites not dominated on sunlight and Earth visibility
+              simultaneously.
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="size-3.5" aria-hidden />
+              Weights normalised to 100%; presets are starting points, not
+              recommendations.
+            </span>
+          </div>
+        </section>
+      </Reveal>
+
+      <section aria-label="Validation and limits">
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+            03 — Trust &amp; limits
+          </h2>
+        </div>
+        <div className="grid items-start gap-4 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal>
+            <div className="h-full rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)]">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-success" aria-hidden />
+                  <h3 className="text-[14px] font-semibold tracking-[-0.01em]">
+                    Validation against JPL Horizons
+                  </h3>
+                </div>
+                <Badge variant="success" className="font-mono">
+                  Shackleton · ephemeris check
+                </Badge>
+              </div>
+              <div className="mt-3 overflow-x-auto">
+                <table className="w-full min-w-[420px] text-left text-[11px]">
+                  <thead>
+                    <tr className="border-b border-border font-mono text-[9px] tracking-[0.08em] text-muted-foreground uppercase">
+                      <th scope="col" className="py-2 pr-2 font-medium">
+                        Quantity
+                      </th>
+                      <th scope="col" className="py-2 pr-2 text-right font-medium">
+                        SelenoGrid
+                      </th>
+                      <th scope="col" className="py-2 pr-2 text-right font-medium">
+                        Horizons
+                      </th>
+                      <th scope="col" className="py-2 text-right font-medium">
+                        Δ
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {VALIDATION.map(([name, ours, ref, delta]) => (
+                      <tr key={name} className="border-b border-border/50 last:border-0">
+                        <th scope="row" className="py-2 pr-2 font-normal">
+                          {name}
+                        </th>
+                        <td className="tabular py-2 pr-2 text-right font-mono">{ours}</td>
+                        <td className="tabular py-2 pr-2 text-right font-mono text-muted-foreground">
+                          {ref}
+                        </td>
+                        <td className="py-2 text-right">
+                          <span className="tabular inline-block rounded-full bg-[var(--success-soft)] px-2 py-0.5 font-mono text-[10px] text-success">
+                            {delta}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2.5 max-w-prose text-[10px] leading-relaxed text-muted-foreground">
+                Directions agree to ~0.02°, well inside the terrain and DEM error
+                budget. The Earth diameter difference is dominated by the adopted
+                Earth radius and lunar distance, not pointing.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <div className="h-full rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)]">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="size-4 text-sun" aria-hidden />
+                <h3 className="text-[14px] font-semibold tracking-[-0.01em]">
+                  Limits we will not hide
+                </h3>
+              </div>
+              <ul className="mt-3 space-y-2 text-[11px] leading-relaxed text-muted-foreground">
+                {[
+                  'Representative points, not official landing ellipses or hazard maps.',
+                  'No thermal, power-system, delta-v, communications link-budget or human-factors model.',
+                  'Hard shadows and an airless Moon; no terrain reflectance or secondary scattering.',
+                  'The 20 m DEM limits sub-resolution slopes and small boulders.',
+                  'Custom pins are sampled from a 640 m browser grid; they are fast screening points, not 20 m analyses.',
+                  'Sunlight percentage counts any visible solar limb; use the flux proxy for power intuition.',
+                  'Earth–Sun radio interference and ground-station scheduling are not modelled.',
+                  'The terrain horizon is marched to 220 km; distant massifs beyond that are not included.',
+                  'Scenario windows are sampled (1/3/6 h); event times are refined separately.',
+                ].map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span
+                      aria-hidden
+                      className="mt-[7px] size-1 shrink-0 rounded-full bg-muted-foreground/60"
+                    />
+                    <span className="max-w-prose">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <Reveal>
+        <section
+          aria-label="Data and sources"
+          className="rounded-2xl border border-border bg-card/55 p-5 shadow-[var(--shadow-card)] sm:p-6"
+        >
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Database className="size-4 text-earth" aria-hidden />
+              <h2 className="text-[14px] font-semibold tracking-[-0.01em]">
+                Data &amp; sources
+              </h2>
+            </div>
+            <Button variant="outline" size="sm" asChild>
+              <a href={`${import.meta.env.BASE_URL}data/sites.json`} download>
+                Download site data
+              </a>
+            </Button>
+          </div>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {SOURCES.map((source) => (
+              <a
+                key={source.title}
+                href={source.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group rounded-xl border border-border/70 bg-background/30 p-3.5 transition-colors duration-150 outline-none hover:border-foreground/25 focus-visible:ring-2 focus-visible:ring-ring/50 motion-reduce:transition-none"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-[11.5px] font-medium tracking-[-0.01em]">
+                    {source.title}
+                  </span>
+                  <ArrowUpRight
+                    className="size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
+                    aria-hidden
+                  />
+                </div>
+                <p className="mt-1 text-[10px] leading-relaxed text-muted-foreground">
+                  {source.detail}
+                </p>
+              </a>
+            ))}
+          </div>
+          <div className="tabular mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 pt-3 font-mono text-[9px] tracking-wide text-muted-foreground">
+            <span>LOLA 20 m DEM · PDS Geosciences</span>
+            <span>IAU 2009 lunar orientation</span>
+            <span>Meeus ch. 25 / 47</span>
+            <span>TOPSIS after Hwang &amp; Yoon</span>
+            <span>Peña-Asensio et al. 2024</span>
+            <span>NASA SVS CGI Moon Kit</span>
+          </div>
+        </section>
+      </Reveal>
+
+      <p className="rounded-xl border border-dashed border-border px-4 py-3 text-[10px] leading-relaxed text-muted-foreground">
+        <strong className="font-medium text-foreground/80">
+          Not affiliated with NASA.
+        </strong>{' '}
+        NASA candidate region names are used for context. All site coordinates are
+        representative points selected from LOLA topography for comparison. NASA has
+        not published official region centres or landing ellipses. This tool is not
+        a flight-certified analysis and must not be used for actual mission planning.
+      </p>
     </div>
   )
 }

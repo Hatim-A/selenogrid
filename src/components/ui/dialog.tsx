@@ -14,7 +14,7 @@ function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        'fixed inset-0 z-50 bg-black/55 backdrop-blur-[6px] data-[state=open]:animate-fade-in',
+        'fixed inset-0 z-50 bg-black/55 backdrop-blur-[8px] backdrop-saturate-150 data-[state=open]:animate-fade-in',
         className,
       )}
       {...props}
@@ -30,19 +30,27 @@ function DialogContent({
   return (
     <DialogPrimitive.Portal>
       <DialogOverlay />
-      <DialogPrimitive.Content
-        className={cn(
-          'fixed top-1/2 left-1/2 z-50 flex max-h-[90vh] w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-3xl border border-border bg-popover text-popover-foreground shadow-[var(--shadow-float)] duration-200 data-[state=open]:animate-fade-up',
-          className,
-        )}
-        {...props}
-      >
-        {children}
-        <DialogPrimitive.Close className="absolute top-4 right-4 z-10 inline-flex size-8 items-center justify-center rounded-full bg-secondary/80 text-muted-foreground transition hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring">
-          <X className="size-4" />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
+      {/* Centering wrapper (instead of -translate-1/2 on the panel) so the
+          entrance animation never fights the centering transform. On mobile
+          this docks as a bottom sheet. Focus trap is kept: Radix traps focus
+          within DialogPrimitive.Content regardless of the wrapper. */}
+      <div className="pointer-events-none fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
+        <DialogPrimitive.Content
+          className={cn(
+            'pointer-events-auto relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border border-border bg-popover text-popover-foreground shadow-[var(--shadow-float)] outline-none data-[state=open]:animate-fade-up sm:max-h-[88vh] sm:max-w-2xl sm:rounded-3xl',
+            className,
+          )}
+          {...props}
+        >
+          {children}
+          <DialogPrimitive.Close
+            aria-label="Close dialog"
+            className="absolute top-4 right-4 z-10 inline-flex size-8 items-center justify-center rounded-full bg-secondary/80 text-muted-foreground transition outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <X className="size-3.5" />
+          </DialogPrimitive.Close>
+        </DialogPrimitive.Content>
+      </div>
     </DialogPrimitive.Portal>
   )
 }

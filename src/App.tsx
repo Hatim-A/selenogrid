@@ -102,6 +102,20 @@ function themeFromDom(): 'light' | 'dark' {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
 }
 
+/** True when animated scrolling is appropriate (honours reduced-motion). */
+function motionOK(): boolean {
+  return (
+    typeof window === 'undefined' ||
+    typeof window.matchMedia !== 'function' ||
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
+function scrollIntoViewCalm(element: HTMLElement | null) {
+  if (!element) return
+  element.scrollIntoView({ behavior: motionOK() ? 'smooth' : 'auto', block: 'start' })
+}
+
 export default function App() {
   const { data, error } = useSiteDataset()
   const [view, setView] = useState<View>(URL_STATE.view ?? 'compare')
@@ -256,6 +270,12 @@ export default function App() {
   return (
     <TooltipProvider delayDuration={160}>
       <div className="flex min-h-screen flex-col">
+        <a
+          href="#main-content"
+          className="sr-only z-[60] rounded-full border border-border bg-card px-4 py-2 text-[13px] font-medium text-foreground shadow-[var(--shadow-card)] focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          Skip to content
+        </a>
         <Header
           view={view}
           onView={handleView}
@@ -264,7 +284,7 @@ export default function App() {
           onGuide={() => setGuideOpen(true)}
         />
 
-        <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 sm:px-6">
+        <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-[1320px] flex-1 scroll-mt-20 px-4 outline-none sm:px-6">
           {view === 'compare' && (
             <Hero
               siteCount={allSites.length || 18}
@@ -274,11 +294,7 @@ export default function App() {
               theme={theme}
               onOpen={openDetail}
               onGuide={() => setGuideOpen(true)}
-              onCompare={() =>
-                document
-                  .getElementById('snapshot')
-                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }
+              onCompare={() => scrollIntoViewCalm(document.getElementById('snapshot'))}
             />
           )}
 
@@ -298,7 +314,7 @@ export default function App() {
             />
           )}
 
-          <div key={view} className="mt-4 animate-fade-up pb-6">
+          <div key={view} className="mt-4 animate-fade-up pb-6 [animation-duration:450ms]">
             {error ? (
               <ErrorPanel message={error} />
             ) : !data ? (
@@ -357,11 +373,11 @@ export default function App() {
       {showBackToTop && (
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: motionOK() ? 'smooth' : 'auto' })}
           aria-label="Back to top"
-          className="fixed right-4 bottom-4 z-40 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-[var(--shadow-card)] backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-secondary sm:right-6 sm:bottom-6"
+          className="fixed right-4 bottom-4 z-40 inline-flex size-10 animate-fade-in cursor-pointer items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-[var(--shadow-card)] backdrop-blur-md transition outline-none hover:-translate-y-0.5 hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 sm:right-6 sm:bottom-6"
         >
-          <ArrowUp className="size-4" />
+          <ArrowUp className="size-4" aria-hidden="true" />
         </button>
       )}
 
@@ -409,7 +425,7 @@ export default function App() {
           setMoonFocus(null)
           setView('compare')
           window.setTimeout(() => {
-            document.getElementById('scenario')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            scrollIntoViewCalm(document.getElementById('scenario'))
           }, 80)
         }}
         onMoon={() => {

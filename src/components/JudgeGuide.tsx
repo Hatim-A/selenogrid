@@ -81,8 +81,8 @@ export function JudgeGuide({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[calc(100dvh-4rem)] max-w-[880px] gap-0 p-0">
-        <DialogHeader className="shrink-0 gap-2 px-5 py-4 pr-14 sm:px-7 sm:py-5">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] max-w-[880px] gap-0 p-0 max-sm:top-auto max-sm:bottom-2 max-sm:max-h-[calc(100dvh-1rem)] max-sm:translate-y-0 max-sm:rounded-b-2xl">
+        <DialogHeader className="shrink-0 gap-2 px-5 py-5 pr-14 sm:px-7">
           <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="outline" className="font-mono tracking-[0.12em]">
               60-SECOND GUIDE
@@ -92,7 +92,7 @@ export function JudgeGuide({
               For judges &amp; first-time visitors
             </Badge>
           </div>
-          <DialogTitle className="mt-0.5 text-[21px] leading-tight tracking-[-0.03em] sm:text-[24px]">
+          <DialogTitle className="font-display mt-0.5 text-[22px] leading-[1.05] tracking-[-0.02em] text-balance sm:text-[26px]">
             From scenario to shortlist, in four moves.
           </DialogTitle>
           <DialogDescription className="max-w-[720px] text-[11.5px] leading-relaxed sm:text-[12.5px]">
@@ -103,14 +103,14 @@ export function JudgeGuide({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 sm:px-7">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7">
           <div className="grid gap-2 sm:grid-cols-2">
             {STEPS.map((step, index) => {
               const Icon = step.icon
               return (
                 <div
                   key={step.title}
-                  className="rounded-2xl border border-border bg-secondary/35 p-3.5"
+                  className="rounded-2xl border border-border bg-secondary/35 p-3.5 transition-colors duration-150 hover:border-foreground/20 motion-reduce:transition-none"
                 >
                   <div className="flex items-start gap-3">
                     <div className="relative flex size-9 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card shadow-sm">

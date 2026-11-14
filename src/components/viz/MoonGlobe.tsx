@@ -990,10 +990,12 @@ export function MoonGlobe({
   const focusedSite = focusId ? sites.find((site) => site.id === focusId) : undefined
 
   const controlButton = cn(
-    'inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 font-mono text-[8.5px] font-medium uppercase tracking-[0.08em] transition-colors',
+    'inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 font-mono text-[8.5px] font-medium tracking-[0.1em] uppercase transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-ring',
     dark ? 'text-white/60 hover:bg-white/10 hover:text-white' : 'text-foreground/55 hover:bg-black/[0.05] hover:text-foreground',
   )
-  const activeControl = dark ? 'bg-white/15 text-white' : 'bg-foreground/[0.08] text-foreground'
+  const activeControl = dark
+    ? 'bg-white/15 text-white ring-1 ring-white/20'
+    : 'bg-foreground/[0.08] text-foreground ring-1 ring-black/10'
 
   return (
     <div
@@ -1030,6 +1032,10 @@ export function MoonGlobe({
 
       <div
         aria-hidden
+        className="pointer-events-none absolute inset-0 z-[14] bg-[radial-gradient(120%_90%_at_50%_42%,transparent_58%,rgba(0,0,0,0.28)_100%)]"
+      />
+      <div
+        aria-hidden
         className={cn(
           'pointer-events-none absolute inset-x-0 top-0 z-[15] h-24 bg-gradient-to-b to-transparent',
           dark ? 'from-[#050608]/70 via-[#050608]/15' : 'from-[#f3f0ea]/80 via-[#f3f0ea]/20',
@@ -1044,29 +1050,37 @@ export function MoonGlobe({
       />
 
       <div className="pointer-events-none absolute left-4 top-4 z-20 select-none">
-        <div
+        <p
           className={cn(
-            'flex items-center gap-2 font-mono text-[9.5px] font-medium uppercase tracking-[0.16em]',
-            dark ? 'text-white/55' : 'text-foreground/50',
+            'flex items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.22em]',
+            dark ? 'text-white/60' : 'text-foreground/55',
           )}
         >
-          <span className="size-1.5 rounded-full bg-[var(--sun)]" />
+          <span className="size-1.5 rounded-full bg-[var(--sun)]" aria-hidden />
           South pole view
-        </div>
-        <div
+        </p>
+        <p
           className={cn(
-            'mt-1 font-mono text-[9px] tracking-wide',
+            'tabular mt-1.5 font-mono text-[9px] tracking-[0.08em]',
             dark ? 'text-white/32' : 'text-foreground/35',
           )}
         >
-          {sites.length} CURATED SITES
-        </div>
+          {sites.length} CURATED SITES · LOLA + LROC
+        </p>
+      </div>
+
+      {/* Hairline corner ticks */}
+      <div aria-hidden className="pointer-events-none absolute inset-3 z-20 hidden sm:block">
+        <span className={cn('absolute left-0 top-0 size-3 border-l border-t', dark ? 'border-white/20' : 'border-black/15')} />
+        <span className={cn('absolute right-0 top-0 size-3 border-r border-t', dark ? 'border-white/20' : 'border-black/15')} />
+        <span className={cn('absolute bottom-0 left-0 size-3 border-b border-l', dark ? 'border-white/20' : 'border-black/15')} />
+        <span className={cn('absolute bottom-0 right-0 size-3 border-b border-r', dark ? 'border-white/20' : 'border-black/15')} />
       </div>
 
       <div
         className={cn(
-          'absolute right-3 top-3 z-20 flex items-center gap-0.5 rounded-full border p-1 shadow-sm backdrop-blur-md',
-          dark ? 'border-white/10 bg-black/25' : 'border-black/[0.06] bg-white/55',
+          'absolute right-3 top-3 z-20 flex items-center gap-0.5 rounded-full border p-1 shadow-[0_8px_28px_-12px_rgba(0,0,0,0.5)] backdrop-blur-md',
+          dark ? 'border-white/10 bg-black/30' : 'border-black/[0.06] bg-white/60',
         )}
       >
         <button
@@ -1119,22 +1133,25 @@ export function MoonGlobe({
       {focusedSite && (
         <div
           className={cn(
-            'absolute bottom-11 left-4 z-20 flex items-center gap-2 rounded-full border px-2.5 py-1.5 shadow-lg backdrop-blur-md',
-            dark ? 'border-white/12 bg-black/45 text-white' : 'border-black/8 bg-white/80 text-foreground',
+            'absolute bottom-11 left-4 z-20 flex items-center gap-2 rounded-full border py-1.5 pl-2.5 pr-1.5 shadow-lg backdrop-blur-md',
+            dark ? 'border-white/12 bg-black/50 text-white' : 'border-black/8 bg-white/85 text-foreground',
           )}
         >
           <span
-            className="size-2 rounded-full"
+            className="size-2 shrink-0 rounded-full ring-1 ring-black/10 dark:ring-white/25"
             style={{ backgroundColor: focusedSite.color }}
           />
-          <span className="max-w-[170px] truncate text-[10px] font-medium">{focusedSite.shortName}</span>
-          <span className={cn('font-mono text-[7px] uppercase tracking-[0.1em]', dark ? 'text-white/35' : 'text-foreground/40')}>
-            focused
+          <span className="max-w-[170px] truncate text-[10.5px] font-medium tracking-[-0.01em]">{focusedSite.shortName}</span>
+          <span className={cn('font-mono text-[7.5px] uppercase tracking-[0.14em]', dark ? 'text-white/40' : 'text-foreground/45')}>
+            Focused
           </span>
           <button
             type="button"
             onClick={() => onOpen(focusedSite.id)}
-            className={cn('ml-1 text-[9px] font-medium underline-offset-2 hover:underline', dark ? 'text-white/65' : 'text-foreground/65')}
+            className={cn(
+              'rounded-full px-2 py-0.5 text-[9px] font-medium underline-offset-2 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none',
+              dark ? 'bg-white/10 text-white/75 hover:text-white' : 'bg-foreground/[0.06] text-foreground/70 hover:text-foreground',
+            )}
           >
             Open
           </button>
@@ -1143,19 +1160,19 @@ export function MoonGlobe({
 
       <div
         className={cn(
-          'pointer-events-none absolute bottom-3 left-4 z-20 select-none font-mono text-[9px] tracking-wide',
-          dark ? 'text-white/35' : 'text-foreground/40',
+          'pointer-events-none absolute bottom-3 left-4 z-20 select-none font-mono text-[9px] tracking-[0.06em]',
+          dark ? 'text-white/40' : 'text-foreground/45',
         )}
       >
         Drag to rotate · scroll to zoom
       </div>
       <div
         className={cn(
-          'pointer-events-none absolute bottom-3 right-4 z-20 hidden select-none font-mono text-[8px] tracking-wide sm:block',
-          dark ? 'text-white/25' : 'text-foreground/30',
+          'pointer-events-none absolute bottom-3 right-4 z-20 hidden select-none font-mono text-[8px] tracking-[0.08em] sm:block',
+          dark ? 'text-white/30' : 'text-foreground/35',
         )}
       >
-        NASA SVS · CGI Moon Kit 2K
+        NASA SVS · CGI MOON KIT · 2K
       </div>
 
       {loading && !renderFailed && (
@@ -1166,15 +1183,15 @@ export function MoonGlobe({
         >
           <div
             className={cn(
-              'flex items-center gap-2.5 rounded-full border px-3 py-1.5 font-mono text-[8.5px] tracking-wide backdrop-blur-md',
+              'flex items-center gap-2.5 rounded-full border px-3.5 py-2 font-mono text-[9px] tracking-[0.12em] uppercase backdrop-blur-md',
               dark
-                ? 'border-white/10 bg-black/35 text-white/65'
-                : 'border-black/[0.06] bg-white/70 text-foreground/60',
+                ? 'border-white/10 bg-black/40 text-white/65'
+                : 'border-black/[0.06] bg-white/75 text-foreground/60',
             )}
           >
             <span
               className={cn(
-                'size-3 animate-spin rounded-full border',
+                'size-3 animate-spin rounded-full border motion-reduce:animate-none',
                 dark ? 'border-white/20 border-t-white/80' : 'border-black/15 border-t-foreground/70',
               )}
             />
@@ -1184,16 +1201,16 @@ export function MoonGlobe({
       )}
 
       {textureFailed && !renderFailed && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-12 z-20 flex justify-center">
+        <div className="pointer-events-none absolute inset-x-0 bottom-12 z-20 flex justify-center px-4">
           <div
             className={cn(
-              'flex items-center gap-2 rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-wide backdrop-blur-md',
+              'flex items-center gap-2 rounded-full border px-2.5 py-1 font-mono text-[8px] tracking-[0.08em] uppercase backdrop-blur-md',
               dark
-                ? 'border-white/10 bg-black/40 text-white/60'
-                : 'border-black/[0.06] bg-white/75 text-foreground/60',
+                ? 'border-white/10 bg-black/45 text-white/60'
+                : 'border-black/[0.06] bg-white/80 text-foreground/60',
             )}
           >
-            <span className="size-1.5 rounded-full bg-[var(--sun)]" />
+            <span className="size-1.5 rounded-full bg-[var(--sun)]" aria-hidden />
             Basemap unavailable · schematic globe
           </div>
         </div>
@@ -1201,9 +1218,9 @@ export function MoonGlobe({
 
       {renderFailed && (
         <div className="absolute inset-0 z-20 grid place-items-center px-6 text-center">
-          <div>
-            <div className="text-[12px] font-medium">3D view unavailable</div>
-            <p className={cn('mt-1 max-w-xs text-[10px] leading-relaxed', dark ? 'text-white/50' : 'text-foreground/55')}>
+          <div className="max-w-xs rounded-2xl border border-border bg-card/80 p-5 backdrop-blur">
+            <p className="text-[12.5px] font-semibold tracking-[-0.01em]">3D view unavailable</p>
+            <p className={cn('mt-1.5 text-[10.5px] leading-relaxed', dark ? 'text-white/55' : 'text-foreground/60')}>
               This browser could not create a WebGL context. Site data is still available in the list.
             </p>
           </div>
@@ -1215,40 +1232,40 @@ export function MoonGlobe({
           ref={tooltipRef}
           aria-hidden
           style={{ opacity: 0 }}
-          className="pointer-events-none absolute z-30 w-48 -translate-x-1/2 -translate-y-full rounded-xl border border-white/12 bg-[#0b0d12]/92 p-2.5 text-white shadow-xl backdrop-blur-md transition-opacity duration-150"
+          className="pointer-events-none absolute z-30 w-52 -translate-x-1/2 -translate-y-full rounded-2xl border border-white/12 bg-[#0b0d12]/94 p-3 text-white shadow-[0_20px_60px_-16px_rgba(0,0,0,0.7)] backdrop-blur-md transition-opacity duration-150 motion-reduce:transition-none"
         >
           <div className="flex items-center gap-1.5">
             <span
-              className={cn('size-2 shrink-0 rounded-full', hoveredSelected && 'ring-2 ring-white/80')}
+              className={cn('size-2 shrink-0 rounded-full ring-1 ring-white/30', hoveredSelected && 'ring-2 ring-white/80')}
               style={{ backgroundColor: hoveredSite.color }}
             />
-            <span className="truncate text-[11px] font-semibold tracking-[-0.01em]">
+            <span className="truncate text-[11.5px] font-semibold tracking-[-0.01em]">
               {hoveredSite.shortName}
             </span>
           </div>
-          <div className="mt-0.5 font-mono text-[8px] tracking-wide text-white/45">
+          <div className="tabular mt-0.5 font-mono text-[8px] tracking-[0.08em] text-white/45">
             {fmtCoord(hoveredSite.lat, hoveredSite.lon)}
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-2">
+          <div className="tabular mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-2">
             <div>
-              <div className="font-mono text-[8px] uppercase tracking-[0.1em] text-white/35">
+              <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">
                 Sunlight
               </div>
-              <div className="mt-0.5 font-mono text-[11px] tabular text-[#f5a623]">
+              <div className="mt-0.5 font-mono text-[12px] text-[#f5a623]">
                 {fmtPct(hoveredMetrics?.sunlightPct ?? Number.NaN)}
               </div>
             </div>
             <div>
-              <div className="font-mono text-[8px] uppercase tracking-[0.1em] text-white/35">
+              <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">
                 Earth vis.
               </div>
-              <div className="mt-0.5 font-mono text-[11px] tabular text-[#6cb6ff]">
+              <div className="mt-0.5 font-mono text-[12px] text-[#6cb6ff]">
                 {fmtPct(hoveredMetrics?.earthPct ?? Number.NaN)}
               </div>
             </div>
           </div>
-          <div className="mt-2 font-mono text-[8px] uppercase tracking-[0.12em] text-white/25">
-            Click to open
+          <div className="mt-2 font-mono text-[8px] uppercase tracking-[0.16em] text-white/30">
+            Click to open analysis
           </div>
         </div>
       )}

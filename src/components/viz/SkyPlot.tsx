@@ -65,13 +65,14 @@ export function SkyPlot({ site, metrics, sample }: Props) {
           <circle cx={C} cy={C} r={R} />
         </clipPath>
         <radialGradient id={`skygrad-${site.id}`} cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="var(--earth)" stopOpacity="0.03" />
-          <stop offset="100%" stopColor="var(--earth)" stopOpacity="0.07" />
+          <stop offset="0%" stopColor="var(--earth)" stopOpacity="0.04" />
+          <stop offset="70%" stopColor="var(--earth)" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="var(--earth)" stopOpacity="0.1" />
         </radialGradient>
       </defs>
 
       <circle cx={C} cy={C} r={R + 10} fill="var(--background)" opacity="0.4" />
-      <circle cx={C} cy={C} r={R} fill="var(--muted)" opacity="0.75" />
+      <circle cx={C} cy={C} r={R} fill="var(--muted)" opacity="0.7" />
       <g clipPath={`url(#skyclip-${site.id})`}>
         <circle cx={C} cy={C} r={R} fill={`url(#skygrad-${site.id})`} />
 
@@ -82,16 +83,19 @@ export function SkyPlot({ site, metrics, sample }: Props) {
               cy={C}
               r={rFor(el)}
               fill="none"
-              stroke="var(--border)"
-              strokeDasharray={el === 0 ? '3 4' : '2 5'}
+              stroke={el === 0 ? 'var(--border)' : 'var(--grid-line)'}
+              strokeWidth={el === 0 ? 1.1 : 1}
+              strokeDasharray={el === 0 ? '4 3' : '1 4'}
             />
             {el >= 0 && el <= 20 && (
               <text
                 x={xy(322, rFor(el)).x}
                 y={xy(322, rFor(el)).y}
-                fontSize="10"
+                fontSize="8.5"
                 fill="var(--muted-foreground)"
+                fillOpacity="0.9"
                 fontFamily="var(--font-mono)"
+                style={{ letterSpacing: '0.06em' }}
               >
                 {el}°
               </text>
@@ -108,19 +112,29 @@ export function SkyPlot({ site, metrics, sample }: Props) {
               y1={C}
               x2={a.x}
               y2={a.y}
-              stroke="var(--border)"
-              strokeDasharray="2 6"
+              stroke="var(--grid-line)"
+              strokeWidth="1"
+              strokeDasharray="1 5"
             />
           )
         })}
 
-        <path d={horizonPath} fill="var(--background)" />
+        <path d={horizonPath} fill="var(--background)" opacity="0.92" />
         <path
           d={horizonPath}
           fill="none"
           stroke={site.color}
-          strokeWidth="1.5"
+          strokeWidth="3"
+          strokeOpacity="0.14"
+          strokeLinejoin="round"
+        />
+        <path
+          d={horizonPath}
+          fill="none"
+          stroke={site.color}
+          strokeWidth="1.4"
           strokeOpacity="0.9"
+          strokeLinejoin="round"
         />
 
         {/* Angular tracks over the scenario window */}
@@ -128,30 +142,34 @@ export function SkyPlot({ site, metrics, sample }: Props) {
           d={track('sunAz', 'sunAz', 'sunEl')}
           fill="none"
           stroke="var(--sun)"
-          strokeWidth="1.1"
-          strokeOpacity="0.38"
+          strokeWidth="1.2"
+          strokeOpacity="0.48"
+          strokeLinecap="round"
         />
         <path
           d={track('earthAz', 'earthAz', 'earthEl')}
           fill="none"
           stroke="var(--earth)"
-          strokeWidth="1.1"
-          strokeOpacity="0.36"
+          strokeWidth="1.2"
+          strokeOpacity="0.44"
+          strokeLinecap="round"
         />
 
         <g opacity={sample.sunVisible ? 1 : 0.42}>
-          <circle cx={sunPos.x} cy={sunPos.y} r="9" fill="var(--sun)" opacity="0.16" />
+          <circle cx={sunPos.x} cy={sunPos.y} r="10" fill="var(--sun)" opacity="0.14" />
+          <circle cx={sunPos.x} cy={sunPos.y} r="6" fill="var(--sun)" opacity="0.22" />
           <circle
             cx={sunPos.x}
             cy={sunPos.y}
             r="4.2"
             fill="var(--sun)"
-            stroke={sample.sunVisible ? 'none' : 'var(--background)'}
+            stroke={sample.sunVisible ? 'var(--sun)' : 'var(--background)'}
             strokeDasharray={sample.sunVisible ? undefined : '1.5 1.5'}
             strokeWidth="1"
           />
         </g>
         <g opacity={sample.earthVisible ? 1 : 0.45}>
+          <circle cx={earthPos.x} cy={earthPos.y} r="8" fill="var(--earth)" opacity="0.12" />
           <circle
             cx={earthPos.x}
             cy={earthPos.y}
@@ -159,13 +177,32 @@ export function SkyPlot({ site, metrics, sample }: Props) {
             fill="none"
             stroke="var(--earth)"
             strokeWidth="0.9"
+            strokeOpacity="0.85"
             strokeDasharray={sample.earthVisible ? undefined : '1.5 1.5'}
           />
           <circle cx={earthPos.x} cy={earthPos.y} r="2.8" fill="var(--earth)" />
         </g>
       </g>
 
-      <circle cx={C} cy={C} r={R} fill="none" stroke="var(--border)" />
+      <circle cx={C} cy={C} r={R} fill="none" stroke="var(--border)" strokeOpacity="0.8" />
+      {/* observatory tick ring */}
+      {Array.from({ length: 24 }, (_, i) => {
+        const a = i * 15
+        const p0 = xy(a, R + 4)
+        const p1 = xy(a, R + (i % 6 === 0 ? 9 : 7))
+        return (
+          <line
+            key={a}
+            x1={p0.x}
+            y1={p0.y}
+            x2={p1.x}
+            y2={p1.y}
+            stroke="var(--muted-foreground)"
+            strokeOpacity={i % 6 === 0 ? 0.55 : 0.3}
+            strokeWidth="1"
+          />
+        )
+      })}
 
       {[
         ['N', 0],
@@ -180,25 +217,38 @@ export function SkyPlot({ site, metrics, sample }: Props) {
             x={p.x}
             y={p.y + 3}
             textAnchor="middle"
-            fontSize="10"
+            fontSize="9"
             fill="var(--muted-foreground)"
+            fillOpacity="0.85"
             fontFamily="var(--font-mono)"
+            style={{ letterSpacing: '0.16em' }}
           >
             {label}
           </text>
         )
       })}
 
-      <g fontFamily="var(--font-mono)" fontSize="10" fill="var(--muted-foreground)">
-        <circle cx={16} cy={SIZE - 22} r="2.5" fill="var(--sun)" />
-        <text x={23} y={SIZE - 19.5}>
-          Sun {sample.sunEl >= 0 ? '+' : ''}
-          {sample.sunEl.toFixed(1)}° · {metrics.days.length} d
+      <line
+        x1={16}
+        y1={SIZE - 34}
+        x2={SIZE - 16}
+        y2={SIZE - 34}
+        stroke="var(--border)"
+        strokeOpacity="0.7"
+      />
+      <g fontFamily="var(--font-mono)" fontSize="9" fill="var(--muted-foreground)">
+        <circle cx={18} cy={SIZE - 19} r="2.5" fill="var(--sun)" />
+        <text x={25} y={SIZE - 16} fill="var(--foreground)" style={{ letterSpacing: '0.04em' }}>
+          SUN {sample.sunEl >= 0 ? '+' : '−'}
+          {Math.abs(sample.sunEl).toFixed(1)}°
         </text>
-        <circle cx={150} cy={SIZE - 22} r="2.5" fill="var(--earth)" />
-        <text x={157} y={SIZE - 19.5}>
-          Earth {sample.earthEl >= 0 ? '+' : ''}
-          {sample.earthEl.toFixed(1)}°
+        <circle cx={118} cy={SIZE - 19} r="2.5" fill="var(--earth)" />
+        <text x={125} y={SIZE - 16} fill="var(--foreground)" style={{ letterSpacing: '0.04em' }}>
+          EARTH {sample.earthEl >= 0 ? '+' : '−'}
+          {Math.abs(sample.earthEl).toFixed(1)}°
+        </text>
+        <text x={SIZE - 16} y={SIZE - 16} textAnchor="end" style={{ letterSpacing: '0.08em' }}>
+          {metrics.days.length} D WINDOW
         </text>
       </g>
     </svg>
