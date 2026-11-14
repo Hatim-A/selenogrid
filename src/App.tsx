@@ -6,6 +6,7 @@ import { CustomPointDialog } from '@/components/CustomPointDialog'
 import { Footer } from '@/components/Footer'
 import { Header, type View } from '@/components/Header'
 import { Hero } from '@/components/Hero'
+import { LandingView } from '@/components/landing/LandingView'
 import { JudgeGuide } from '@/components/JudgeGuide'
 import { MethodView } from '@/components/MethodView'
 import { ScenarioBar } from '@/components/ScenarioBar'
@@ -66,7 +67,13 @@ function readUrlState(): UrlState {
     .map(Number)
 
   const next: UrlState = {}
-  if (view === 'compare' || view === 'timeline' || view === 'atlas' || view === 'method') {
+  if (
+    view === 'landing' ||
+    view === 'compare' ||
+    view === 'timeline' ||
+    view === 'atlas' ||
+    view === 'method'
+  ) {
     next.view = view
   }
   if (
@@ -118,7 +125,7 @@ function scrollIntoViewCalm(element: HTMLElement | null) {
 
 export default function App() {
   const { data, error } = useSiteDataset()
-  const [view, setView] = useState<View>(URL_STATE.view ?? 'compare')
+  const [view, setView] = useState<View>(URL_STATE.view ?? 'landing')
   const [theme, setTheme] = useState<'light' | 'dark'>(themeFromDom)
   const [date, setDate] = useState(URL_STATE.date ?? TODAY)
   const [hour, setHour] = useState(URL_STATE.hour ?? 12)
@@ -298,7 +305,7 @@ export default function App() {
             />
           )}
 
-          {view !== 'method' && (
+          {view !== 'method' && view !== 'landing' && (
             <ScenarioBar
               date={date}
               hour={hour}
@@ -323,6 +330,16 @@ export default function App() {
               <MethodView onCompare={() => setView('compare')} />
             ) : !metrics ? (
               <LoadingPanel mode="compute" />
+            ) : view === 'landing' ? (
+              <LandingView
+                sites={allSites}
+                metricsById={metrics}
+                ranked={ranked}
+                theme={theme}
+                onOpenLab={() => setView('compare')}
+                onOpenSite={openDetail}
+                onGuide={() => setGuideOpen(true)}
+              />
             ) : view === 'compare' ? (
               <CompareView
                 sites={allSites}

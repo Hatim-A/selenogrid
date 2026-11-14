@@ -39,10 +39,15 @@ npm run preview   # serve the production build locally
 
 No environment variables, API keys, or database are needed. The shipped curated dataset at `public/data/sites.json` is about 1.2 MB and the custom-pin grid is 1.8 MB, so the 1.8 GB LOLA DEM is **not** required to run the app. The DEM is only needed to rebuild the terrain products.
 
-## Four views
+![SelenoGrid landing story](docs/screenshots/landing.webp)
+
+The app opens on a scroll-driven landing story — hero, four pinned chapters, a scroll-scrubbed 180-day mission film, JPL validation, and the call into the lab. Share `?view=compare` (or timeline, moon, method) to link straight into the tool.
+
+## Five views
 
 | View | What it is for | What you see |
 | --- | --- | --- |
+| **Landing** | The scroll-driven story | Starfield hero, four pinned chapters, a scroll-scrubbed mission film, validation proof, and the call into the lab |
 | **Compare** | Rank and inspect sites under one scenario | Site cards with metric summaries and 360 degree horizon panoramas, a detail dialog with an interactive 3D terrain perspective, adjustable TOPSIS weights, ranking table, and Pareto scatter |
 | **Timeline** | See how visibility changes through time | Per-site daily heatmap of sunlight and Earth visibility, event markers, and a play control for temporal animation |
 | **Moon** | Put the sites back on the Moon | Interactive 3D lunar globe with every site marker and hover metrics, plus a 2D south-polar LOLA hillshade for terrain context |

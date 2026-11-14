@@ -5,7 +5,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-export type View = 'compare' | 'timeline' | 'atlas' | 'method'
+export type View = 'landing' | 'compare' | 'timeline' | 'atlas' | 'method'
 
 const NAV: { id: View; label: string; icon: typeof LayoutGrid }[] = [
   { id: 'compare', label: 'Compare', icon: LayoutGrid },
@@ -53,7 +53,7 @@ export function Header({
       <div className="mx-auto flex h-12 max-w-[1320px] items-center gap-3 px-4 sm:px-6">
         <button
           type="button"
-          onClick={() => onView('compare')}
+          onClick={() => onView('landing')}
           className="group flex items-center gap-2.5 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="SelenoGrid home"
         >

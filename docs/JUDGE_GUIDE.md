@@ -10,7 +10,7 @@
 
 ## 60-second route
 
-Start on **Compare**. The nine NASA regions are preloaded; open the site library from **Edit sites** or **9 of 18 sites** to add references, choose **All 18**, or add a live custom coordinate. The order moves from the decision to the evidence.
+Start on the **landing story** (the default view): scroll the hero, the four pinned chapters, and the scrubbed-mission film, then click **Open the mission lab**. In **Compare**, the nine NASA regions are preloaded; open the site library from **Edit sites** to add references, choose **All 18**, or add a live custom coordinate. The order moves from the decision to the evidence.
 
 | # | Step | Do this | What to look for |
 | --- | --- | --- | --- |

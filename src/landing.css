@@ -1,0 +1,217 @@
+/* ═══════════════════════════════════════════════════════════════════
+   SelenoGrid · landing-only styles (imported by LandingView).
+   Shared language: "midnight observatory editorial".
+
+   Class API (all `lp-` prefixed — nothing here leaks globally):
+     .lp-scrub-wrap    tall scroll driver for a pinned moment (ScrubMission
+                       sets its own height inline, ~300vh).
+     .lp-sticky-stage  the pinned viewport stage: sticky, full-viewport,
+                       clips overflow. Reuse for any pinned film moment by
+                       placing it inside a tall parent.
+     .lp-grain         film-grain overlay (SVG-noise, pointer-transparent).
+     .lp-vignette      cinematic edge vignette.
+     .lp-scroll-cue    vertical scroll hint; the dot travels via lp-cue-drop.
+     .lp-scrub-track   hairline rail for progress / day bars.
+     .lp-scrub-fill    the moving fill — always driven via transform
+                       scaleX (GPU only, no layout). Add .lp-fill-sun or
+                       .lp-fill-earth for single-hue bars.
+     .lp-step          chapter step; toggle .is-active for the transition.
+     .lp-display       Space Grotesk display type with tabular numerals.
+     .lp-day-giant     giant mission counter size (fluid, no layout shift).
+     .lp-day-tick      one-shot tick animation when the scrubbed day changes.
+     .lp-ridge         horizon-silhouette fill inside the panorama SVG.
+     .lp-sun-dot       the travelling sun dot inside the panorama SVG.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* — Tall driver + pinned stage — */
+.lp-scrub-wrap {
+  position: relative;
+}
+
+.lp-sticky-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+}
+
+/* — Display type — */
+.lp-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.lp-day-giant {
+  font-size: clamp(3.5rem, 17vw, 8.5rem);
+  line-height: 0.95;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .lp-day-giant {
+    font-size: clamp(5rem, 8.5vw, 8.5rem);
+  }
+}
+
+.lp-day-tick {
+  animation: lp-day-in 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lp-day-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* — Film grain + vignette (decorative overlays, never interactive) — */
+.lp-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+.lp-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 50% 42%,
+    transparent 55%,
+    rgba(28, 26, 22, 0.14) 100%
+  );
+}
+
+/* — Scroll cue — */
+.lp-scroll-cue {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+.lp-scroll-cue::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, var(--foreground));
+  animation: lp-cue-drop 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes lp-cue-drop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(280%);
+    opacity: 0;
+  }
+}
+
+/* — Scrub rails: fill is transform-only (scaleX) for 60fps — */
+.lp-scrub-track {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--foreground) 12%, transparent);
+}
+
+.lp-scrub-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--sun), var(--earth));
+  will-change: transform;
+}
+
+.lp-fill-sun {
+  background: var(--sun);
+}
+
+.lp-fill-earth {
+  background: var(--earth);
+}
+
+/* — Chapter steps: LandingView toggles .is-active per step — */
+.lp-step {
+  opacity: 0.38;
+  transform: translateY(10px);
+  transition:
+    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 500ms ease-out;
+}
+
+.lp-step.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* — Horizon panorama SVG artwork — */
+.lp-ridge {
+  fill: color-mix(in srgb, var(--foreground) 20%, transparent);
+  stroke: color-mix(in srgb, var(--foreground) 32%, transparent);
+  stroke-width: 0.4;
+  stroke-linejoin: round;
+}
+
+.lp-sun-dot {
+  fill: var(--sun);
+  filter: drop-shadow(0 0 5px var(--sun));
+}
+
+/* — Dark (midnight observatory) tuning — */
+.dark .lp-grain {
+  opacity: 0.16;
+}
+
+.dark .lp-vignette {
+  background: radial-gradient(
+    120% 90% at 50% 42%,
+    transparent 52%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+.dark .lp-scrub-track {
+  background: rgba(241, 237, 227, 0.14);
+}
+
+/* — Reduced motion: static fallbacks, steps fully legible — */
+@media (prefers-reduced-motion: reduce) {
+  .lp-scroll-cue::after {
+    animation: none;
+    transform: none;
+    opacity: 0.7;
+  }
+  .lp-day-tick {
+    animation: none;
+  }
+  .lp-step {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
