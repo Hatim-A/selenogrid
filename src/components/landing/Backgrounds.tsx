@@ -5,8 +5,20 @@ type AuroraVariant = 'hero' | 'chapter' | 'film' | 'cta'
 
 const AURORA_TUNING: Record<AuroraVariant, { a: CSSProperties; b: CSSProperties }> = {
   hero: {
-    a: { left: '-18vmax', top: '-24vmax', opacity: undefined },
-    b: { right: '-20vmax', bottom: '-26vmax', opacity: undefined },
+    a: {
+      left: '-25vmax',
+      top: '-24vmax',
+      width: '150vmax',
+      height: '62vmax',
+      opacity: 0.42,
+    },
+    b: {
+      right: '-25vmax',
+      bottom: '-26vmax',
+      width: '150vmax',
+      height: '58vmax',
+      opacity: 0.38,
+    },
   },
   chapter: {
     a: { left: '-24vmax', top: '-30vmax', opacity: 0.32, transform: 'scale(0.85)' },

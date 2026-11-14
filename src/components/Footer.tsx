@@ -12,7 +12,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
           <div className="max-w-xs">
             <div className="flex items-center gap-2.5">
               <Logo className="size-7" />
-              <span className="font-display text-[16px] font-extrabold tracking-[-0.01em]">SelenoGrid</span>
+              <span className="font-display text-[16px] font-bold tracking-[-0.01em]">SelenoGrid</span>
               <span className="rounded-full border border-border px-1.5 py-0.5 font-mono text-[9px] text-muted-foreground">
                 v1.0
               </span>

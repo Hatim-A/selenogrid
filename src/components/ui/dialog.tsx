@@ -37,7 +37,7 @@ function DialogContent({
       <div className="pointer-events-none fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
         <DialogPrimitive.Content
           className={cn(
-            'pointer-events-auto relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border border-border bg-popover text-popover-foreground shadow-[var(--shadow-float)] outline-none data-[state=open]:animate-fade-up sm:max-h-[88vh] sm:max-w-2xl sm:rounded-3xl',
+            'pointer-events-auto relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-2xl border border-border bg-popover text-popover-foreground shadow-[var(--shadow-float)] outline-none data-[state=open]:animate-fade-up sm:max-h-[88vh] sm:max-w-2xl sm:rounded-2xl',
             className,
           )}
           {...props}

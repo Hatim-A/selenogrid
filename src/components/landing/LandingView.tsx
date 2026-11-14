@@ -1,5 +1,5 @@
 import '../../landing.css'
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { ArrowRight, ArrowUpRight, Check, ChevronDown } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
@@ -7,6 +7,10 @@ import { scrollToSection } from '@/hooks/useSmoothScroll'
 import type { RankedSite, Site, SiteMetrics } from '@/types'
 import { AuroraField, GlowDivider, OrbitRing } from './Backgrounds'
 import { ChapterRail } from './ChapterRail'
+
+const HeroMoonGlobe = lazy(() =>
+  import('./HeroMoonGlobe').then((module) => ({ default: module.HeroMoonGlobe })),
+)
 import { Chapters } from './Chapters'
 import { ScrubMission } from './ScrubMission'
 import { Starfield } from './Starfield'
@@ -347,7 +351,7 @@ export function LandingView({
                 </p>
               </div>
             </Reveal>
-            <h1 className="mt-5 font-display text-[clamp(40px,6.4vw,80px)] leading-[1.02] font-extrabold tracking-[-0.01em] text-balance">
+            <h1 className="mt-5 font-display text-[clamp(40px,6vw,72px)] leading-[1.02] font-bold tracking-[-0.02em] text-balance">
               {HEADLINE_LINES.map((line, i) => (
                 <span key={i} className="lp-mask" aria-hidden={false}>
                   <span
@@ -408,13 +412,18 @@ export function LandingView({
                 aria-hidden="true"
                 className="orbit-breathe pointer-events-none absolute inset-[6%] rounded-full bg-[var(--earth)]/10 blur-3xl"
               />
-              <div className="relative aspect-square overflow-hidden rounded-full border border-border/70 shadow-[var(--shadow-float)]">
-                <img
-                  src={moonSrc}
-                  alt="LOLA south-polar hillshade of the Moon with the curated landing sites"
-                  className="size-full object-cover"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_42%_32%,transparent_30%,rgba(0,0,0,0.42)_100%)]" />
+              <div className="relative aspect-square">
+                <Suspense
+                  fallback={
+                    <img
+                      src={moonSrc}
+                      alt="LOLA south-polar hillshade of the Moon with the curated landing sites"
+                      className="size-full rounded-full object-cover"
+                    />
+                  }
+                >
+                  <HeroMoonGlobe className="absolute inset-0" />
+                </Suspense>
               </div>
               <OrbitRing className="-inset-[4%]" />
               <span
@@ -708,7 +717,7 @@ export function LandingView({
         <div className="relative mx-auto w-full max-w-[1440px] px-4 py-28 text-center sm:px-8 sm:py-36">
           <Reveal>
             <p className="eyebrow">The mission lab</p>
-            <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(38px,6.4vw,80px)] leading-[1.02] font-extrabold tracking-[-0.01em] text-balance">
+            <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(40px,7vw,88px)] leading-[1.0] font-bold tracking-[-0.025em] text-balance">
               Pick a <span className="lp-shimmer-text">date.</span> Pick what{' '}
               <span className="lp-shimmer-text">matters.</span>
             </h2>

@@ -27,7 +27,7 @@
   --border-strong: rgba(28, 26, 22, 0.18);
   --input: rgba(28, 26, 22, 0.18);
   --ring: #0059a6;
-  --radius: 0.625rem;
+  --radius: 0.375rem;
 
   /* ——— Accents (tuned for contrast on paper) ——— */
   --sun: #8f5700;
@@ -90,7 +90,7 @@
   --border-strong: rgba(244, 241, 232, 0.15);
   --input: rgba(244, 241, 232, 0.16);
   --ring: #8ec5ff;
-  --radius: 0.625rem;
+  --radius: 0.375rem;
 
   /* ——— Accents (deep gold sun, glacial earth on absolute black) ——— */
   --sun: #eaa52e;
@@ -164,7 +164,7 @@
     'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif;
   --font-display:
-    'Syne', 'Space Grotesk', 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont,
+    'Space Grotesk', 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono:

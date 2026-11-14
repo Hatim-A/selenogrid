@@ -59,7 +59,7 @@ export function Header({
         >
           <Logo className="size-7 transition-transform duration-300 group-hover:rotate-[8deg]" />
           <span className="leading-none">
-            <span className="block font-display text-[17px] font-extrabold tracking-[-0.01em]">
+            <span className="block font-display text-[17px] font-bold tracking-[-0.01em]">
               SelenoGrid
             </span>
             <span className="mt-1 block font-mono text-[7.5px] tracking-[0.22em] text-muted-foreground">

@@ -51,7 +51,7 @@ export function Hero({
           </Reveal>
 
           <Reveal delay={90}>
-            <h1 className="mt-5 max-w-[15ch] font-display text-[40px] leading-[1.04] font-bold tracking-[-0.01em] text-balance sm:text-[56px] lg:text-[64px]">
+            <h1 className="mt-5 max-w-[16ch] font-display text-[42px] leading-[1.02] font-bold tracking-[-0.02em] text-balance sm:text-[60px] lg:text-[68px]">
               Find the landing site that can see the{' '}
               <em className="text-sun italic">Sun</em> and hear{' '}
               <em className="text-earth italic">Earth</em>.
