@@ -6,6 +6,8 @@ SelenoGrid is a browser-based decision-support workbench for the lunar south pol
 
 Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static React app. No backend. No API keys. No hidden model weights.
 
+**[Live demo](https://hatim-a.github.io/selenogrid/)** · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Pitch outline](docs/PITCH.md)
+
 > **What this is not.** NASA has not published official region centres or landing ellipses for these nine regions. The coordinates in SelenoGrid are representative terrain points selected from LOLA topography, not official landing ellipses. SelenoGrid is a comparative screening aid, not a flight-certified site-selection tool.
 
 > **Mission note.** NASA redefined Artemis III in 2026 as a low Earth orbit test flight and moved the first crewed south-pole landing to Artemis IV, targeted for 2028. The nine regions from the October 2024 announcement are used here as a public reference set for the south-pole site-selection problem, not as a claim about the current mission manifest.
