@@ -334,7 +334,6 @@ export function LandingView({
         className={`relative flex min-h-svh scroll-mt-16 flex-col ${loaded ? 'lp-hero-loaded' : ''}`}
       >
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <AuroraField variant="hero" />
           <Starfield speed={reduced ? 0 : undefined} />
         </div>
 

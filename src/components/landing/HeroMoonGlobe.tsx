@@ -37,8 +37,8 @@ export function HeroMoonGlobe({ className }: { className?: string }) {
     renderer.toneMappingExposure = 0.92
 
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50)
-    camera.position.set(0, 0.12, 3.4)
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50)
+    camera.position.set(0, 0.1, 4.2)
 
     const tilt = new THREE.Group()
     tilt.rotation.x = -0.42
