@@ -53,7 +53,7 @@ export function CompareView({
       <Dialog open={libraryOpen} onOpenChange={setLibraryOpen}>
         <DialogContent className="max-w-2xl gap-0 p-0 max-sm:top-auto max-sm:bottom-3 max-sm:translate-y-0 max-sm:rounded-b-2xl">
           <DialogTitle className="sr-only">Site library: choose sites to compare</DialogTitle>
-          <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto p-2 max-sm:max-h-[86dvh]">
+          <div data-lenis-prevent className="max-h-[calc(100dvh-7rem)] overflow-y-auto p-2 max-sm:max-h-[86dvh]">
             <SitePicker
               sites={sites}
               selected={selectedIds}

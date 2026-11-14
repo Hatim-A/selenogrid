@@ -89,6 +89,7 @@ export function CustomPointDialog({
 
         <form
           onSubmit={submit}
+          data-lenis-prevent
           className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 sm:px-6"
         >
           <div className="grid grid-cols-2 gap-3">

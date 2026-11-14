@@ -113,7 +113,7 @@ export function SiteDetailDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7">
+        <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7">
           <section
             aria-label="Terrain horizon panorama"
             className="overflow-hidden rounded-2xl border border-border bg-background/40"

@@ -103,7 +103,7 @@ export function JudgeGuide({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7">
+        <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7">
           <div className="grid gap-2 sm:grid-cols-2">
             {STEPS.map((step, index) => {
               const Icon = step.icon
