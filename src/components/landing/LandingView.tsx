@@ -334,7 +334,7 @@ export function LandingView({
           <Starfield speed={reduced ? 0 : undefined} />
         </div>
 
-        <div className="relative mx-auto grid w-full max-w-[1180px] flex-1 items-center gap-12 px-4 pt-24 pb-8 sm:px-6 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8 lg:pt-28">
+        <div className="relative mx-auto grid w-full max-w-[1440px] flex-1 items-center gap-12 px-4 pt-24 pb-8 sm:px-8 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8 lg:pt-28">
           <div className="min-w-0">
             <Reveal>
               <div className="flex items-center gap-3">
@@ -510,9 +510,9 @@ export function LandingView({
         )}
 
         <div className="relative border-t border-border/70">
-          <div className="mx-auto grid w-full max-w-[1180px] grid-cols-2 gap-y-6 px-4 py-6 sm:grid-cols-4 sm:divide-x sm:divide-border sm:px-6">
+          <div className="mx-auto grid w-full max-w-[1440px] grid-cols-2 gap-y-6 px-4 py-6 sm:grid-cols-4 sm:divide-x sm:divide-border sm:px-8">
             {stats.map((s) => (
-              <div key={s.label} className="min-w-0 px-0 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+              <div key={s.label} className="min-w-0 px-0 sm:px-8 sm:first:pl-0 sm:last:pr-0">
                 <StatValue target={s.target} format={s.format} />
                 <div className="mt-1.5 max-w-[210px] text-[11px] leading-snug text-muted-foreground">
                   {s.label}
@@ -534,7 +534,7 @@ export function LandingView({
 
       {/* 3 — ScrubMission film moment (owns its own UI) */}
       <section id="film" aria-label="Scrub the mission" className="relative scroll-mt-16 border-t border-border/60">
-        <div className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto w-full max-w-[1440px] px-4 py-20 sm:px-8 sm:py-28">
           <h2 className="sr-only">Scrub through the mission window</h2>
           <ScrubMission
             sites={sites}
@@ -547,7 +547,7 @@ export function LandingView({
 
       {/* 4 — Proof strip */}
       <section id="proof" className="relative scroll-mt-16 border-t border-border/60">
-        <div className="mx-auto w-full max-w-[1180px] px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto w-full max-w-[1440px] px-4 py-20 sm:px-8 sm:py-28">
           <Reveal>
             <p className="eyebrow">Validation</p>
             <h2 className="mt-3 max-w-[20ch] font-display text-[34px] leading-[1.02] tracking-[-0.02em] text-balance sm:text-[52px]">
@@ -705,7 +705,7 @@ export function LandingView({
       {/* 5 — Final CTA */}
       <section id="cta" className="relative scroll-mt-16 overflow-x-clip border-t border-border/60">
         <AuroraField variant="cta" />
-        <div className="relative mx-auto w-full max-w-[1180px] px-4 py-28 text-center sm:px-6 sm:py-36">
+        <div className="relative mx-auto w-full max-w-[1440px] px-4 py-28 text-center sm:px-8 sm:py-36">
           <Reveal>
             <p className="eyebrow">The mission lab</p>
             <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(42px,7.5vw,92px)] leading-[1.0] tracking-[-0.02em] text-balance">

@@ -482,7 +482,7 @@ function ChapterHead({
   chips?: StatChip[]
 }) {
   return (
-    <div className="mx-auto w-full max-w-[1180px] px-4 pt-20 sm:px-6 lg:pt-28">
+    <div className="mx-auto w-full max-w-[1440px] px-4 pt-20 sm:px-8 lg:pt-28">
       <p className={cn('eyebrow flex items-center gap-2', current && 'text-foreground')}>
         <span
           aria-hidden="true"
@@ -1146,7 +1146,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           lede="Near the south pole the Sun circles the horizon instead of rising overhead, and Earth hangs almost still behind ridges. When the light arrives — and when the link drops — depends on the date, the mission length, and the ground underfoot."
           chips={ch1Chips}
         />
-        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
           <div className="pt-10 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-16">
             <div className="w-full">
               {focus ? (
@@ -1216,7 +1216,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
       <GlowDivider />
 
       {/* 02 — real terrain */}
-      <section id="chapter-02" aria-label="Chapter 2: real terrain" className="relative scroll-mt-16">
+      <section id="chapter-02" aria-label="Chapter 2: real terrain" className="relative scroll-mt-16 bg-foreground/[0.018] dark:bg-white/[0.022]">
         <ChapterHead
           current={active === 'chapter-02'}
           no="02"
@@ -1225,7 +1225,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           lede="Every site carries a full 360° terrain horizon ray-marched on 20 m LOLA topography: one elevation angle every quarter degree, from 20 metres out to 220 kilometres."
           chips={ch2Chips}
         />
-        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
           <div className="pt-10 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-16">
             <div className="w-full">{focus ? <HorizonVisual site={focus} /> : null}</div>
           </div>
@@ -1292,7 +1292,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           lede="Topocentric Sun and Earth positions from a Meeus/IAU astronomy engine, tested against JPL Horizons — then masked by the real horizon, sample by sample, for your whole mission window."
           chips={ch3Chips}
         />
-        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
           <div className="pt-10 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-16">
             <div className="w-full">
               {focus ? (
@@ -1340,7 +1340,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
       <GlowDivider />
 
       {/* 04 — transparent ranking */}
-      <section id="chapter-04" aria-label="Chapter 4: transparent ranking" className="relative scroll-mt-16">
+      <section id="chapter-04" aria-label="Chapter 4: transparent ranking" className="relative scroll-mt-16 bg-foreground/[0.018] dark:bg-white/[0.022]">
         <ChapterHead
           current={active === 'chapter-04'}
           no="04"
@@ -1349,7 +1349,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
           lede="Four criteria, one published method, every weight exposed. Nothing is hidden in a model file — the whole decision layer fits on one screen and recomputes live."
           chips={ch4Chips}
         />
-        <div className="mx-auto grid w-full max-w-[1180px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
           <div className="pt-10 lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-16">
             <div className="w-full">
               <RankingVisual ranked={ranked} metricsById={metricsById} frontier={frontier} onOpenSite={onOpenSite} />

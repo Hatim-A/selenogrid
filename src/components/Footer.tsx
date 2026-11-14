@@ -7,7 +7,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
 
   return (
     <footer className="mt-14 border-t border-border">
-      <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-8 xl:px-12 2xl:mx-auto 2xl:max-w-[1800px]">
         <div className="grid gap-10 py-10 sm:py-12 md:grid-cols-[1.3fr_repeat(3,0.55fr)]">
           <div className="max-w-xs">
             <div className="flex items-center gap-2.5">

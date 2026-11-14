@@ -300,7 +300,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
         aria-label="Mission film standby"
         className="relative px-5 py-24 sm:px-8"
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow">The window · scroll to scrub time</p>
           <h2 className="lp-display mt-4 text-3xl text-balance sm:text-4xl">
             Mission film standby
@@ -429,7 +429,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
         <div className="lp-vignette" aria-hidden="true" />
         <div className="lp-grain" aria-hidden="true" />
 
-        <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 sm:px-8">
           <div className="flex items-center gap-3">
             <span
               aria-hidden="true"
@@ -697,7 +697,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
 
         {/* Mission scrub rail with milestone ticks + day labels */}
         <div className="absolute inset-x-0 bottom-0 pb-[max(1rem,env(safe-area-inset-bottom))]">
-          <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
             <div className="relative">
               <div
                 className="lp-scrub-track"

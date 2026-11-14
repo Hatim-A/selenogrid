@@ -50,7 +50,7 @@ export function Header({
           : 'border-border/60',
       )}
     >
-      <div className="mx-auto flex h-12 max-w-[1320px] items-center gap-3 px-4 sm:px-6">
+      <div className="flex h-12 w-full items-center gap-3 px-4 sm:px-8 xl:px-12 2xl:mx-auto 2xl:max-w-[1800px]">
         <button
           type="button"
           onClick={() => onView('landing')}

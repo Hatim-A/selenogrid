@@ -9,9 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Luminous in both themes: hairline inner highlight + soft lift on hover.
+        // Signal amber: the one ownable action color. Dark-on-amber in dark mode,
+        // white-on-amber in light mode for contrast.
         default:
-          'bg-primary text-primary-foreground shadow-sm ring-1 ring-inset ring-white/10 hover:brightness-[1.06] active:scale-[0.985] dark:ring-black/25 dark:hover:brightness-[0.96]',
+          'bg-sun text-white shadow-sm ring-1 ring-inset ring-black/10 hover:brightness-[1.07] active:scale-[0.985] dark:text-[#1c1305] dark:ring-white/10 dark:hover:brightness-[1.05]',
         secondary:
           'border border-border bg-secondary text-secondary-foreground hover:bg-muted active:scale-[0.985]',
         outline:

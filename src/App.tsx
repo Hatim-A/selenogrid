@@ -293,7 +293,7 @@ export default function App() {
           onGuide={() => setGuideOpen(true)}
         />
 
-        <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-[1320px] flex-1 scroll-mt-20 px-4 outline-none sm:px-6">
+        <main id="main-content" tabIndex={-1} className="w-full flex-1 scroll-mt-20 px-4 outline-none sm:px-8 xl:px-12 2xl:mx-auto 2xl:max-w-[1800px]">
           {view === 'compare' && (
             <Hero
               siteCount={allSites.length || 18}

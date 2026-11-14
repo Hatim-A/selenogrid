@@ -92,7 +92,7 @@ export function Hero({
         </div>
 
         <Reveal delay={140} className="relative">
-          <div className="relative mx-auto w-full max-w-[330px] sm:max-w-[420px] lg:max-w-[500px]">
+          <div className="relative mx-auto w-full max-w-[330px] sm:max-w-[440px] lg:mr-[-1rem] lg:max-w-[560px]">
             <HeroMoon
               sites={sites}
               selectedIds={selectedIds}
