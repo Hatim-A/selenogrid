@@ -347,7 +347,7 @@ export function LandingView({
                 </p>
               </div>
             </Reveal>
-            <h1 className="mt-5 font-display text-[clamp(46px,8.5vw,102px)] leading-[0.98] tracking-[-0.02em] text-balance">
+            <h1 className="mt-5 font-display text-[clamp(40px,6.4vw,80px)] leading-[1.02] font-extrabold tracking-[-0.01em] text-balance">
               {HEADLINE_LINES.map((line, i) => (
                 <span key={i} className="lp-mask" aria-hidden={false}>
                   <span
@@ -371,7 +371,7 @@ export function LandingView({
                 <button
                   type="button"
                   onClick={onOpenLab}
-                  className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-primary px-7 text-[13.5px] font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition-transform duration-200 outline-none hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 active:scale-[0.98]"
+                  className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-sun px-7 text-[13.5px] font-semibold text-white shadow-[var(--shadow-card)] transition-all duration-200 outline-none hover:-translate-y-0.5 hover:scale-[1.03] hover:brightness-[1.07] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 active:scale-[0.98] dark:text-[#1c1305]"
                 >
                   Open the mission lab
                   <ArrowRight className="size-4" aria-hidden="true" />
@@ -708,7 +708,7 @@ export function LandingView({
         <div className="relative mx-auto w-full max-w-[1440px] px-4 py-28 text-center sm:px-8 sm:py-36">
           <Reveal>
             <p className="eyebrow">The mission lab</p>
-            <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(42px,7.5vw,92px)] leading-[1.0] tracking-[-0.02em] text-balance">
+            <h2 className="mx-auto mt-4 max-w-[16ch] font-display text-[clamp(38px,6.4vw,80px)] leading-[1.02] font-extrabold tracking-[-0.01em] text-balance">
               Pick a <span className="lp-shimmer-text">date.</span> Pick what{' '}
               <span className="lp-shimmer-text">matters.</span>
             </h2>
@@ -720,7 +720,7 @@ export function LandingView({
               <button
                 type="button"
                 onClick={onOpenLab}
-                className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-primary px-8 text-[14px] font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition-transform duration-200 outline-none hover:scale-[1.045] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 active:scale-[0.97]"
+                className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-sun px-8 text-[14px] font-semibold text-white shadow-[var(--shadow-card)] transition-all duration-200 outline-none hover:scale-[1.045] hover:-translate-y-0.5 hover:brightness-[1.07] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-0 active:scale-[0.97] dark:text-[#1c1305]"
               >
                 Open the mission lab
                 <ArrowRight className="size-4" aria-hidden="true" />

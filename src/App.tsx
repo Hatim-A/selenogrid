@@ -8,6 +8,7 @@ import { Header, type View } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { LandingView } from '@/components/landing/LandingView'
 import SmoothScroll from '@/components/landing/SmoothScroll'
+import { SpaceBackdrop } from '@/components/SpaceBackdrop'
 import { JudgeGuide } from '@/components/JudgeGuide'
 import { MethodView } from '@/components/MethodView'
 import { ScenarioBar } from '@/components/ScenarioBar'
@@ -279,6 +280,7 @@ export default function App() {
     <TooltipProvider delayDuration={160}>
       <SmoothScroll>
       <div className="flex min-h-screen flex-col">
+        <SpaceBackdrop dark={theme === 'dark'} />
         <a
           href="#main-content"
           className="sr-only z-[60] rounded-full border border-border bg-card px-4 py-2 text-[13px] font-medium text-foreground shadow-[var(--shadow-card)] focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"

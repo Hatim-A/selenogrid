@@ -68,46 +68,46 @@
 .dark {
   color-scheme: dark;
 
-  /* ——— Layered surfaces (midnight observatory: near-black, blue-shifted) ——— */
-  --background: #06080d;
-  --foreground: #f1ede3;
-  --card: #0b0f16;
-  --raised: #111826;
-  --overlay: #151d2c;
-  --card-foreground: #f1ede3;
-  --popover: #0e141e;
-  --popover-foreground: #f1ede3;
-  --primary: #f1ede3;
+  /* ——— Layered surfaces (absolute black observatory: pure-black base) ——— */
+  --background: #000000;
+  --foreground: #f4f1e8;
+  --card: #08090d;
+  --raised: #0e1219;
+  --overlay: #131926;
+  --card-foreground: #f4f1e8;
+  --popover: #0a0d13;
+  --popover-foreground: #f4f1e8;
+  --primary: #f4f1e8;
   --primary-foreground: #0a0d13;
-  --secondary: #141b28;
-  --secondary-foreground: #f1ede3;
-  --muted: #10151f;
-  --muted-foreground: #a6a196;
-  --accent: #15202f;
+  --secondary: #0f141c;
+  --secondary-foreground: #f4f1e8;
+  --muted: #0b0e14;
+  --muted-foreground: #a39d8f;
+  --accent: #12202f;
   --accent-foreground: #9cc8ff;
   --destructive: #ff7a6e;
-  --border: rgba(241, 237, 227, 0.09);
-  --border-strong: rgba(241, 237, 227, 0.16);
-  --input: rgba(241, 237, 227, 0.18);
+  --border: rgba(244, 241, 232, 0.08);
+  --border-strong: rgba(244, 241, 232, 0.15);
+  --input: rgba(244, 241, 232, 0.16);
   --ring: #8ec5ff;
   --radius: 0.625rem;
 
-  /* ——— Accents (luminous on near-black: amber sun, ice-blue earth) ——— */
-  --sun: #f0b45c;
-  --sun-soft: rgba(240, 180, 92, 0.13);
-  --earth: #8ec5ff;
-  --earth-soft: rgba(142, 197, 255, 0.12);
-  --terrain: #c9b8ff;
-  --terrain-soft: rgba(201, 184, 255, 0.12);
+  /* ——— Accents (deep gold sun, glacial earth on absolute black) ——— */
+  --sun: #eaa52e;
+  --sun-soft: rgba(234, 165, 46, 0.13);
+  --earth: #86bcff;
+  --earth-soft: rgba(134, 188, 255, 0.12);
+  --terrain: #b7a6ff;
+  --terrain-soft: rgba(183, 166, 255, 0.12);
   --success: #86dc97;
   --success-soft: rgba(134, 220, 151, 0.12);
   --danger: #ff7a6e;
   --danger-soft: rgba(255, 122, 110, 0.11);
 
-  /* ——— Restraint: a single faint zenith glow ——— */
-  --glow-a: rgba(110, 150, 220, 0.075);
-  --glow-b: rgba(240, 180, 92, 0.028);
-  --grid-line: rgba(241, 237, 227, 0.038);
+  /* ——— Deep-space washes over pure black ——— */
+  --glow-a: rgba(96, 138, 205, 0.09);
+  --glow-b: rgba(234, 165, 46, 0.05);
+  --grid-line: rgba(244, 241, 232, 0.032);
   --atlas-filter: none;
 
   /* ——— Hairline gradient + inner highlight (dark) ——— */
@@ -164,8 +164,8 @@
     'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif;
   --font-display:
-    'Space Grotesk', 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+    'Syne', 'Space Grotesk', 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono:
     ui-monospace, 'SF Mono', SFMono-Regular, 'Cascadia Code', Menlo, Monaco, Consolas,
@@ -214,11 +214,10 @@
 
   body {
     background-color: var(--background);
-    background-image: radial-gradient(
-      1100px 520px at 50% -180px,
-      var(--glow-a),
-      transparent 70%
-    );
+    background-image:
+      radial-gradient(1300px 620px at 50% -220px, var(--glow-a), transparent 70%),
+      radial-gradient(900px 500px at 88% 12%, var(--glow-b), transparent 65%),
+      radial-gradient(1000px 700px at 6% 38%, rgba(120, 110, 220, 0.05), transparent 65%);
     background-attachment: fixed;
     color: var(--foreground);
     font-family: var(--font-sans);
@@ -427,6 +426,15 @@
     animation: pulse-dot 2.6s ease-in-out infinite;
   }
 
+  .backdrop-nebula-a {
+    animation: backdrop-drift-a 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .backdrop-nebula-b {
+    animation: backdrop-drift-b 32s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
   .orbit-slow {
     animation: orbit 44s linear infinite;
     transform-origin: center;
@@ -493,6 +501,24 @@
   50% {
     opacity: 0.75;
     box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+@keyframes backdrop-drift-a {
+  from {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0) scale(1.1);
+  }
+}
+
+@keyframes backdrop-drift-b {
+  from {
+    transform: translate3d(3%, 2%, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(-3%, -3%, 0) scale(1);
   }
 }
 
