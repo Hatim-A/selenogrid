@@ -178,7 +178,7 @@ Typical accuracy is about 0.02 degrees for Sun and Earth directions. That is fit
 - The DEM has finite vertical accuracy and 0.5 m quantization. It is a shape product, not a certified hazard map.
 - Scenario percentages are sampled, not integrated. A visibility window shorter than the chosen time step can be missed. Default steps are 3 hours; event times are refined separately.
 - Representative points are not official region centres. A different point inside the same region can produce a different ranking.
-- Custom pins are sampled from a 640 m browser grid, not the 20 m curated terrain, and live only for the current browser session. They are screening points, not landing-ellipse analyses.
+- Custom pins are sampled from a 640 m browser grid, not the 20 m curated terrain, and live only for the current browser session. They are screening points, not landing-ellipse analyses. Shared links preserve curated selections; custom pins are not encoded in the URL.
 - The TOPSIS weights are user preferences, not mission requirements. The ranking is sensitive to them, which is why they are exposed.
 - The local terrain view is a perspective rendering of a 12 km LOLA tile, vertically exaggerated. The Moon globe is a locator textured with NASA's LROC color mosaic, not an analysis-grade terrain mesh. Neither is a landing simulation or hazard visualization.
 

@@ -63,16 +63,16 @@ function AtlasPointRow({
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-1.5">
             <span className="truncate text-[11.5px] font-medium">{site.shortName}</span>
-            <span className="font-mono text-[8px] text-muted-foreground">
+            <span className="font-mono text-[9px] text-muted-foreground">
               {CLASS_LABEL[site.terrainClass]}
             </span>
           </span>
-          <span className="block font-mono text-[8.5px] text-muted-foreground">
+          <span className="block font-mono text-[9.5px] text-muted-foreground">
             {fmtCoord(site.lat, site.lon)}
           </span>
         </span>
         {metric && (
-          <span className="flex shrink-0 items-center gap-2 font-mono text-[9px]">
+          <span className="flex shrink-0 items-center gap-2 font-mono text-[10px]">
             <span className="text-sun">{fmtPct(metric.sunlightPct)}</span>
             <span className="text-earth">{fmtPct(metric.earthPct)}</span>
           </span>
@@ -215,7 +215,7 @@ export function AtlasView({
                 aria-pressed={mode === id}
                 onClick={() => setMode(id)}
                 className={cn(
-                  'inline-flex h-6 items-center gap-1 rounded-full px-2.5 font-mono text-[8.5px] font-medium tracking-wide uppercase transition-colors',
+                  'inline-flex h-6 items-center gap-1 rounded-full px-2.5 font-mono text-[9.5px] font-medium tracking-wide uppercase transition-colors',
                   mode === id
                     ? 'bg-secondary text-foreground'
                     : 'text-muted-foreground hover:text-foreground',
@@ -238,8 +238,8 @@ export function AtlasView({
               fallback={
                 <div className="flex aspect-square flex-col items-center justify-center gap-2.5 overflow-hidden rounded-2xl border border-border bg-[radial-gradient(circle_at_center,#171c26,#06070a)] text-white/60">
                   <Loader2 className="size-5 animate-spin" />
-                  <div className="font-mono text-[9px] tracking-wide">LOADING THE MOON…</div>
-                  <div className="text-[10px] text-white/35">NASA LROC color map · 2K texture</div>
+                  <div className="font-mono text-[10px] tracking-wide">LOADING THE MOON…</div>
+                  <div className="text-[10.5px] text-white/35">NASA LROC color map · 2K texture</div>
                 </div>
               }
             >
@@ -282,7 +282,7 @@ export function AtlasView({
                   onError={() => setImageOk(false)}
                 />
               ) : (
-                <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_center,#1b2029,#08090c)] text-[10px] text-white/50">
+                <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_center,#1b2029,#08090c)] text-[10.5px] text-white/50">
                   Atlas image pending
                 </div>
               )}
@@ -400,7 +400,7 @@ export function AtlasView({
                     top: `${Math.min(80, Math.max(2, atlasPosition(hovered).yPct - 8))}%`,
                   }}
                 >
-                  <div className="flex items-center gap-1.5 text-[9.5px] font-semibold">
+                  <div className="flex items-center gap-1.5 text-[10.5px] font-semibold">
                     <span
                       className="size-1.5 rounded-full"
                       style={{ backgroundColor: hovered.color }}
@@ -410,7 +410,7 @@ export function AtlasView({
                   <div className="mt-0.5 font-mono text-[7.5px] text-white/50">
                     {fmtCoord(hovered.lat, hovered.lon)}
                   </div>
-                  <div className="mt-1.5 flex gap-2 font-mono text-[8px]">
+                  <div className="mt-1.5 flex gap-2 font-mono text-[9px]">
                     <span className="text-[var(--sun)]">
                       ☀ {fmtPct(metricsById.get(hovered.id)?.sunlightPct ?? 0)}
                     </span>
@@ -421,18 +421,18 @@ export function AtlasView({
                 </div>
               )}
 
-              <div className="pointer-events-none absolute top-2.5 left-3 font-mono text-[8px] tracking-wide text-white/45">
+              <div className="pointer-events-none absolute top-2.5 left-3 font-mono text-[9px] tracking-wide text-white/45">
                 POLAR STEREOGRAPHIC · 0°E UP
               </div>
               <div className="pointer-events-none absolute bottom-2.5 left-3 flex items-center gap-1.5">
                 <span className="h-px w-[16.4%] bg-white/60" />
-                <span className="font-mono text-[8px] text-white/60">100 km</span>
+                <span className="font-mono text-[9px] text-white/60">100 km</span>
               </div>
               <div className="pointer-events-none absolute right-2.5 bottom-2.5 rounded-full bg-black/50 px-2 py-1 font-mono text-[7.5px] text-white/50 backdrop-blur">
                 {sites.length} sites · NASA + refs
               </div>
               {pinMode && (
-                <div className="pointer-events-none absolute top-2.5 right-2.5 rounded-full border border-white/20 bg-black/55 px-2.5 py-1 font-mono text-[8px] text-white/80 backdrop-blur">
+                <div className="pointer-events-none absolute top-2.5 right-2.5 rounded-full border border-white/20 bg-black/55 px-2.5 py-1 font-mono text-[9px] text-white/80 backdrop-blur">
                   CLICK TO PIN · SOUTH OF 80.15°S
                 </div>
               )}
@@ -445,7 +445,7 @@ export function AtlasView({
             <div className="flex items-center justify-between gap-2 px-1">
               <div>
                 <div className="text-[12px] font-semibold">Curated points</div>
-                <div className="text-[10px] text-muted-foreground">
+                <div className="text-[10.5px] text-muted-foreground">
                   {inView} in comparison · hover to locate · click to analyze
                 </div>
               </div>
@@ -456,7 +456,7 @@ export function AtlasView({
                 <div key={group.id}>
                   <div
                     className={cn(
-                      'flex items-center justify-between gap-2 px-1 pb-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground uppercase',
+                      'flex items-center justify-between gap-2 px-1 pb-1 font-mono text-[9.5px] tracking-[0.1em] text-muted-foreground uppercase',
                       index > 0 && 'mt-2 border-t border-border/50 pt-2',
                     )}
                   >
@@ -488,7 +488,7 @@ export function AtlasView({
               </div>
             </div>
             {mode === 'globe' ? (
-              <div className="mt-2 space-y-1.5 text-[9.5px] leading-relaxed text-muted-foreground">
+              <div className="mt-2 space-y-1.5 text-[10.5px] leading-relaxed text-muted-foreground">
                 <p>
                   Drag to rotate and scroll or pinch to zoom. A white ring marks a site that is in
                   the current comparison; click any marker for its full analysis.
@@ -505,7 +505,7 @@ export function AtlasView({
                 </p>
               </div>
             ) : (
-              <div className="mt-2 space-y-1.5 text-[9.5px] leading-relaxed text-muted-foreground">
+              <div className="mt-2 space-y-1.5 text-[10.5px] leading-relaxed text-muted-foreground">
                 <p>
                   The pole is at the center. Longitude 0° points up; 90°E points right. Dashed rings
                   mark 85°S, 88°S and 89.5°S.
@@ -531,7 +531,7 @@ export function AtlasView({
             </div>
           </section>
 
-          <div className="rounded-xl border border-dashed border-border px-3 py-2 text-[8.5px] leading-relaxed text-muted-foreground">
+          <div className="rounded-xl border border-dashed border-border px-3 py-2 text-[9.5px] leading-relaxed text-muted-foreground">
             NASA has not published official region centers or ellipses. Marker positions are
             representative terrain points chosen from LOLA topography for comparative analysis.
           </div>

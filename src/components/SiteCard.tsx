@@ -57,6 +57,11 @@ export function SiteCard({
       tabIndex={0}
       aria-label={`Open analysis for ${site.name}`}
     >
+      <div
+        aria-hidden
+        className="absolute inset-x-6 top-0 h-px"
+        style={{ background: `linear-gradient(90deg, transparent, ${site.color}, transparent)` }}
+      />
       <div className="flex items-start gap-2 px-4 pt-3.5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
@@ -185,7 +190,7 @@ export function SiteCard({
           <span className="truncate font-mono text-[9px] text-muted-foreground">
             {site.lat.toFixed(2)}°, {site.lon.toFixed(2)}°
           </span>
-          <span className="inline-flex items-center gap-1 text-[10.5px] font-medium text-foreground/80 transition group-hover:text-foreground">
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background/60 px-2 py-1 text-[10px] font-medium text-foreground/80 transition group-hover:border-foreground/20 group-hover:bg-foreground group-hover:text-background">
             Open analysis
             <ArrowUpRight className="size-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>

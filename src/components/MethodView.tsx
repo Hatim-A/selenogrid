@@ -44,7 +44,7 @@ const METRICS = [
   ['Longest window', 'Longest continuous Sun or Earth visibility interval inside the scenario window.'],
   ['Next event', 'First sunset, sunrise, Earthset or Earthrise after the start, refined by bisection.'],
   ['Local slope', 'Best-fit 1 km slope from the 20 m DEM. Used as a cost criterion, not a landing constraint.'],
-  ['Openness', 'Fraction of the full sky dome not blocked by the local horizon. Context, not a ranking criterion.'],
+  ['Open sky', 'Fraction of the full sky dome not blocked by the local horizon. Context, not a ranking criterion.'],
 ]
 
 const VALIDATION = [
@@ -172,7 +172,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.035em] sm:text-[32px]">
             Every number is inspectable.
           </h1>
-          <p className="mt-1.5 max-w-2xl text-[12px] leading-relaxed text-muted-foreground">
+          <p className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
             SelenoGrid is a screening instrument, not a flight-certified landing analysis. The
             pipeline is deliberately simple: real terrain, standard ephemerides, an explicit
             visibility rule, and a decision model you can reweight.
@@ -185,10 +185,10 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
       </div>
 
       <div className="grid gap-2 rounded-2xl border border-border bg-card/55 p-4 sm:grid-cols-[130px_1fr] sm:gap-4">
-        <div className="font-mono text-[8.5px] tracking-[0.12em] text-muted-foreground uppercase">
+        <div className="font-mono text-[9.5px] tracking-[0.12em] text-muted-foreground uppercase">
           The question
         </div>
-        <p className="max-w-3xl text-[11px] leading-relaxed text-muted-foreground">
+        <p className="max-w-3xl text-[12px] leading-relaxed text-muted-foreground">
           For a chosen date and mission length, when are the Sun and Earth above each site&apos;s own
           terrain horizon? SelenoGrid turns those windows into four criteria and ranks the sites. It
           does not model power systems, thermal behavior, or communications link budgets.
@@ -204,10 +204,10 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
                 <span className="inline-flex size-7 items-center justify-center rounded-lg bg-secondary">
                   <Icon className="size-3.5" />
                 </span>
-                <span className="font-mono text-[8px] text-muted-foreground">0{i + 1}</span>
+                <span className="font-mono text-[9px] text-muted-foreground">0{i + 1}</span>
               </div>
-              <div className="mt-3 text-[11.5px] font-semibold">{step.title}</div>
-              <p className="mt-1 text-[9.5px] leading-relaxed text-muted-foreground">{step.body}</p>
+              <div className="mt-3 text-[12px] font-semibold">{step.title}</div>
+              <p className="mt-1 text-[10.5px] leading-relaxed text-muted-foreground">{step.body}</p>
             </div>
           )
         })}
@@ -217,12 +217,12 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
         <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
           <div className="flex items-center gap-2">
             <Sun className="size-4 text-sun" />
-            <h2 className="text-[13px] font-semibold">The visibility rule</h2>
+            <h2 className="text-[14px] font-semibold">The visibility rule</h2>
             <Badge variant="outline" className="font-mono">
               upper limb
             </Badge>
           </div>
-          <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
+          <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
             A body counts as visible when any part of its disk clears the local terrain horizon.
             This is deliberately inclusive for communication and conservative for power: a one-pixel
             solar sliver counts as sunlight, while the flux proxy still collapses toward zero.
@@ -230,7 +230,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           <div className="mt-3 rounded-xl border border-border/60 bg-background/30 p-2">
             <VisibilityDiagram />
           </div>
-          <div className="mt-3 rounded-lg border border-border/70 bg-background/40 px-3 py-2 font-mono text-[9px] text-muted-foreground">
+          <div className="mt-3 rounded-lg border border-border/70 bg-background/40 px-3 py-2 font-mono text-[10px] text-muted-foreground">
             visible(az, el) = el + asin(R_body / d) − horizon(az) &gt; 0
           </div>
         </section>
@@ -238,13 +238,13 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
         <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
           <div className="flex items-center gap-2">
             <Radio className="size-4 text-earth" />
-            <h2 className="text-[13px] font-semibold">What we compute</h2>
+            <h2 className="text-[14px] font-semibold">What we compute</h2>
           </div>
           <div className="mt-2 divide-y divide-border/60">
             {METRICS.map(([name, body]) => (
               <div key={name} className="py-2">
-                <div className="text-[10.5px] font-medium">{name}</div>
-                <div className="mt-0.5 text-[9px] leading-relaxed text-muted-foreground">{body}</div>
+                <div className="text-[11.5px] font-medium">{name}</div>
+                <div className="mt-0.5 text-[10px] leading-relaxed text-muted-foreground">{body}</div>
               </div>
             ))}
           </div>
@@ -254,12 +254,12 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
       <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
         <div className="flex flex-wrap items-center gap-2">
           <Sigma className="size-4 text-terrain" />
-          <h2 className="text-[13px] font-semibold">Decision layer: TOPSIS + Pareto</h2>
+          <h2 className="text-[14px] font-semibold">Decision layer: TOPSIS + Pareto</h2>
           <Badge variant="terrain" className="font-mono">
             explainable MCDA
           </Badge>
         </div>
-        <p className="mt-1.5 max-w-3xl text-[10px] leading-relaxed text-muted-foreground">
+        <p className="mt-1.5 max-w-3xl text-[11px] leading-relaxed text-muted-foreground">
           We use four criteria: sunlight %, Earth visibility %, mean solar flux, and local slope.
           The first three are benefits; slope is a cost. TOPSIS rewards similarity to the ideal
           point and distance from the anti-ideal. Scores are relative to the current comparison set.
@@ -272,14 +272,14 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
             ['4 · closeness', 'Cᵢ = Dᵢ⁻ / (Dᵢ⁺ + Dᵢ⁻)'],
           ].map(([title, formula]) => (
             <div key={title} className="rounded-lg border border-border/70 bg-background/35 p-2.5">
-              <div className="font-mono text-[8px] tracking-wide text-muted-foreground uppercase">
+              <div className="font-mono text-[9px] tracking-wide text-muted-foreground uppercase">
                 {title}
               </div>
-              <div className="mt-1.5 font-mono text-[10px]">{formula}</div>
+              <div className="mt-1.5 font-mono text-[11px]">{formula}</div>
             </div>
           ))}
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-[9px] text-muted-foreground">
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-[10px] text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <GitBranch className="size-3" />
             Pareto frontier: sites not dominated on sunlight and Earth visibility simultaneously.
@@ -296,16 +296,16 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="size-4 text-success" />
-              <h2 className="text-[13px] font-semibold">Validation against JPL Horizons</h2>
+              <h2 className="text-[14px] font-semibold">Validation against JPL Horizons</h2>
             </div>
             <Badge variant="success" className="font-mono">
               Shackleton · ephemeris check
             </Badge>
           </div>
           <div className="mt-2 overflow-x-auto">
-            <table className="w-full min-w-[420px] text-left text-[9.5px]">
+            <table className="w-full min-w-[420px] text-left text-[10.5px]">
               <thead>
-                <tr className="border-b border-border font-mono text-[8px] tracking-wide text-muted-foreground uppercase">
+                <tr className="border-b border-border font-mono text-[9px] tracking-wide text-muted-foreground uppercase">
                   <th className="py-1.5 font-medium">Quantity</th>
                   <th className="py-1.5 text-right font-medium">SelenoGrid</th>
                   <th className="py-1.5 text-right font-medium">Horizons</th>
@@ -324,7 +324,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-[8.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-[9.5px] leading-relaxed text-muted-foreground">
             Directions agree to ~0.02°, well inside the terrain and DEM error budget. The Earth
             diameter difference is dominated by the adopted Earth radius and lunar distance, not
             pointing.
@@ -334,9 +334,9 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
         <section className="rounded-2xl border border-border bg-card/55 p-4 shadow-[var(--shadow-card)]">
           <div className="flex items-center gap-2">
             <AlertTriangle className="size-4 text-sun" />
-            <h2 className="text-[13px] font-semibold">Limits we will not hide</h2>
+            <h2 className="text-[14px] font-semibold">Limits we will not hide</h2>
           </div>
-          <ul className="mt-2 space-y-1.5 text-[9.5px] leading-relaxed text-muted-foreground">
+          <ul className="mt-2 space-y-1.5 text-[10.5px] leading-relaxed text-muted-foreground">
             {[
               'Representative points, not official landing ellipses or hazard maps.',
               'No thermal, power-system, delta-v, communications-link-budget or human-factors model.',
@@ -361,7 +361,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <Database className="size-4 text-earth" />
-            <h2 className="text-[13px] font-semibold">Data & sources</h2>
+            <h2 className="text-[14px] font-semibold">Data & sources</h2>
           </div>
           <Button variant="outline" size="sm" asChild>
             <a href={`${import.meta.env.BASE_URL}data/sites.json`} download>
@@ -379,14 +379,14 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
               className="group rounded-lg border border-border/70 bg-background/30 p-3 transition hover:border-foreground/20"
             >
               <div className="flex items-start justify-between gap-2">
-                <span className="text-[10px] font-medium">{source.title}</span>
+                <span className="text-[11px] font-medium">{source.title}</span>
                 <ArrowUpRight className="size-3 shrink-0 text-muted-foreground transition group-hover:text-foreground" />
               </div>
-              <p className="mt-1 text-[8.5px] leading-relaxed text-muted-foreground">{source.detail}</p>
+              <p className="mt-1 text-[9.5px] leading-relaxed text-muted-foreground">{source.detail}</p>
             </a>
           ))}
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 pt-2.5 text-[8px] text-muted-foreground">
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border/60 pt-2.5 text-[9px] text-muted-foreground">
           <span>LOLA 20 m DEM · PDS Geosciences</span>
           <span>IAU 2009 lunar orientation</span>
           <span>Meeus ch. 25 / 47</span>
@@ -396,7 +396,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
         </div>
       </section>
 
-      <div className="rounded-xl border border-dashed border-border px-4 py-3 text-[8.5px] leading-relaxed text-muted-foreground">
+      <div className="rounded-xl border border-dashed border-border px-4 py-3 text-[9.5px] leading-relaxed text-muted-foreground">
         <strong className="font-medium text-foreground/80">Not affiliated with NASA.</strong> NASA
         candidate region names are used for context. All site coordinates are representative points
         selected from LOLA topography for comparison. NASA has not published official region centres

@@ -102,7 +102,7 @@ export function SiteDetailDialog({
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 sm:px-6">
           <div className="overflow-hidden rounded-xl border border-border bg-background/40">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 px-3.5 py-2">
-              <div className="font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">
+              <div className="font-mono text-[9.5px] tracking-[0.1em] text-muted-foreground">
                 360° TERRAIN HORIZON · START OF WINDOW
               </div>
               <div className="flex items-center gap-1.5">
@@ -149,7 +149,7 @@ export function SiteDetailDialog({
                   hint={ranked ? 'relative score' : 'not in comparison'}
                 />
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-2 border-t border-border/60 pt-3 text-[10px]">
+              <div className="mt-4 grid grid-cols-2 gap-2 border-t border-border/60 pt-3 text-[11px]">
                 <div>
                   <div className="text-muted-foreground">Longest sun window</div>
                   <div className="mt-0.5 font-medium">{fmtHours(sunHours)}</div>
@@ -172,7 +172,7 @@ export function SiteDetailDialog({
             </div>
 
             <div className="rounded-xl border border-border bg-background/30 p-4">
-              <div className="flex items-center gap-2 text-[11px] font-semibold">
+              <div className="flex items-center gap-2 text-[12px] font-semibold">
                 <CalendarClock className="size-3.5 text-muted-foreground" />
                 Event clock
               </div>
@@ -181,20 +181,20 @@ export function SiteDetailDialog({
                   const Icon = e.icon
                   return (
                     <div key={e.label} className="flex items-start justify-between gap-3">
-                      <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+                      <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                         <Icon className="size-3" />
                         {e.label}
                       </span>
                       <span className="text-right">
-                        <span className="block font-mono text-[10px] font-medium">{e.relative}</span>
-                        <span className="block font-mono text-[8px] text-muted-foreground">
+                        <span className="block font-mono text-[11px] font-medium">{e.relative}</span>
+                        <span className="block font-mono text-[9px] text-muted-foreground">
                           {e.absolute}
                         </span>
                       </span>
                     </div>
                   )
                 })}
-                <div className="border-t border-border/60 pt-2 text-[9px] leading-relaxed text-muted-foreground">
+                <div className="border-t border-border/60 pt-2 text-[10px] leading-relaxed text-muted-foreground">
                   Event times are refined by bisection from the {metrics.stepMs / 3_600_000} h
                   sampling grid. Sun and Earth are visible when the upper limb clears the terrain.
                 </div>
@@ -206,8 +206,8 @@ export function SiteDetailDialog({
             <div className="rounded-xl border border-border bg-background/30 p-3">
               <div className="mb-1 flex items-center justify-between px-1">
                 <div>
-                  <div className="text-[11px] font-semibold">Sky tracks</div>
-                  <div className="text-[9px] text-muted-foreground">
+                  <div className="text-[12px] font-semibold">Sky tracks</div>
+                  <div className="text-[10px] text-muted-foreground">
                     Horizon-to-zenith polar view · full window
                   </div>
                 </div>
@@ -220,8 +220,8 @@ export function SiteDetailDialog({
             <div className="flex flex-col rounded-xl border border-border bg-background/30 p-3">
               <div className="mb-2 flex flex-wrap items-center justify-between gap-2 px-1">
                 <div>
-                  <div className="text-[11px] font-semibold">Terrain context</div>
-                  <div className="text-[9px] text-muted-foreground">
+                  <div className="text-[12px] font-semibold">Terrain context</div>
+                  <div className="text-[10px] text-muted-foreground">
                     LOLA tile · 12 km across · 60 m/px
                   </div>
                 </div>
@@ -238,8 +238,8 @@ export function SiteDetailDialog({
                         onClick={() => setTerrainView(mode)}
                         className={
                           terrainView === mode
-                            ? 'rounded-full bg-secondary px-2 py-0.5 font-mono text-[8px] font-medium text-foreground'
-                            : 'rounded-full px-2 py-0.5 font-mono text-[8px] text-muted-foreground hover:text-foreground'
+                            ? 'rounded-full bg-secondary px-2 py-0.5 font-mono text-[9px] font-medium text-foreground'
+                            : 'rounded-full px-2 py-0.5 font-mono text-[9px] text-muted-foreground hover:text-foreground'
                         }
                       >
                         {mode === 'map' ? 'MAP' : '3D'}
@@ -253,7 +253,7 @@ export function SiteDetailDialog({
               ) : (
                 <TerrainPerspective site={site} theme={theme} />
               )}
-              <div className="mt-3 grid grid-cols-2 gap-2 text-[10px]">
+              <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
                 <div className="flex items-center gap-1.5 text-muted-foreground">
                   <Mountain className="size-3" />
                   Slope {site.slopeDeg.toFixed(1)}°
@@ -275,12 +275,12 @@ export function SiteDetailDialog({
             <div className="mt-4 rounded-xl border border-border bg-background/30 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <div className="text-[11px] font-semibold">Why it ranks #{ranked.rank}</div>
-                  <div className="text-[9px] text-muted-foreground">
+                  <div className="text-[12px] font-semibold">Why it ranks #{ranked.rank}</div>
+                  <div className="text-[10px] text-muted-foreground">
                     TOPSIS closeness {ranked.score.toFixed(1)} / 100 · weights normalised
                   </div>
                 </div>
-                <div className="font-mono text-[8.5px] text-muted-foreground">
+                <div className="font-mono text-[9.5px] text-muted-foreground">
                   D⁺ {ranked.idealDistance.toFixed(3)} · D⁻ {ranked.worstDistance.toFixed(3)}
                 </div>
               </div>
@@ -320,8 +320,8 @@ export function SiteDetailDialog({
           )}
 
           <div className="mt-4 rounded-xl border border-border bg-background/30 p-4">
-            <div className="text-[11px] font-semibold">About this point</div>
-            <p className="mt-1 text-[10.5px] leading-relaxed text-muted-foreground">{site.summary}</p>
+            <div className="text-[12px] font-semibold">About this point</div>
+            <p className="mt-1 text-[11.5px] leading-relaxed text-muted-foreground">{site.summary}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {site.tags.map((tag) => (
                 <Badge key={tag} variant="outline">
@@ -329,7 +329,7 @@ export function SiteDetailDialog({
                 </Badge>
               ))}
             </div>
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-2.5 text-[9px] text-muted-foreground">
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-2.5 text-[10px] text-muted-foreground">
               <span>{site.source}</span>
               {site.sourceUrl && (
                 <a
@@ -342,7 +342,7 @@ export function SiteDetailDialog({
                 </a>
               )}
             </div>
-            <p className="mt-2 text-[8.5px] leading-relaxed text-muted-foreground/80">
+            <p className="mt-2 text-[9.5px] leading-relaxed text-muted-foreground/80">
               {isCustom
                 ? 'Sampled live in your browser from the 640 m LOLA south-polar grid. Lower resolution than the curated 20 m sites; use it for screening, not landing certification.'
                 : 'Representative terrain point selected from LOLA topography. NASA has not published official region centres or landing ellipses; this is not a flight-certified site.'}

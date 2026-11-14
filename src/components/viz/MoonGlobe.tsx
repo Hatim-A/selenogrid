@@ -987,6 +987,7 @@ export function MoonGlobe({
   const hoveredSite = stageHoverId ? sites.find((site) => site.id === stageHoverId) : undefined
   const hoveredMetrics = hoveredSite ? metricsById.get(hoveredSite.id) : undefined
   const hoveredSelected = hoveredSite ? selectedIds.includes(hoveredSite.id) : false
+  const focusedSite = focusId ? sites.find((site) => site.id === focusId) : undefined
 
   const controlButton = cn(
     'inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 font-mono text-[8.5px] font-medium uppercase tracking-[0.08em] transition-colors',
@@ -1114,6 +1115,31 @@ export function MoonGlobe({
           <span className="hidden sm:inline">Auto</span>
         </button>
       </div>
+
+      {focusedSite && (
+        <div
+          className={cn(
+            'absolute bottom-11 left-4 z-20 flex items-center gap-2 rounded-full border px-2.5 py-1.5 shadow-lg backdrop-blur-md',
+            dark ? 'border-white/12 bg-black/45 text-white' : 'border-black/8 bg-white/80 text-foreground',
+          )}
+        >
+          <span
+            className="size-2 rounded-full"
+            style={{ backgroundColor: focusedSite.color }}
+          />
+          <span className="max-w-[170px] truncate text-[10px] font-medium">{focusedSite.shortName}</span>
+          <span className={cn('font-mono text-[7px] uppercase tracking-[0.1em]', dark ? 'text-white/35' : 'text-foreground/40')}>
+            focused
+          </span>
+          <button
+            type="button"
+            onClick={() => onOpen(focusedSite.id)}
+            className={cn('ml-1 text-[9px] font-medium underline-offset-2 hover:underline', dark ? 'text-white/65' : 'text-foreground/65')}
+          >
+            Open
+          </button>
+        </div>
+      )}
 
       <div
         className={cn(

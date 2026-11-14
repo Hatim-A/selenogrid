@@ -89,7 +89,7 @@ export function SkyPlot({ site, metrics, sample }: Props) {
               <text
                 x={xy(322, rFor(el)).x}
                 y={xy(322, rFor(el)).y}
-                fontSize="7.5"
+                fontSize="10"
                 fill="var(--muted-foreground)"
                 fontFamily="var(--font-mono)"
               >
@@ -180,7 +180,7 @@ export function SkyPlot({ site, metrics, sample }: Props) {
             x={p.x}
             y={p.y + 3}
             textAnchor="middle"
-            fontSize="9"
+            fontSize="10"
             fill="var(--muted-foreground)"
             fontFamily="var(--font-mono)"
           >
@@ -189,7 +189,7 @@ export function SkyPlot({ site, metrics, sample }: Props) {
         )
       })}
 
-      <g fontFamily="var(--font-mono)" fontSize="7.5" fill="var(--muted-foreground)">
+      <g fontFamily="var(--font-mono)" fontSize="10" fill="var(--muted-foreground)">
         <circle cx={16} cy={SIZE - 22} r="2.5" fill="var(--sun)" />
         <text x={23} y={SIZE - 19.5}>
           Sun {sample.sunEl >= 0 ? '+' : ''}

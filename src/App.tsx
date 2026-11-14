@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { ArrowUp, Loader2 } from 'lucide-react'
 import { AtlasView } from '@/components/AtlasView'
 import { CompareView } from '@/components/CompareView'
 import { CustomPointDialog } from '@/components/CustomPointDialog'
@@ -69,7 +69,13 @@ function readUrlState(): UrlState {
   if (view === 'compare' || view === 'timeline' || view === 'atlas' || view === 'method') {
     next.view = view
   }
-  if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) next.date = date
+  if (
+    date &&
+    /^\d{4}-\d{2}-\d{2}$/.test(date) &&
+    Number.isFinite(Date.parse(`${date}T12:00:00Z`))
+  ) {
+    next.date = date
+  }
   if ([0, 6, 12, 18].includes(hour)) next.hour = hour
   if ([30, 90, 180, 365].includes(days)) next.days = days
   if ([1, 3, 6].includes(stepHours)) next.stepHours = stepHours
@@ -115,6 +121,7 @@ export default function App() {
   const [customSeed, setCustomSeed] = useState<{ lat: number; lon: number } | null>(null)
   const [customBusy, setCustomBusy] = useState(false)
   const [customError, setCustomError] = useState<string | null>(null)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   const allSites = useMemo(
     () => [...(data?.sites ?? []), ...customSites],
@@ -189,7 +196,15 @@ export default function App() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
+    setShowBackToTop(false)
   }, [view])
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 700)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const openDetail = (id: string) => setDetailId(id)
   const addSite = (id: string) => {
@@ -252,7 +267,12 @@ export default function App() {
         <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 sm:px-6">
           {view === 'compare' && (
             <Hero
-              siteCount={allSites.length}
+              siteCount={allSites.length || 18}
+              sites={allSites}
+              selectedIds={selectedIds}
+              topSiteId={ranked[0]?.site.id}
+              theme={theme}
+              onOpen={openDetail}
               onGuide={() => setGuideOpen(true)}
               onCompare={() =>
                 document
@@ -278,7 +298,7 @@ export default function App() {
             />
           )}
 
-          <div className="mt-4 pb-6">
+          <div key={view} className="mt-4 animate-fade-up pb-6">
             {error ? (
               <ErrorPanel message={error} />
             ) : !data ? (
@@ -333,6 +353,17 @@ export default function App() {
 
         <Footer onMethod={() => setView('method')} />
       </div>
+
+      {showBackToTop && (
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          className="fixed right-4 bottom-4 z-40 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-[var(--shadow-card)] backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-secondary sm:right-6 sm:bottom-6"
+        >
+          <ArrowUp className="size-4" />
+        </button>
+      )}
 
       <SiteDetailDialog
         site={detailSite}

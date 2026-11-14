@@ -10,17 +10,17 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
           <div className="flex items-center gap-2">
             <Logo className="size-6" />
             <span className="text-[12px] font-semibold tracking-[-0.02em]">SelenoGrid</span>
-            <span className="font-mono text-[8px] text-muted-foreground">v1.0</span>
+            <span className="font-mono text-[9px] text-muted-foreground">v1.0</span>
           </div>
-          <p className="mt-2 text-[9.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-[10px] leading-relaxed text-muted-foreground">
             A lunar south-pole landing-site comparison lab built for NASA Space Apps Challenge 2026,
             Meknes. Real LOLA terrain, standard ephemerides, transparent operations research.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-10 gap-y-3 text-[9.5px] sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-10 gap-y-3 text-[10px] sm:grid-cols-3">
           <div>
-            <div className="font-mono text-[7.5px] tracking-[0.1em] text-muted-foreground uppercase">
+            <div className="font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground uppercase">
               Explore
             </div>
             <button
@@ -47,7 +47,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
             </a>
           </div>
           <div>
-            <div className="font-mono text-[7.5px] tracking-[0.1em] text-muted-foreground uppercase">
+            <div className="font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground uppercase">
               Sources
             </div>
             <a
@@ -68,7 +68,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
             </a>
           </div>
           <div>
-            <div className="font-mono text-[7.5px] tracking-[0.1em] text-muted-foreground uppercase">
+            <div className="font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground uppercase">
               Event
             </div>
             <a
@@ -88,7 +88,7 @@ export function Footer({ onMethod }: { onMethod: () => void }) {
         </div>
       </div>
 
-      <div className="mt-5 flex flex-col gap-1 border-t border-border/60 pt-3 text-[8px] leading-relaxed text-muted-foreground/80 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-5 flex flex-col gap-1 border-t border-border/60 pt-3 text-[9px] leading-relaxed text-muted-foreground/80 sm:flex-row sm:items-center sm:justify-between">
         <span>
           Not affiliated with NASA. Representative terrain points, not official landing ellipses or
           flight-certified analysis.

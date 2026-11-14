@@ -115,7 +115,7 @@ export function DecisionBrief({
           />
           <div className="relative p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3">
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 font-mono text-[8.5px] tracking-[0.14em] text-muted-foreground uppercase">
                   <Trophy className="size-3 text-sun" />
                   Best fit for this window
@@ -125,7 +125,7 @@ export function DecisionBrief({
                   onClick={() => onOpen(top.site.id)}
                   className="group mt-2 block max-w-full text-left"
                 >
-                  <h3 className="text-[28px] leading-[1.05] font-semibold tracking-[-0.045em] sm:text-[34px]">
+                  <h3 className="max-w-full text-[28px] leading-[1.05] font-semibold tracking-[-0.045em] break-words sm:text-[34px]">
                     {top.site.name}
                   </h3>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10.5px] text-muted-foreground">
