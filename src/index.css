@@ -4,79 +4,79 @@
 
 :root {
   color-scheme: light;
-  --background: #fbfbfd;
-  --foreground: #1d1d1f;
-  --card: #ffffff;
-  --card-foreground: #1d1d1f;
-  --popover: #ffffff;
-  --popover-foreground: #1d1d1f;
-  --primary: #1d1d1f;
-  --primary-foreground: #ffffff;
-  --secondary: #f5f5f7;
-  --secondary-foreground: #1d1d1f;
-  --muted: #f5f5f7;
-  --muted-foreground: #6e6e73;
-  --accent: #eef3ff;
-  --accent-foreground: #0058b0;
-  --destructive: #d70015;
-  --border: rgba(0, 0, 0, 0.09);
-  --input: rgba(0, 0, 0, 0.12);
-  --ring: #0071e3;
-  --radius: 0.9rem;
+  --background: #f3f0e8;
+  --foreground: #1b1a17;
+  --card: #faf8f1;
+  --card-foreground: #1b1a17;
+  --popover: #fbf9f3;
+  --popover-foreground: #1b1a17;
+  --primary: #1b1a17;
+  --primary-foreground: #f8f5ed;
+  --secondary: #eae5da;
+  --secondary-foreground: #1b1a17;
+  --muted: #ede8de;
+  --muted-foreground: #6f6a60;
+  --accent: #e7eff9;
+  --accent-foreground: #005ba8;
+  --destructive: #bd2a1f;
+  --border: rgba(27, 26, 23, 0.11);
+  --input: rgba(27, 26, 23, 0.16);
+  --ring: #0067c5;
+  --radius: 0.55rem;
 
-  --sun: #b86f00;
-  --sun-soft: rgba(184, 111, 0, 0.14);
-  --earth: #0071e3;
-  --earth-soft: rgba(0, 113, 227, 0.12);
-  --terrain: #6547d8;
-  --terrain-soft: rgba(101, 71, 216, 0.12);
-  --success: #1f8f4e;
-  --success-soft: rgba(31, 143, 78, 0.12);
-  --danger: #d70015;
-  --danger-soft: rgba(215, 0, 21, 0.1);
+  --sun: #a86506;
+  --sun-soft: rgba(168, 101, 6, 0.13);
+  --earth: #0067c5;
+  --earth-soft: rgba(0, 103, 197, 0.11);
+  --terrain: #6650c8;
+  --terrain-soft: rgba(102, 80, 200, 0.11);
+  --success: #237747;
+  --success-soft: rgba(35, 119, 71, 0.11);
+  --danger: #bd2a1f;
+  --danger-soft: rgba(189, 42, 31, 0.1);
 
-  --glow-a: rgba(96, 130, 255, 0.09);
-  --glow-b: rgba(224, 139, 26, 0.05);
-  --grid-line: rgba(0, 0, 0, 0.045);
+  --glow-a: rgba(61, 114, 191, 0.12);
+  --glow-b: rgba(185, 116, 28, 0.07);
+  --grid-line: rgba(27, 26, 23, 0.055);
   --atlas-filter: invert(1) contrast(1.05);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #08090c;
-  --foreground: #f5f5f7;
-  --card: #111216;
-  --card-foreground: #f5f5f7;
-  --popover: #15161b;
-  --popover-foreground: #f5f5f7;
-  --primary: #f5f5f7;
-  --primary-foreground: #111216;
-  --secondary: #1a1b20;
-  --secondary-foreground: #f5f5f7;
-  --muted: #17181d;
-  --muted-foreground: #9b9ba3;
-  --accent: #1b2233;
-  --accent-foreground: #8ab8ff;
-  --destructive: #ff453a;
-  --border: rgba(255, 255, 255, 0.085);
-  --input: rgba(255, 255, 255, 0.14);
-  --ring: #4aa8ff;
-  --radius: 0.9rem;
+  --background: #08090a;
+  --foreground: #f2eee5;
+  --card: #101113;
+  --card-foreground: #f2eee5;
+  --popover: #141518;
+  --popover-foreground: #f2eee5;
+  --primary: #f2eee5;
+  --primary-foreground: #0d0e10;
+  --secondary: #191a1d;
+  --secondary-foreground: #f2eee5;
+  --muted: #151619;
+  --muted-foreground: #9d998f;
+  --accent: #172130;
+  --accent-foreground: #9dc7ff;
+  --destructive: #ff6b5f;
+  --border: rgba(242, 238, 229, 0.1);
+  --input: rgba(242, 238, 229, 0.16);
+  --ring: #77b9ff;
+  --radius: 0.55rem;
 
-  --sun: #f5a623;
-  --sun-soft: rgba(245, 166, 35, 0.14);
-  --earth: #4aa8ff;
-  --earth-soft: rgba(74, 168, 255, 0.12);
-  --terrain: #a78bfa;
-  --terrain-soft: rgba(167, 139, 250, 0.12);
-  --success: #30d158;
-  --success-soft: rgba(48, 209, 88, 0.12);
-  --danger: #ff453a;
-  --danger-soft: rgba(255, 69, 58, 0.1);
+  --sun: #f2b35b;
+  --sun-soft: rgba(242, 179, 91, 0.14);
+  --earth: #77b9ff;
+  --earth-soft: rgba(119, 185, 255, 0.12);
+  --terrain: #c4b5fd;
+  --terrain-soft: rgba(196, 181, 253, 0.12);
+  --success: #7bd88f;
+  --success-soft: rgba(123, 216, 143, 0.12);
+  --danger: #ff6b5f;
+  --danger-soft: rgba(255, 107, 95, 0.1);
 
-  --glow-a: rgba(72, 110, 240, 0.14);
-  --glow-b: rgba(245, 166, 35, 0.06);
-  --grid-line: rgba(255, 255, 255, 0.045);
+  --glow-a: rgba(103, 157, 235, 0.13);
+  --glow-b: rgba(242, 179, 91, 0.065);
+  --grid-line: rgba(242, 238, 229, 0.045);
   --atlas-filter: none;
 }
 
@@ -108,17 +108,18 @@
   --font-sans:
     'Inter Variable', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif;
+  --font-display: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', Georgia, serif;
   --font-mono:
     ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 1px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 10px);
+  --radius-xl: calc(var(--radius) + 3px);
+  --radius-2xl: calc(var(--radius) + 8px);
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -16px rgba(0, 0, 0, 0.18);
-  --shadow-float: 0 24px 80px -24px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.04), 0 18px 48px -30px rgba(0, 0, 0, 0.28);
+  --shadow-float: 0 32px 100px -28px rgba(0, 0, 0, 0.55);
 }
 
 @layer base {
@@ -128,6 +129,7 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
   }
 
   html,
@@ -249,6 +251,33 @@
   .pulse-dot {
     animation: pulse-dot 2.4s ease-in-out infinite;
   }
+
+  .orbit-slow {
+    animation: orbit 44s linear infinite;
+    transform-origin: center;
+  }
+
+  .orbit-reverse {
+    animation: orbit-reverse 68s linear infinite;
+    transform-origin: center;
+  }
+
+  .orbit-breathe {
+    animation: orbit-breathe 7s ease-in-out infinite;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-up {
@@ -280,6 +309,34 @@
   50% {
     opacity: 0.75;
     box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes orbit-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
   }
 }
 

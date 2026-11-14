@@ -10,7 +10,7 @@
 
 ## 60-second route
 
-Start on **Compare**. The nine NASA regions are preloaded; **All 18** adds the reference sites, and **+ Custom point** adds a live coordinate. The order moves from the decision to the evidence.
+Start on **Compare**. The nine NASA regions are preloaded; open the site library from **Edit sites** or **9 of 18 sites** to add references, choose **All 18**, or add a live custom coordinate. The order moves from the decision to the evidence.
 
 | # | Step | Do this | What to look for |
 | --- | --- | --- | --- |

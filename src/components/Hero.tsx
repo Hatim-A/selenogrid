@@ -35,7 +35,7 @@ export function Hero({
       <div className="grid-fade pointer-events-none absolute inset-x-0 -top-16 h-64 opacity-50" />
       <div className="relative grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="animate-fade-up flex flex-wrap items-center gap-2">
             <Badge variant="outline" className="font-mono tracking-[0.12em]">
               <span className="sm:hidden">NASA SPACE APPS 2026</span>
               <span className="hidden sm:inline">
@@ -48,19 +48,28 @@ export function Hero({
             </Badge>
           </div>
 
-          <h1 className="mt-5 max-w-[760px] text-[36px] leading-[1.02] font-semibold tracking-[-0.045em] sm:text-[50px] lg:text-[58px]">
+          <h1
+            className="animate-fade-up mt-5 max-w-[760px] font-display text-[44px] leading-[0.97] tracking-[-0.025em] sm:text-[62px] lg:text-[74px]"
+            style={{ animationDelay: '80ms' }}
+          >
             Find the landing site that can see the{' '}
             <span className="text-sun">Sun</span> and hear{' '}
             <span className="text-earth">Earth</span>.
           </h1>
 
-          <p className="mt-5 max-w-2xl text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]">
+          <p
+            className="animate-fade-up mt-5 max-w-2xl text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]"
+            style={{ animationDelay: '150ms' }}
+          >
             SelenoGrid compares real LOLA terrain, sunlight and direct-to-Earth line of sight across
             the Artemis candidate regions, then ranks them with an explainable decision model you
             can inspect, reweight and challenge.
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div
+            className="animate-fade-up mt-5 flex flex-wrap items-center gap-2"
+            style={{ animationDelay: '220ms' }}
+          >
             <Button size="sm" onClick={onCompare}>
               See the ranking
               <ArrowDown />
@@ -70,12 +79,18 @@ export function Hero({
               60-second guide
             </Button>
           </div>
-          <p className="mt-2 font-mono text-[9px] tracking-wide text-muted-foreground/80">
+          <p
+            className="animate-fade-up mt-2 font-mono text-[9px] tracking-wide text-muted-foreground/80"
+            style={{ animationDelay: '280ms' }}
+          >
             Preloaded: nine NASA sites · 180-day window · 3-hour step · live Sun/Earth computation
           </p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[370px] lg:max-w-none">
+        <div
+          className="animate-fade-up relative mx-auto w-full max-w-[370px] lg:max-w-none"
+          style={{ animationDelay: '120ms' }}
+        >
           <HeroMoon
             sites={sites}
             selectedIds={selectedIds}
@@ -89,7 +104,9 @@ export function Hero({
       <div className="relative mt-8 grid grid-cols-2 gap-y-5 border-y border-border py-4 sm:grid-cols-4 sm:divide-x sm:divide-border">
         {stats.map((s) => (
           <div key={s.label} className="px-0 sm:px-5 sm:first:pl-0">
-            <div className="tabular text-[20px] font-semibold tracking-[-0.03em]">{s.value}</div>
+            <div className="tabular font-display text-[28px] leading-none tracking-[-0.02em]">
+              {s.value}
+            </div>
             <div className="mt-0.5 max-w-[190px] text-[11px] leading-snug text-muted-foreground">
               {s.label}
             </div>
