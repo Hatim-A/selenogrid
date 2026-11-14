@@ -47,7 +47,7 @@ function motionOK(): boolean {
 
 const scrollToId = scrollToSection
 
-/* ——— Small hooks: inview-once + eased count-up ——— */
+/* --- Small hooks: inview-once + eased count-up --- */
 
 function useInViewOnce<T extends HTMLElement>(threshold = 0.3) {
   const ref = useRef<T | null>(null)
@@ -115,7 +115,7 @@ function StatValue({
   )
 }
 
-/* ——— Proof data: SelenoGrid minus JPL Horizons (Shackleton area) ——— */
+/* --- Proof data: SelenoGrid minus JPL Horizons (Shackleton area) --- */
 
 const VALIDATION_ROWS = [
   { q: 'Sun azimuth', ours: '350.754°', jpl: '350.742°', d: '+0.012°' },
@@ -125,7 +125,7 @@ const VALIDATION_ROWS = [
   { q: 'Earth angular diameter', ours: '6482.7″', jpl: '6490.5″', d: '−7.8″' },
 ]
 
-/** Residual magnitudes in degrees — truthful source for the log-scale bars. */
+/** Residual magnitudes in degrees - truthful source for the log-scale bars. */
 const RESIDUALS = [
   { q: 'Sun azimuth', d: '+0.012°', magDeg: 0.012, sign: 1 as const },
   { q: 'Sun elevation', d: '+0.002°', magDeg: 0.002, sign: 1 as const },
@@ -145,7 +145,7 @@ function residWidth(magDeg: number): string {
 const LIMIT_CARDS = [
   {
     title: 'Representative points',
-    body: '18 terrain samples — not official landing ellipses. A point a few kilometres away can rank differently.',
+    body: '18 terrain samples. Not official landing ellipses. A point a few kilometres away can rank differently.',
   },
   {
     title: 'Screening aid only',
@@ -157,7 +157,7 @@ const LIMIT_CARDS = [
   },
   {
     title: 'Coarse custom pins',
-    body: 'Custom pins sample a 640 m grid and are labelled as such — screening at lower fidelity.',
+    body: 'Custom pins sample a 640 m grid and are labelled as such, screening at lower fidelity.',
   },
 ]
 
@@ -176,12 +176,12 @@ const SOURCE_CHIPS = [
 
 const HEADLINE_LINES: ReactNode[] = [
   <>
-    Compare <em className="text-sun italic">18 south-pole</em>
+    See the <em className="text-sun italic">Sun</em>.
   </>,
   <>
-    sites on <em className="text-earth italic">sunlight</em> and
+    Hear <em className="text-earth italic">Earth</em>.
   </>,
-  <span className="text-muted-foreground">Earth visibility.</span>,
+  <span className="text-muted-foreground">Pick the ground.</span>,
 ]
 
 export function LandingView({
@@ -328,7 +328,7 @@ export function LandingView({
     <div className="relative overflow-x-clip">
       <ChapterRail active={active} onJump={scrollToId} />
 
-      {/* 1 — Hero */}
+      {/* 1 - Hero */}
       <section
         id="top"
         className={`relative flex min-h-svh scroll-mt-16 flex-col ${loaded ? 'lp-hero-loaded' : ''}`}
@@ -364,8 +364,8 @@ export function LandingView({
             </h1>
             <Reveal delay={170}>
               <p className="mt-6 max-w-xl text-[14.5px] leading-relaxed text-muted-foreground sm:text-[15.5px]">
-                SelenoGrid compares {siteCount} south-pole terrain points — nine NASA candidate
-                regions plus nine reference sites — on real 20&nbsp;m LOLA horizons and
+                SelenoGrid compares {siteCount} south-pole terrain points (nine NASA candidate
+                regions plus nine reference sites) on real 20&nbsp;m LOLA horizons and
                 JPL-checked Sun/Earth geometry. Weights and horizons stay visible with the result.
               </p>
             </Reveal>
@@ -531,7 +531,7 @@ export function LandingView({
         </div>
       </section>
 
-      {/* 2 — Sticky chapter journey */}
+      {/* 2 - Sticky chapter journey */}
       <Chapters
         sites={sites}
         metricsById={metricsById}
@@ -540,7 +540,7 @@ export function LandingView({
         onOpenSite={onOpenSite}
       />
 
-      {/* 3 — ScrubMission film moment (owns its own UI) */}
+      {/* 3 - ScrubMission film moment (owns its own UI) */}
       <section id="film" aria-label="Scrub the mission" className="relative scroll-mt-16 border-t border-border/60">
         <div className="mx-auto w-full max-w-[1440px] px-4 py-20 sm:px-8 sm:py-28">
           <h2 className="sr-only">Scrub through the mission window</h2>
@@ -553,7 +553,7 @@ export function LandingView({
         </div>
       </section>
 
-      {/* 4 — Proof strip */}
+      {/* 4 - Proof strip */}
       <section id="proof" className="relative scroll-mt-16 border-t border-border/60">
         <div className="mx-auto w-full max-w-[1440px] px-4 py-20 sm:px-8 sm:py-28">
           <Reveal>
@@ -562,7 +562,7 @@ export function LandingView({
               Checked against <span className="text-earth">JPL Horizons</span>.
             </h2>
             <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]">
-              The astronomy engine was compared with JPL Horizons at a Shackleton-area site —
+              The astronomy engine was compared with JPL Horizons at a Shackleton-area site,
               SelenoGrid minus Horizons. Typical agreement is about 0.02° for Sun and Earth
               directions: fit for comparative screening, not flight dynamics.
             </p>
@@ -649,7 +649,7 @@ export function LandingView({
                     <span>0.01°</span>
                   </div>
                   <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-                    Log scale across two decades — all five residuals sit below 0.02°,
+                    Log scale across two decades: all five residuals sit below 0.02°,
                     most near a few thousandths of a degree.
                   </p>
                 </div>
@@ -710,7 +710,7 @@ export function LandingView({
         </div>
       </section>
 
-      {/* 5 — Final CTA */}
+      {/* 5 - Final CTA */}
       <section id="cta" className="relative scroll-mt-16 overflow-x-clip border-t border-border/60">
         <AuroraField variant="cta" />
         <div className="relative mx-auto w-full max-w-[1440px] px-4 py-28 text-center sm:px-8 sm:py-36">
@@ -722,7 +722,7 @@ export function LandingView({
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]">
               Nine NASA regions and nine reference sites on one screen. Change the scenario,
-              move the weights, watch the ranking — and the frontier — answer back.
+              move the weights, watch the ranking and the frontier answer back.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
               <button

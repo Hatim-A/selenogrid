@@ -2,7 +2,7 @@
    SelenoGrid · landing-only styles (imported by LandingView).
    Shared language: "midnight observatory editorial".
 
-   Class API (all `lp-` prefixed — nothing here leaks globally):
+   Class API (all `lp-` prefixed - nothing here leaks globally):
      .lp-scrub-wrap    tall scroll driver for a pinned moment (ScrubMission
                        sets its own height inline, ~300vh).
      .lp-sticky-stage  the pinned viewport stage: sticky, full-viewport,
@@ -12,7 +12,7 @@
      .lp-vignette      cinematic edge vignette.
      .lp-scroll-cue    vertical scroll hint; the dot travels via lp-cue-drop.
      .lp-scrub-track   hairline rail for progress / day bars.
-     .lp-scrub-fill    the moving fill — always driven via transform
+     .lp-scrub-fill    the moving fill - always driven via transform
                        scaleX (GPU only, no layout). Add .lp-fill-sun or
                        .lp-fill-earth for single-hue bars.
      .lp-step          chapter step; toggle .is-active for the transition.
@@ -23,7 +23,7 @@
      .lp-sun-dot       the travelling sun dot inside the panorama SVG.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* — Tall driver + pinned stage — */
+/* - Tall driver + pinned stage - */
 .lp-scrub-wrap {
   position: relative;
 }
@@ -37,7 +37,7 @@
   overflow: clip;
 }
 
-/* — Display type — */
+/* - Display type - */
 .lp-display {
   font-family: var(--font-display);
   letter-spacing: -0.03em;
@@ -73,7 +73,7 @@
   }
 }
 
-/* — Film grain + vignette (decorative overlays, never interactive) — */
+/* - Film grain + vignette (decorative overlays, never interactive) - */
 .lp-grain {
   position: absolute;
   inset: 0;
@@ -95,7 +95,7 @@
   );
 }
 
-/* — Scroll cue — */
+/* - Scroll cue - */
 .lp-scroll-cue {
   position: relative;
   width: 1px;
@@ -129,7 +129,7 @@
   }
 }
 
-/* — Scrub rails: fill is transform-only (scaleX) for 60fps — */
+/* - Scrub rails: fill is transform-only (scaleX) for 60fps - */
 .lp-scrub-track {
   position: relative;
   height: 2px;
@@ -154,7 +154,7 @@
   background: var(--earth);
 }
 
-/* — Chapter steps: LandingView toggles .is-active per step — */
+/* - Chapter steps: LandingView toggles .is-active per step - */
 .lp-step {
   opacity: 0.38;
   transform: translateY(10px);
@@ -169,7 +169,7 @@
   transform: translateY(0);
 }
 
-/* — Horizon panorama SVG artwork — */
+/* - Horizon panorama SVG artwork - */
 .lp-ridge {
   fill: color-mix(in srgb, var(--foreground) 20%, transparent);
   stroke: color-mix(in srgb, var(--foreground) 32%, transparent);
@@ -182,7 +182,7 @@
   filter: drop-shadow(0 0 5px var(--sun));
 }
 
-/* — Dark (midnight observatory) tuning — */
+/* - Dark (midnight observatory) tuning - */
 .dark .lp-grain {
   opacity: 0.16;
 }
@@ -199,7 +199,7 @@
   background: rgba(241, 237, 227, 0.14);
 }
 
-/* — Reduced motion: static fallbacks, steps fully legible — */
+/* - Reduced motion: static fallbacks, steps fully legible - */
 @media (prefers-reduced-motion: reduce) {
   .lp-scroll-cue::after {
     animation: none;
@@ -223,7 +223,7 @@
    intentional: aurora alphas drop, orbit rings go fainter.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* — Aurora field: absolute-inset drifting nebula wash + vignette — */
+/* - Aurora field: absolute-inset drifting nebula wash + vignette - */
 .lp-aurora {
   position: absolute;
   inset: 0;
@@ -294,7 +294,7 @@
   }
 }
 
-/* — Orbit rings: slowly rotating dashed circles — */
+/* - Orbit rings: slowly rotating dashed circles - */
 .lp-orb,
 .lp-orbit-ring {
   position: absolute;
@@ -326,7 +326,7 @@
   }
 }
 
-/* — Marquee ticker: infinite horizontal loop, pauses on hover — */
+/* - Marquee ticker: infinite horizontal loop, pauses on hover - */
 .lp-marquee {
   overflow: hidden;
   mask-image: linear-gradient(
@@ -363,7 +363,7 @@
   }
 }
 
-/* — Small reusable motion — */
+/* - Small reusable motion - */
 .lp-float-slow {
   will-change: transform;
   animation: lp-float-y 7s ease-in-out infinite;
@@ -393,7 +393,7 @@
   }
 }
 
-/* — Shimmer hairline: gradient sweep across a 1px rail — */
+/* - Shimmer hairline: gradient sweep across a 1px rail - */
 .lp-shimmer-line {
   position: relative;
   overflow: hidden;
@@ -420,7 +420,7 @@
   }
 }
 
-/* — Text glows (sun amber / earth ice-blue) — */
+/* - Text glows (sun amber / earth ice-blue) - */
 .lp-glow-sun {
   text-shadow:
     0 0 18px color-mix(in srgb, var(--sun) 45%, transparent),
@@ -433,7 +433,7 @@
     0 0 64px color-mix(in srgb, var(--earth) 22%, transparent);
 }
 
-/* — Card sheen: diagonal light sweep on hover (transform-only) — */
+/* - Card sheen: diagonal light sweep on hover (transform-only) - */
 .lp-card-sheen {
   position: relative;
   overflow: hidden;
@@ -462,7 +462,7 @@
   opacity: 1;
 }
 
-/* — Density helpers: rich sections without custom CSS — */
+/* - Density helpers: rich sections without custom CSS - */
 .lp-kicker {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -496,7 +496,7 @@
   white-space: nowrap;
 }
 
-/* — Light theme: aurora alphas lower, orbs subtler — */
+/* - Light theme: aurora alphas lower, orbs subtler - */
 .light .lp-aurora-a,
 :root:not(.dark) .lp-aurora-a {
   opacity: 0.28;
@@ -527,7 +527,7 @@
   text-shadow: 0 0 22px color-mix(in srgb, var(--earth) 20%, transparent);
 }
 
-/* — Reduced motion: disable ALL lp- animations, leave static decor — */
+/* - Reduced motion: disable ALL lp- animations, leave static decor - */
 @media (prefers-reduced-motion: reduce) {
   .lp-aurora-a,
   .lp-aurora-b,
@@ -557,7 +557,7 @@
   }
 }
 
-/* — Masked line reveals + shimmer display text (landing hero / CTA) — */
+/* - Masked line reveals + shimmer display text (landing hero / CTA) - */
 .lp-mask{display:block;overflow:hidden}
 .lp-mask-inner{display:block;transform:translateY(112%);transition:transform 900ms cubic-bezier(0.22,1,0.36,1);will-change:transform}
 .lp-hero-loaded .lp-mask-inner{transform:translateY(0)}

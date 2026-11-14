@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
  * Lightweight auto-rotating 3D Moon for the landing hero. Same NASA LROC
  * texture as the explorer globe, real directional lighting with a true
  * day/night terminator, tilted so the south pole tips toward the viewer.
- * Decorative — no controls, no markers.
+ * Decorative - no controls, no markers.
  */
 export function HeroMoonGlobe({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null)

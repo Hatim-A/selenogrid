@@ -17,7 +17,7 @@ export function fmtKm(m: number): string {
 }
 
 export function fmtPct(v: number, digits = 0): string {
-  if (!Number.isFinite(v)) return '—'
+  if (!Number.isFinite(v)) return '-'
   return `${v.toFixed(digits)}%`
 }
 

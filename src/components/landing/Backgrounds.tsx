@@ -36,7 +36,7 @@ const AURORA_TUNING: Record<AuroraVariant, { a: CSSProperties; b: CSSProperties 
 
 /**
  * Absolute-inset aurora wash: two huge blurred gradient blobs drifting on
- * GPU-only keyframes, plus a cinematic vignette. Decorative — no layout
+ * GPU-only keyframes, plus a cinematic vignette. Decorative - no layout
  * impact. Render inside a relative parent.
  */
 export function AuroraField({ variant = 'hero' }: { variant?: AuroraVariant }) {
@@ -59,7 +59,7 @@ const GLOW_GRADIENTS: Record<GlowTone, string> = {
 }
 
 /**
- * Hairline divider with an animated shimmer sweep. Decorative — no layout
+ * Hairline divider with an animated shimmer sweep. Decorative - no layout
  * impact beyond its own 1px height.
  */
 export function GlowDivider({ tone = 'mix' }: { tone?: GlowTone }) {

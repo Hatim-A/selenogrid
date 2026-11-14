@@ -163,7 +163,7 @@ export function DecisionLab({
             <div>
               <div className="text-[11px] font-semibold">Pareto frontier</div>
               <div className="mt-0.5 max-w-[300px] text-[9.5px] leading-relaxed text-muted-foreground">
-                Ringed sites are the trade-off shortlist — no other site beats them on both
+                Ringed sites are the trade-off shortlist: no other site beats them on both
                 sunlight and Earth visibility at once. Select a site to open it.
               </div>
             </div>

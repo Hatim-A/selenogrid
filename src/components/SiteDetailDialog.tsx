@@ -45,7 +45,7 @@ function eventList(metrics: SiteMetrics) {
     ...r,
     relative:
       r.value === null ? 'Beyond window' : `in ${fmtHours((r.value - metrics.start) / 3_600_000)}`,
-    absolute: r.value === null ? '—' : fmtDateTimeUtc(r.value),
+    absolute: r.value === null ? '-' : fmtDateTimeUtc(r.value),
   }))
 }
 

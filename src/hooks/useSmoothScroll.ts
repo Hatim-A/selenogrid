@@ -9,7 +9,7 @@ import type Lenis from 'lenis'
  *
  * Radix dialogs: no `stop()`/`start()` wiring here on purpose. Dialog content
  * that scrolls on its own should set `data-lenis-prevent` on the scrollable
- * node — Lenis then applies `overscroll-behavior: contain` there (see
+ * node - Lenis then applies `overscroll-behavior: contain` there (see
  * src/lenis.css) and leaves nested scrolling to the native handler.
  * `useScrub` reads `getBoundingClientRect`, which Lenis keeps in sync via
  * native scroll, so scrub math is unaffected.

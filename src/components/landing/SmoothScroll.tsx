@@ -15,7 +15,7 @@ import '../../lenis.css'
  * - Cleanup destroys the instance and clears the `useSmoothScroll` singleton.
  *
  * Coexistence notes: sticky elements and `useScrub` (getBoundingClientRect)
- * read native scroll, which Lenis keeps in sync — unaffected. Existing
+ * read native scroll, which Lenis keeps in sync - unaffected. Existing
  * `scrollIntoView` calls elsewhere keep working; Lenis observes native
  * scroll. Radix dialogs: scrollable dialog content should set
  * `data-lenis-prevent` (see src/lenis.css); no stop()/start() wiring here.

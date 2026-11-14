@@ -100,7 +100,7 @@ export function ScenarioBar({
       />
 
       <div className="relative p-5 sm:p-6 lg:p-7">
-        {/* ——— editorial header ——— */}
+        {/* --- editorial header --- */}
         <div className="max-w-2xl">
           <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
             <CalendarDays className="size-3.5 text-earth" />
@@ -110,13 +110,13 @@ export function ScenarioBar({
             Set the mission scenario
           </h2>
           <p className="mt-1.5 text-[12.5px] leading-relaxed text-muted-foreground">
-            Everything below recomputes from this UTC window — sunlight, Earth-link, events and
+            Everything below recomputes from this UTC window: sunlight, Earth-link, events and
             rankings.
           </p>
         </div>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-          {/* ——— ① fields first: refined 2×2 ——— */}
+          {/* --- ① fields first: refined 2×2 --- */}
           <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3.5">
             {/* date */}
             <label className={FIELD_CARD}>
@@ -278,7 +278,7 @@ export function ScenarioBar({
             </div>
           </div>
 
-          {/* ——— ② summary second ——— */}
+          {/* --- ② summary second --- */}
           <aside
             aria-label="Window summary"
             className={cn(
@@ -385,7 +385,7 @@ export function ScenarioBar({
               </span>
             </div>
 
-            {/* ——— ③ actions third ——— */}
+            {/* --- ③ actions third --- */}
             <div className="mt-3 grid grid-cols-2 gap-2 border-t border-border/60 pt-3">
               <Button
                 variant="outline"
@@ -423,11 +423,11 @@ export function ScenarioBar({
           </aside>
         </div>
 
-        {/* ——— footnote: fine print collapsed ——— */}
+        {/* --- footnote: fine print collapsed --- */}
         <details className="group mt-4 border-t border-border/60 pt-2.5">
           <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[10px] text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
             <Info className="size-3 shrink-0" />
-            <span>Model notes — bisection refinement &amp; horizon occlusion</span>
+            <span>Model notes: bisection refinement &amp; horizon occlusion</span>
             <ChevronDown className="size-3 transition-transform duration-200 group-open:rotate-180" />
           </summary>
           <p className="mt-1.5 max-w-3xl pl-[18px] text-[10px] leading-relaxed text-muted-foreground">

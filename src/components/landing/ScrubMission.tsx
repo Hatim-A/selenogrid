@@ -258,9 +258,9 @@ function shortMilestoneLabel(label: string): string {
 /**
  * The signature "film" moment: a ~300vh section with a sticky viewport stage
  * scrubbing a REAL 180-day mission for the current #1 ranked site (falling
- * back to the first site that has day-level metrics). Everything on stage —
+ * back to the first site that has day-level metrics). Everything on stage -
  * day counter, date, Sun/Earth bars, horizon sun + earth markers, ambient
- * tint, milestone rail — derives from `metrics.days[day]`. Graceful standby
+ * tint, milestone rail - derives from `metrics.days[day]`. Graceful standby
  * panel when no data exists yet.
  */
 export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMissionProps) {
@@ -306,7 +306,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
             Mission film standby
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            The 180-day scrub appears here once trajectory data arrives — pick
+            The 180-day scrub appears here once trajectory data arrives. Pick
             the top-ranked site and scroll to fly its mission day by day.
           </p>
         </div>
@@ -332,8 +332,8 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
   const sunY = model.yAt(sunX) - 1.5 - sunFrac * 15
   const earthY = model.yAt(earthX) - 1.5 - earthFrac * 15
 
-  const seasonSun = metrics ? fmtPct(metrics.sunlightPct, 0) : '—'
-  const seasonEarth = metrics ? fmtPct(metrics.earthPct, 0) : '—'
+  const seasonSun = metrics ? fmtPct(metrics.sunlightPct, 0) : '-'
+  const seasonEarth = metrics ? fmtPct(metrics.earthPct, 0) : '-'
 
   const activeMilestone = milestones.find((m) => m.index === dayIndex)
   const nextMilestone = milestones.find((m) => m.index > dayIndex)
@@ -405,7 +405,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
         onKeyDown={onStageKeyDown}
       >
         {/* Living ambience: warm amber wash follows sunlight, deep blue the
-            dark — opacity crossfade only, no layout cost. */}
+            dark - opacity crossfade only, no layout cost. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -460,9 +460,9 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
                 style={{ color: 'var(--sun)' }}
               >
                 {activeMilestone
-                  ? `◆ ${activeMilestone.label} — Day ${dayIndex + 1}`
+                  ? `◆ ${activeMilestone.label} \u00b7 Day ${dayIndex + 1}`
                   : nextMilestone
-                    ? `Next · ${nextMilestone.label} — Day ${nextMilestone.index + 1}`
+                    ? `Next \u00b7 ${nextMilestone.label} \u00b7 Day ${nextMilestone.index + 1}`
                     : `Day ${dayIndex + 1} of ${count}`}
               </p>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -660,8 +660,8 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
                     aria-hidden="true"
                     title={
                       mean === null
-                        ? `${MONTH_SHORT[m]} — outside window`
-                        : `${MONTH_SHORT[m]} — mean ${mean.toFixed(1)} h/day`
+                        ? `${MONTH_SHORT[m]}: outside window`
+                        : `${MONTH_SHORT[m]}: mean ${mean.toFixed(1)} h/day`
                     }
                     className={cn(
                       'flex h-[4.5rem] flex-col items-center justify-end gap-1 rounded-md border px-1 py-1.5 hairline',
@@ -721,7 +721,7 @@ export function ScrubMission({ sites, metricsById, ranked, onOpenSite }: ScrubMi
                     key={`${m.index}-${m.label}`}
                     type="button"
                     onClick={() => jumpToDay(m.index)}
-                    title={`${m.label} — Day ${m.index + 1} · ${fmtDateUtc((days[m.index] as DaySummary).t)}`}
+                    title={`${m.label} \u00b7 Day ${m.index + 1} · ${fmtDateUtc((days[m.index] as DaySummary).t)}`}
                     aria-label={`Jump to ${m.label}, day ${m.index + 1} of ${count}`}
                     style={{ left: railPct(m.index) }}
                     className="absolute top-1/2 z-10 flex size-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2"

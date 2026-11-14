@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 type RevealProps = {
   children: ReactNode
   className?: string
-  /** Transition delay in ms — staggers grouped reveals. */
+  /** Transition delay in ms - staggers grouped reveals. */
   delay?: number
   /** Vertical travel distance in px. Transform-only, so no layout shift. */
   y?: number

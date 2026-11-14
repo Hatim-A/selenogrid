@@ -18,7 +18,7 @@
 
 **Narration:**
 
-> NASA has nine candidate regions near the lunar south pole. But a landing site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid puts those trade-offs on one screen — scenario first, then the answer, then the evidence.
+> NASA has nine candidate regions near the lunar south pole. But a landing site is not a dot on a map. It is a schedule: when the Sun is up, when Earth is in view, how steep the ground is, and when the next sunset cuts the mission. SelenoGrid puts those trade-offs on one screen: scenario first, then the answer, then the evidence.
 
 **Do not:** open with the tech stack. Open with the decision.
 

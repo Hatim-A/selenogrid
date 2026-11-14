@@ -40,7 +40,7 @@ const STEPS = [
   {
     icon: Telescope,
     title: 'Open any site',
-    body: 'Inspect its 360° horizon, event clock and 3D terrain tile — or use Timeline to compare windows.',
+    body: 'Inspect its 360° horizon, event clock and 3D terrain tile. Or use Timeline to compare windows.',
     tone: 'text-terrain',
   },
   {
@@ -164,7 +164,7 @@ export function JudgeGuide({
             <p className="text-[9.5px] leading-relaxed text-muted-foreground">
               <span className="font-medium text-foreground/80">Honest limits.</span> Sites are
               representative points, not official landing ellipses. There is no thermal,
-              power-system or link-budget model. Screening only — not for flight-certified mission
+              power-system or link-budget model. Screening only. Not for flight-certified mission
               planning.
             </p>
           </div>

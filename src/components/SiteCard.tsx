@@ -19,7 +19,7 @@ function nextEvent(metrics: SiteMetrics, kind: 'sun' | 'earth') {
   return {
     label,
     value,
-    text: value === null ? '— none in window' : `in ${fmtHours((value - metrics.start) / 3_600_000)}`,
+    text: value === null ? 'None in window' : `in ${fmtHours((value - metrics.start) / 3_600_000)}`,
   }
 }
 
@@ -28,7 +28,7 @@ function kindMeta(site: Site) {
     return {
       label: 'Custom',
       title:
-        'Custom coordinate sampled on the 640 m LOLA grid. Screening resolution — not flight-certified.',
+        'Custom coordinate sampled on the 640 m LOLA grid. Screening resolution, not flight certification.',
     }
   if (site.kind === 'nasa')
     return {
@@ -39,7 +39,7 @@ function kindMeta(site: Site) {
   if (site.terrainClass === 'psr')
     return {
       label: 'PSR',
-      title: 'Permanently shadowed region benchmark — a volatile and lighting reference site.',
+      title: 'Permanently shadowed region benchmark, a volatile and lighting reference site.',
     }
   return {
     label: 'Ref',
@@ -250,7 +250,7 @@ export function SiteCard({
           <div className="grid grid-cols-2 gap-2 border-t border-border/60 pt-2">
             <div
               className="flex items-center justify-between gap-1"
-              title="Local LOLA slope at this point — lower is gentler terrain"
+              title="Local LOLA slope at this point: lower is gentler terrain"
             >
               <span className="text-muted-foreground">Slope</span>
               <span className="tabular font-medium">{site.slopeDeg.toFixed(1)}°</span>

@@ -220,7 +220,7 @@ function useVisible<T extends HTMLElement>() {
 }
 
 /**
- * Looping playhead driven by rAF — transform-only (translateX), paused when
+ * Looping playhead driven by rAF - transform-only (translateX), paused when
  * offscreen and parked/hidden under reduced motion.
  */
 function useSweep(durationMs: number) {
@@ -400,7 +400,7 @@ function MetricBar({
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-[11.5px] font-medium">{label}</span>
         <span className="tabular font-mono text-[11.5px] text-muted-foreground">
-          {value === undefined ? '—' : fmtPct(value, 1)}
+          {value === undefined ? '-' : fmtPct(value, 1)}
         </span>
       </div>
       <div
@@ -440,7 +440,7 @@ function EventLine({
         {label}
       </span>
       <span className={cn('tabular truncate', hot && 'font-semibold text-foreground')}>
-        {value === null ? '—' : `${fmtDateTimeUtc(value)} · ${fmtHours((value - start) / 3_600_000)}`}
+        {value === null ? '-' : `${fmtDateTimeUtc(value)} · ${fmtHours((value - start) / 3_600_000)}`}
       </span>
     </div>
   )
@@ -491,7 +491,7 @@ function ChapterHead({
             current ? 'bg-sun' : 'bg-foreground/25',
           )}
         />
-        Chapter {no} — {kicker}
+        Chapter {no}: {kicker}
       </p>
       <h2 className="mt-3 max-w-[22ch] font-display text-[34px] leading-[1.02] tracking-[-0.02em] text-balance sm:text-[52px]">
         {title}
@@ -522,7 +522,7 @@ function nextEventOf(metrics: SiteMetrics | undefined): NextEvent | null {
   return best
 }
 
-/* ——— Chapter 01 visual: a site is a schedule ——— */
+/* --- Chapter 01 visual: schedule event clock --- */
 
 function ScheduleVisual({
   focus,
@@ -612,7 +612,7 @@ function ScheduleVisual({
   )
 }
 
-/* ——— Chapter 02 visual: horizon sparkline from real LOLA data ——— */
+/* --- Chapter 02 visual: horizon sparkline from real LOLA data --- */
 
 const SPARK_W = 360
 const SPARK_H = 132
@@ -781,7 +781,7 @@ function HorizonVisual({ site }: { site: Site }) {
           </div>
           <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
             Open sky {(site.openSkyFrac * 100).toFixed(1)}%. Ray-marched every 0.25° from 20 m
-            out to 220 km on the 20 m LOLA grid — this curve is the shipped data, plotted raw.
+            out to 220 km on the 20 m LOLA grid. This curve is the shipped data, plotted raw.
           </p>
         </div>
       </VisualShell>
@@ -789,7 +789,7 @@ function HorizonVisual({ site }: { site: Site }) {
   )
 }
 
-/* ——— Chapter 03 visual: Sun & Earth window strips ——— */
+/* --- Chapter 03 visual: Sun & Earth window strips --- */
 
 function WindowStrip({
   label,
@@ -870,18 +870,18 @@ function WindowsVisual({
             <div className="min-w-0 rounded-xl border border-border/70 bg-muted/40 px-3 py-2.5">
               <div className="font-mono text-[9px] tracking-[0.1em] text-sun uppercase">Longest Sun</div>
               <div className="tabular mt-0.5 font-display text-[19px]">
-                {metrics ? fmtHours(metrics.longestSunHours) : '—'}
+                {metrics ? fmtHours(metrics.longestSunHours) : '-'}
               </div>
             </div>
             <div className="min-w-0 rounded-xl border border-border/70 bg-muted/40 px-3 py-2.5">
               <div className="font-mono text-[9px] tracking-[0.1em] text-earth uppercase">Longest Earth</div>
               <div className="tabular mt-0.5 font-display text-[19px]">
-                {metrics ? fmtHours(metrics.longestEarthHours) : '—'}
+                {metrics ? fmtHours(metrics.longestEarthHours) : '-'}
               </div>
             </div>
           </div>
           <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-            A body counts as visible when its upper limb clears the terrain at its azimuth —
+            A body counts as visible when its upper limb clears the terrain at its azimuth:
             centre elevation plus angular radius beats the ridge. Strict about darkness, honest
             about dawn.
           </p>
@@ -891,7 +891,7 @@ function WindowsVisual({
   )
 }
 
-/* ——— Chapter 04 visual: transparent ranking ——— */
+/* --- Chapter 04 visual: transparent ranking --- */
 
 const WEIGHT_ORDER: WeightKey[] = ['sunlight', 'comm', 'flux', 'slope']
 const WEIGHT_LABEL: Record<WeightKey, string> = {
@@ -1022,7 +1022,7 @@ function RankingVisual({
                     strokeWidth={on ? 1.2 : 0}
                     stroke="currentColor"
                   >
-                    <title>{`${p.name} — ${fmtPct(p.x, 1)} Sun, ${fmtPct(p.y, 1)} Earth`}</title>
+                    <title>{`${p.name} \u00b7 ${fmtPct(p.x, 1)} Sun, ${fmtPct(p.y, 1)} Earth`}</title>
                   </circle>
                 )
               })}
@@ -1060,7 +1060,7 @@ function RankingVisual({
             </span>
           </div>
           <p className="mt-2.5 text-[11px] leading-relaxed text-muted-foreground">
-            Weights are preferences, not mission requirements — move them and watch the rank move.
+            Weights are preferences, not mission requirements, so move them and watch the rank move.
             The frontier answers a different question: which sites nothing beats on both axes.
           </p>
         </div>
@@ -1069,7 +1069,7 @@ function RankingVisual({
   )
 }
 
-/* ——— Chapters ——— */
+/* --- Chapters --- */
 
 function trimNum(v: number): string {
   return `${Math.round(v * 100) / 100}`
@@ -1136,14 +1136,14 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
   return (
     <div>
       <style>{CH_CSS}</style>
-      {/* 01 — the problem */}
+      {/* 01 - the problem */}
       <section id="chapter-01" aria-label="Chapter 1: the problem" className="relative scroll-mt-16 border-t border-border/60">
         <ChapterHead
           current={active === 'chapter-01'}
           no="01"
           kicker="The problem"
           title="Sunlight and the Earth link shift across the window."
-          lede="Near the south pole the Sun circles the horizon instead of rising overhead, and Earth hangs almost still behind ridges. When the light arrives — and when the link drops — depends on the date, the mission length, and the ground underfoot."
+          lede="Near the south pole the Sun circles the horizon instead of rising overhead, and Earth hangs almost still behind ridges. When the light arrives, and when the link drops, depends on the date, the mission length, and the ground underfoot."
           chips={ch1Chips}
         />
         <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
@@ -1185,8 +1185,8 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 Direct-to-Earth communication needs line of sight to a nearly fixed point in a
-                black sky. One massif between you and it, and a sun-rich site goes radio-dark —
-                no relay, no link budget, no data home.
+                black sky. One massif between you and it, and a sun-rich site goes radio-dark.
+                No relay, no link budget, no data home.
               </p>
             </Step>
             <Step
@@ -1206,7 +1206,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
               <p>
                 Next sunset. Next earthset. Longest unbroken stretch of each. SelenoGrid
                 propagates the real geometry over your whole scenario and reads the calendar
-                out loud — a screening aid for trade-offs, not a flight certification.
+                out loud, a screening aid for trade-offs, not a flight certification.
               </p>
             </Step>
           </div>
@@ -1215,7 +1215,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
 
       <GlowDivider />
 
-      {/* 02 — real terrain */}
+      {/* 02 - real terrain */}
       <section id="chapter-02" aria-label="Chapter 2: real terrain" className="relative scroll-mt-16 bg-foreground/[0.018] dark:bg-white/[0.022]">
         <ChapterHead
           current={active === 'chapter-02'}
@@ -1238,7 +1238,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 The terrain product is NASA/GSFC LRO LOLA south-polar DEM{' '}
-                <span className="font-mono text-[12px]">ldem_80s_20m</span> — 30,400 × 30,400
+                <span className="font-mono text-[12px]">ldem_80s_20m</span>, 30,400 × 30,400
                 pixels at 20 m, referenced to a 1,737.4 km sphere, served from the PDS
                 Geosciences Node.
               </p>
@@ -1258,7 +1258,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
               }
             >
               <p>
-                Along each ray the extractor follows exact spherical elevation angles — lunar
+                Along each ray the extractor follows exact spherical elevation angles, lunar
                 curvature included, because at 100 km the surface drops ~2.9 km below the tangent
                 plane. The same pass measures local slope, aspect, open sky, and relief.
               </p>
@@ -1271,7 +1271,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 NASA published nine regions, not nine coordinates. Our 18 points are
-                representative terrain samples — a different point a few kilometres away can rank
+                representative terrain samples. A different point a few kilometres away can rank
                 differently. Custom pins sample a coarser 640 m grid: screening, clearly
                 labelled as such.
               </p>
@@ -1282,14 +1282,14 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
 
       <GlowDivider />
 
-      {/* 03 — Sun & Earth */}
+      {/* 03 - Sun & Earth */}
       <section id="chapter-03" aria-label="Chapter 3: Sun and Earth" className="relative scroll-mt-16">
         <ChapterHead
           current={active === 'chapter-03'}
           no="03"
           kicker="Sun & Earth"
           title="Sun and Earth positions checked against terrain."
-          lede="Topocentric Sun and Earth positions from a Meeus/IAU astronomy engine, tested against JPL Horizons — then masked by the real horizon, sample by sample, for your whole mission window."
+          lede="Topocentric Sun and Earth positions from a Meeus/IAU astronomy engine, tested against JPL Horizons, then masked by the real horizon, sample by sample, for your whole mission window."
           chips={ch3Chips}
         />
         <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
@@ -1309,7 +1309,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 A body is visible when its upper limb clears the ridge: centre elevation plus
-                angular radius beats the terrain at that azimuth — ~0.27° for the Sun, ~0.9°
+                angular radius beats the terrain at that azimuth: ~0.27° for the Sun, ~0.9°
                 for Earth. Strict about declaring dark; only a fully hidden disk counts.
               </p>
             </Step>
@@ -1329,7 +1329,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 Share of window, longest unbroken stretch, next sunset and earthset. The solar
-                flux proxy is the positive part of sin(elevation) when visible — a crude
+                flux proxy is the positive part of sin(elevation) when visible, a crude
                 availability proxy, explicitly not power sizing, panels, or batteries.
               </p>
             </Step>
@@ -1339,14 +1339,14 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
 
       <GlowDivider />
 
-      {/* 04 — transparent ranking */}
+      {/* 04 - transparent ranking */}
       <section id="chapter-04" aria-label="Chapter 4: transparent ranking" className="relative scroll-mt-16 bg-foreground/[0.018] dark:bg-white/[0.022]">
         <ChapterHead
           current={active === 'chapter-04'}
           no="04"
           kicker="Transparent ranking"
           title="Four criteria with weights you set."
-          lede="Four criteria, one published method, every weight exposed. Nothing is hidden in a model file — the whole decision layer fits on one screen and recomputes live."
+          lede="Four criteria, one published method, every weight exposed. Nothing is hidden in a model file. The whole decision layer fits on one screen and recomputes live."
           chips={ch4Chips}
         />
         <div className="mx-auto grid w-full max-w-[1440px] gap-6 px-4 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
@@ -1364,7 +1364,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
             >
               <p>
                 TOPSIS vector-normalises sunlight, Earth visibility, solar flux, and slope-as-cost,
-                then scores each site by closeness to the ideal best — and distance from the
+                then scores each site by closeness to the ideal best, and distance from the
                 ideal worst. Same precedent as the published Artemis TOPSIS site studies.
               </p>
             </Step>
@@ -1397,7 +1397,7 @@ export function Chapters({ sites, metricsById, ranked, active, onOpenSite }: Cha
               <p>
                 Independent of every weight: the frontier of sites nothing beats on both sunlight
                 and Earth visibility. Off-frontier means dominated. On-frontier still means
-                steep — the full ranking is where slope gets its say.
+                steep. The full ranking is where slope gets its say.
               </p>
             </Step>
           </div>

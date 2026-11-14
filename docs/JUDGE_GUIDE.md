@@ -1,4 +1,4 @@
-# SelenoGrid — Judge Guide
+# SelenoGrid: Judge Guide
 
 **What it is:** A browser-based screening workbench for lunar south-pole landing sites. It compares 18 curated points using real LOLA terrain, computed Sun/Earth geometry, and a transparent TOPSIS ranking (a standard multi-criteria scoring method). You can also pin any coordinate south of 80.15°S and sample it live from a 640 m LOLA grid. Static React app; no backend, no API keys, no learned weights.
 
@@ -17,7 +17,7 @@ Start on the **landing story** (the default view): scroll the hero, the four pin
 | 1 | **Scenario bar** | Pick a landing date, a 90-day window, and 3 h sampling; change one control. | *Everyone:* the whole app answers “what if this date and window?” and recomputes in the browser. *Technical:* one sample grid is shared by all sites; percentages are sample fractions, event times are bisection-refined off that grid. |
 | 2 | **Decision brief** | Read the winner, its fit score, the three metric chips, and the trade-off panel; then use the leader rows to see the other criteria. | *Everyone:* a shortlist in one glance. *Technical:* “best fit” is TOPSIS under the current weights, not objective truth; the leader rows are single-criterion leaders. Earth visibility is line of sight, not a link budget. |
 | 3 | **Site cards** | Scan the 360° horizon panoramas and the sunlight/Earth percentages. | *Everyone:* the jagged line is the local skyline; the Sun and Earth dots show whether they clear it. *Technical:* each panorama is 1,440 horizon bins; markers sit at the start of the window; cards show sampled window percentages and next-event countdowns. |
-| 4 | **Detail dialog** | Open a card. Read the horizon and event clock, then switch **Terrain context** from MAP to 3D and drag it. | *Everyone:* the event clock answers “how long until sunset or earthset?” *Technical:* next event from scenario start; the 3D view is a 12 km LOLA tile, 60 m/px, 2.1× vertical exaggeration—visual only. |
+| 4 | **Detail dialog** | Open a card. Read the horizon and event clock, then switch **Terrain context** from MAP to 3D and drag it. | *Everyone:* the event clock answers “how long until sunset or earthset?” *Technical:* next event from scenario start; the 3D view is a 12 km LOLA tile, 60 m/px, 2.1× vertical exaggeration (visual only). |
 | 5 | **Timeline** | Close the dialog, open **Timeline**, press Play, scrub one day, and pause on a transition. | *Everyone:* a good average can hide a bad week. *Technical:* daily heatmap of sampled states; the cursor drives transition cards for the next four events; animation adds no new computation. |
 | 6 | **Moon explorer** | Open **Moon**; toggle **3D Moon** and **2D Atlas**, rotate the globe, and hover a marker. Try **Pin mode** or **Custom point**. | *Everyone:* where the sites sit, and why the pole is crowded. *Technical:* the globe texture is NASA SVS CGI Moon Kit context; the 2D atlas is an 80 m LOLA hillshade; curated metrics use 20 m horizons while custom pins use the live 640 m browser grid. |
 | 7 | **Decision lab** | Back on **Compare**, drag the slope weight, then try a preset; watch the ranking and Pareto plot. | *Everyone:* there is no single “best” without priorities. *Technical:* four normalized weights; slope is a cost; Pareto is sunlight vs Earth visibility and is weight-independent; scores are relative to the selected set. |
@@ -27,11 +27,11 @@ Start on the **landing story** (the default view): scroll the hero, the four pin
 
 - **Real terrain, not a basemap.** NASA/GSFC LOLA `ldem_80s_20m`: 20 m/pixel, 30,400 × 30,400 samples, 0.5 m per DN, referenced to a 1,737.4 km sphere. Each site gets 1,440 horizon bins at 0.25°, ray-marched to 220 km with exact spherical elevation and lunar curvature.
 - **Computed sky, independently checked.** Sun and Moon follow Meeus chapters 25 and 47; lunar orientation is IAU 2009; the Earth direction is topocentric. The residual check is below.
-- **Transparent ranking.** Four criteria—sunlight %, Earth visibility %, solar flux proxy, and slope (cost)—are vector-normalized and weighted. Ideal best and worst are explicit; weights are visible and normalized; the Pareto frontier is reported separately. No learned weights.
+- **Transparent ranking.** Four criteria (sunlight %, Earth visibility %, solar flux proxy, and slope (cost)) are vector-normalized and weighted. Ideal best and worst are explicit; weights are visible and normalized; the Pareto frontier is reported separately. No learned weights.
 - **Runs on open data.** The curated dataset is about 1.2 MB and the custom-pin grid is 1.8 MB, so the 1.8 GB DEM is not needed to run the app. No backend or API keys; the terrain pipeline is reproducible from the DEM with `tools/horizon.c` and `tools/build_sites.mjs`.
 - **Limits are in the app.** No thermal, power-system, link-budget, delta-v, or human-factors model. The terrain horizon has not been validated against an independent illumination product, and representative points are not landing ellipses.
 
-**JPL Horizons spot check** — Shackleton-area site (89.67°S, 129.78°E, h = 0) on 2026-11-14 at 12:00 UTC. Differences are SelenoGrid minus Horizons:
+**JPL Horizons spot check**: Shackleton-area site (89.67°S, 129.78°E, h = 0) on 2026-11-14 at 12:00 UTC. Differences are SelenoGrid minus Horizons:
 
 | Quantity | Residual |
 | --- | ---: |
@@ -77,7 +77,7 @@ The largest direction residual is **0.012°**; typical Sun/Earth direction accur
 No. A map shows where the terrain is; SelenoGrid computes whether the Sun and Earth clear each site’s own 360° horizon for a chosen date and mission length, then turns that into visibility percentages, event times, and a weighted ranking. The Moon explorer is an entry point; the time-dependent comparison is the product.
 
 **Why TOPSIS?**
-It handles mixed units, is transparent, and has precedent in the Artemis site-selection literature. Every step—normalization, weights, ideal best/worst, closeness—is visible, and the Pareto view exposes the trade-off a single score compresses. It is a shortlist aid, not a claim of optimality.
+It handles mixed units, is transparent, and has precedent in the Artemis site-selection literature. Every step (normalization, weights, ideal best/worst, closeness) is visible, and the Pareto view exposes the trade-off a single score compresses. It is a shortlist aid, not a claim of optimality.
 
 **How accurate is it?**
 At a Shackleton-area site, the largest Sun/Earth direction residual against JPL Horizons was 0.012°, with about 0.02° typical. That is screening accuracy, not flight dynamics; the terrain horizon is a separate error source at 20 m DEM resolution and 0.25° bins. The combined terrain-plus-ephemeris visibility has not yet been checked against an independent illumination product.
@@ -94,4 +94,4 @@ Validate the 640 m custom-pin path against independent illumination products and
 - **Not a 20 m custom analysis.** Custom pins use a 640 m browser grid. They are screening points; the curated sites use 20 m horizons. A high-resolution custom point still requires the offline pipeline.
 - **Not analysis-grade 3D.** The globe is a locator and the local terrain view is a perspective aid; every quantitative result comes from the 2D LOLA horizons and ephemeris.
 
-> **Bottom line:** use SelenoGrid to shortlist a site for a date window, teach the trade-off, or sanity-check a higher-fidelity study—not to certify a landing.
+> **Bottom line:** use SelenoGrid to shortlist a site for a date window, teach the trade-off, or sanity-check a higher-fidelity study, not to certify a landing.

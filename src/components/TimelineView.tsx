@@ -169,7 +169,7 @@ export function TimelineView({
 
   const focus = sites.find((s) => s.id === focusId) ?? sites[0]
   const metrics = focus ? metricsById.get(focus.id) : undefined
-  // Event search runs bisection refinement per transition — defer it so the
+  // Event search runs bisection refinement per transition - defer it so the
   // panorama and cursor stay buttery while scrubbing; the list catches up.
   // (Hook must stay above the empty-state early return.)
   const settledHour = useDeferredValue(cursorHour)
@@ -281,7 +281,7 @@ export function TimelineView({
               aria-label={playing ? 'Pause timeline' : 'Play timeline'}
               title={
                 reducedMotion
-                  ? 'Autoplay follows your reduced-motion setting — scrub manually anytime'
+                  ? 'Autoplay follows your reduced-motion setting. Scrub manually anytime'
                   : undefined
               }
               className="size-11 shrink-0 rounded-full shadow-[0_10px_30px_-10px_var(--sun)] ring-1 ring-inset ring-white/10 transition-transform hover:scale-105 active:scale-95"

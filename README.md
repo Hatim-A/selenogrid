@@ -41,7 +41,7 @@ No environment variables, API keys, or database are needed. The shipped curated 
 
 ![SelenoGrid landing story](docs/screenshots/landing.webp)
 
-The app opens on a scroll-driven landing story — hero, four pinned chapters, a scroll-scrubbed 180-day mission film, JPL validation, and the call into the lab. Share `?view=compare` (or timeline, moon, method) to link straight into the tool.
+The app opens on a scroll-driven landing story: hero, four pinned chapters, a scroll-scrubbed 180-day mission film, JPL validation, and the call into the lab. Share `?view=compare` (or timeline, moon, method) to link straight into the tool.
 
 ## Five views
 

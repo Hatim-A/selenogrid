@@ -208,7 +208,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
       <section aria-label="Pipeline">
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            01 — Pipeline
+            01 · Pipeline
           </h2>
           <span className="hidden font-mono text-[9px] text-muted-foreground/70 sm:inline">
             Four moves, no black boxes
@@ -244,7 +244,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
       <section aria-label="Visibility and metrics">
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            02 — Visibility rule &amp; metrics
+            02 · Visibility rule &amp; metrics
           </h2>
         </div>
         <div className="grid items-start gap-4 lg:grid-cols-[1.1fr_1fr]">
@@ -370,7 +370,7 @@ export function MethodView({ onCompare }: { onCompare: () => void }) {
       <section aria-label="Validation and limits">
         <div className="mb-3 flex items-baseline justify-between gap-3">
           <h2 className="font-mono text-[10px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
-            03 — Trust &amp; limits
+            03 · Trust &amp; limits
           </h2>
         </div>
         <div className="grid items-start gap-4 lg:grid-cols-[1.1fr_1fr]">

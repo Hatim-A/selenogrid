@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 
-/** Smoothstep easing — gentle accel/decel so scrubbed motion feels filmic. */
+/** Smoothstep easing - gentle accel/decel so scrubbed motion feels filmic. */
 function easeInOut(t: number): number {
   const clamped = Math.min(1, Math.max(0, t))
   return clamped * clamped * (3 - 2 * clamped)
@@ -59,7 +59,7 @@ export function useScrub(ref: RefObject<HTMLElement | null>): number {
  * True while a scrub `progress` value is actively changing (driven by
  * progress deltas between renders), then settles back to false `settleMs`
  * after the last movement. Lets the stage add glow / striped fills only
- * while the visitor is actually scrubbing — no extra listeners, no layout.
+ * while the visitor is actually scrubbing - no extra listeners, no layout.
  */
 export function useScrubVelocity(
   progress: number,

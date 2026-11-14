@@ -5,7 +5,7 @@
 :root {
   color-scheme: light;
 
-  /* ——— Layered surfaces (light: warm paper observatory) ——— */
+  /* --- Layered surfaces (light: warm paper observatory) --- */
   --background: #f4f1ea;
   --foreground: #1c1a16;
   --card: #fbf9f4;
@@ -29,7 +29,7 @@
   --ring: #005098;
   --radius: 0.375rem;
 
-  /* ——— Accents (deep bronze sun, cobalt earth on paper) ——— */
+  /* --- Accents (deep bronze sun, cobalt earth on paper) --- */
   --sun: #7a4c00;
   --sun-soft: rgba(122, 76, 0, 0.13);
   --earth: #005098;
@@ -41,13 +41,13 @@
   --danger: #b3261e;
   --danger-soft: rgba(179, 38, 30, 0.09);
 
-  /* ——— Restraint: one soft zenith glow, faint grid ——— */
+  /* --- Restraint: one soft zenith glow, faint grid --- */
   --glow-a: rgba(143, 87, 0, 0.055);
   --glow-b: rgba(0, 89, 166, 0.04);
   --grid-line: rgba(28, 26, 22, 0.05);
   --atlas-filter: invert(1) contrast(1.05);
 
-  /* ——— Hairline gradient + inner highlight (light) ——— */
+  /* --- Hairline gradient + inner highlight (light) --- */
   --hairline-from: rgba(255, 255, 255, 0.95);
   --hairline-to: rgba(28, 26, 22, 0.12);
   --inner-highlight: rgba(255, 255, 255, 0.75);
@@ -68,7 +68,7 @@
 .dark {
   color-scheme: dark;
 
-  /* ——— Layered surfaces (absolute black observatory: pure-black base) ——— */
+  /* --- Layered surfaces (absolute black observatory: pure-black base) --- */
   --background: #000000;
   --foreground: #f4f1e8;
   --card: #08090d;
@@ -92,7 +92,7 @@
   --ring: #6ea8e8;
   --radius: 0.375rem;
 
-  /* ——— Accents (burnished gold sun, deep steel earth on absolute black) ——— */
+  /* --- Accents (burnished gold sun, deep steel earth on absolute black) --- */
   --sun: #c98212;
   --sun-soft: rgba(201, 130, 18, 0.14);
   --earth: #4f8fd8;
@@ -104,13 +104,13 @@
   --danger: #ff7a6e;
   --danger-soft: rgba(255, 122, 110, 0.11);
 
-  /* ——— Deep-space washes over pure black ——— */
+  /* --- Deep-space washes over pure black --- */
   --glow-a: rgba(96, 138, 205, 0.09);
   --glow-b: rgba(234, 165, 46, 0.05);
   --grid-line: rgba(244, 241, 232, 0.032);
   --atlas-filter: none;
 
-  /* ——— Hairline gradient + inner highlight (dark) ——— */
+  /* --- Hairline gradient + inner highlight (dark) --- */
   --hairline-from: rgba(255, 255, 255, 0.13);
   --hairline-to: rgba(255, 255, 255, 0.035);
   --inner-highlight: rgba(255, 255, 255, 0.055);
@@ -360,7 +360,7 @@
     scrollbar-width: none;
   }
 
-  /* ——— Micro-interactions ——— */
+  /* --- Micro-interactions --- */
   .lift {
     transition:
       transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
