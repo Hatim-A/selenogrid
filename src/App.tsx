@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer'
 import { Header, type View } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { LandingView } from '@/components/landing/LandingView'
+import SmoothScroll from '@/components/landing/SmoothScroll'
 import { JudgeGuide } from '@/components/JudgeGuide'
 import { MethodView } from '@/components/MethodView'
 import { ScenarioBar } from '@/components/ScenarioBar'
@@ -276,6 +277,7 @@ export default function App() {
 
   return (
     <TooltipProvider delayDuration={160}>
+      <SmoothScroll>
       <div className="flex min-h-screen flex-col">
         <a
           href="#main-content"
@@ -457,6 +459,7 @@ export default function App() {
         }}
         siteCount={allSites.length}
       />
+      </SmoothScroll>
     </TooltipProvider>
   )
 }

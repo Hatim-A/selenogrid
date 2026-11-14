@@ -215,3 +215,357 @@
     transform: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Living space backgrounds + reusable motion (transform/opacity only).
+   All animation is GPU-composited (transform, opacity). Blobs use a
+   static blur; nothing animates filter/box-shadow. Light theme stays
+   intentional: aurora alphas drop, orbit rings go fainter.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* — Aurora field: absolute-inset drifting nebula wash + vignette — */
+.lp-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  overflow: clip;
+  pointer-events: none;
+  contain: strict;
+}
+
+.lp-aurora-a,
+.lp-aurora-b {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(90px);
+}
+
+.lp-aurora-a {
+  width: 62vmax;
+  height: 62vmax;
+  left: -18vmax;
+  top: -24vmax;
+  opacity: 0.5;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--sun) 26%, transparent),
+    transparent 72%
+  );
+  animation: lp-drift-a 22s ease-in-out infinite alternate;
+}
+
+.lp-aurora-b {
+  width: 58vmax;
+  height: 58vmax;
+  right: -20vmax;
+  bottom: -26vmax;
+  opacity: 0.45;
+  background:
+    radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--earth) 24%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      closest-side at 68% 32%,
+      color-mix(in srgb, var(--terrain) 20%, transparent),
+      transparent 70%
+    );
+  animation: lp-drift-b 26s ease-in-out infinite alternate;
+}
+
+@keyframes lp-drift-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vmax, 4vmax, 0) scale(1.12);
+  }
+}
+
+@keyframes lp-drift-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.08);
+  }
+  to {
+    transform: translate3d(-6vmax, -5vmax, 0) scale(1);
+  }
+}
+
+/* — Orbit rings: slowly rotating dashed circles — */
+.lp-orb,
+.lp-orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform;
+  animation: lp-spin 60s linear infinite;
+}
+
+.lp-orbit-ring {
+  width: min(76vmin, 620px);
+  border: 1px dashed color-mix(in srgb, var(--foreground) 22%, transparent);
+  opacity: 0.6;
+}
+
+.lp-orb {
+  width: min(48vmin, 380px);
+  border: 1px dashed color-mix(in srgb, var(--earth) 38%, transparent);
+  opacity: 0.45;
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* — Marquee ticker: infinite horizontal loop, pauses on hover — */
+.lp-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.lp-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: lp-marquee-x 40s linear infinite;
+}
+
+.lp-marquee:hover .lp-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes lp-marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* — Small reusable motion — */
+.lp-float-slow {
+  will-change: transform;
+  animation: lp-float-y 7s ease-in-out infinite;
+}
+
+@keyframes lp-float-y {
+  0%,
+  100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.lp-pulse-soft {
+  animation: lp-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes lp-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* — Shimmer hairline: gradient sweep across a 1px rail — */
+.lp-shimmer-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-shimmer-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    color-mix(in srgb, var(--foreground) 26%, transparent) 50%,
+    transparent 80%
+  );
+  transform: translateX(-100%);
+  animation: lp-sheen-x 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes lp-sheen-x {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* — Text glows (sun amber / earth ice-blue) — */
+.lp-glow-sun {
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--sun) 45%, transparent),
+    0 0 64px color-mix(in srgb, var(--sun) 22%, transparent);
+}
+
+.lp-glow-earth {
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--earth) 45%, transparent),
+    0 0 64px color-mix(in srgb, var(--earth) 22%, transparent);
+}
+
+/* — Card sheen: diagonal light sweep on hover (transform-only) — */
+.lp-card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-card-sheen::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    color-mix(in srgb, var(--foreground) 9%, transparent) 50%,
+    transparent 58%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease-out;
+}
+
+.lp-card-sheen:hover::before {
+  transform: translateX(120%);
+  opacity: 1;
+}
+
+/* — Density helpers: rich sections without custom CSS — */
+.lp-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.lp-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lp-tick-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--foreground) 55%, transparent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* — Light theme: aurora alphas lower, orbs subtler — */
+.light .lp-aurora-a,
+:root:not(.dark) .lp-aurora-a {
+  opacity: 0.28;
+}
+
+.light .lp-aurora-b,
+:root:not(.dark) .lp-aurora-b {
+  opacity: 0.24;
+}
+
+.light .lp-orb,
+:root:not(.dark) .lp-orb {
+  opacity: 0.3;
+}
+
+.light .lp-orbit-ring,
+:root:not(.dark) .lp-orbit-ring {
+  opacity: 0.38;
+}
+
+.light .lp-glow-sun,
+:root:not(.dark) .lp-glow-sun {
+  text-shadow: 0 0 22px color-mix(in srgb, var(--sun) 22%, transparent);
+}
+
+.light .lp-glow-earth,
+:root:not(.dark) .lp-glow-earth {
+  text-shadow: 0 0 22px color-mix(in srgb, var(--earth) 20%, transparent);
+}
+
+/* — Reduced motion: disable ALL lp- animations, leave static decor — */
+@media (prefers-reduced-motion: reduce) {
+  .lp-aurora-a,
+  .lp-aurora-b,
+  .lp-orb,
+  .lp-orbit-ring,
+  .lp-marquee-track,
+  .lp-float-slow,
+  .lp-pulse-soft,
+  .lp-shimmer-line::after {
+    animation: none !important;
+  }
+  .lp-aurora-a,
+  .lp-aurora-b {
+    transform: none;
+  }
+  .lp-shimmer-line::after {
+    transform: none;
+    opacity: 0;
+  }
+  .lp-marquee-track {
+    transform: none;
+  }
+  .lp-card-sheen::before {
+    transition: none;
+    transform: none;
+    opacity: 0;
+  }
+}
+
+/* — Masked line reveals + shimmer display text (landing hero / CTA) — */
+.lp-mask{display:block;overflow:hidden}
+.lp-mask-inner{display:block;transform:translateY(112%);transition:transform 900ms cubic-bezier(0.22,1,0.36,1);will-change:transform}
+.lp-hero-loaded .lp-mask-inner{transform:translateY(0)}
+.lp-shimmer-text{background:linear-gradient(100deg,var(--foreground) 35%,var(--sun) 50%,var(--foreground) 65%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:lp-shimmer-sweep 4.5s ease-in-out infinite}
+@keyframes lp-shimmer-sweep{0%{background-position:110% 0}55%,100%{background-position:-10% 0}}
+.lp-aurora-drift{animation:lp-aurora-drift 16s ease-in-out infinite alternate;will-change:transform}
+@keyframes lp-aurora-drift{from{transform:translate3d(-4%,-2%,0) scale(1)}to{transform:translate3d(4%,3%,0) scale(1.08)}}
+@media (prefers-reduced-motion: reduce){
+.lp-mask-inner{transform:none;transition:none}
+.lp-shimmer-text,.lp-aurora-drift{animation:none}
+}

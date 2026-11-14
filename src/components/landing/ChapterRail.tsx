@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const ITEMS: { id: string; index: string; label: string }[] = [
@@ -16,16 +17,56 @@ export function ChapterRail({
   active: string
   onJump: (id: string) => void
 }) {
+  // Overall page progress 0..1. Drives the spine fill via transform scaleY
+  // only (GPU-cheap); rAF-throttled and jitter-deadbanded like useScrub.
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    let raf = 0
+    let queued = false
+    const measure = () => {
+      queued = false
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      const next =
+        total <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / total))
+      setProgress((prev) => (Math.abs(prev - next) < 0.0005 ? prev : next))
+    }
+    const request = () => {
+      if (queued) return
+      queued = true
+      raf = window.requestAnimationFrame(measure)
+    }
+    measure()
+    window.addEventListener('scroll', request, { passive: true })
+    window.addEventListener('resize', request)
+    return () => {
+      window.removeEventListener('scroll', request)
+      window.removeEventListener('resize', request)
+      window.cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <nav
       aria-label="Page chapters"
       className="fixed top-1/2 right-5 z-30 hidden -translate-y-1/2 lg:block"
     >
-      <ol className="flex flex-col items-end gap-4">
+      <ol className="relative flex flex-col items-end gap-4">
+        {/* Thin progress spine: track + scroll-driven fill (scaleY only). */}
+        <span
+          aria-hidden="true"
+          className="absolute top-2 right-[3px] bottom-2 w-px bg-foreground/10"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute top-2 right-[3px] bottom-2 w-px origin-top bg-gradient-to-b from-sun via-earth to-sun"
+          style={{ transform: `scaleY(${progress})` }}
+        />
         {ITEMS.map((item) => {
           const isActive = active === item.id
           return (
-            <li key={item.id}>
+            <li key={item.id} className="relative">
               <button
                 type="button"
                 onClick={() => onJump(item.id)}

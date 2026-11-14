@@ -1,0 +1,40 @@
+/* Lenis smooth-scroll styles (recommended by lenis, v1.3.x).
+ * Imported once by src/components/landing/SmoothScroll.tsx.
+ * These selectors only take effect while Lenis is running (it toggles the
+ * `lenis` classes on <html>), so there is no visual change when smoothing
+ * is skipped (e.g. prefers-reduced-motion). */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+/* Scrollable islands (e.g. Radix dialog content with `data-lenis-prevent`)
+ * keep native scrolling with contained overscroll. */
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
+/* Guard: Lenis drives animation frames itself, so native smooth scrolling
+ * must not fight it (avoids double-smoothing on anchor jumps). */
+html {
+  scroll-behavior: auto;
+}

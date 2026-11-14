@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 
 /** Smoothstep easing — gentle accel/decel so scrubbed motion feels filmic. */
@@ -53,6 +53,57 @@ export function useScrub(ref: RefObject<HTMLElement | null>): number {
   }, [ref])
 
   return progress
+}
+
+/**
+ * True while a scrub `progress` value is actively changing (driven by
+ * progress deltas between renders), then settles back to false `settleMs`
+ * after the last movement. Lets the stage add glow / striped fills only
+ * while the visitor is actually scrubbing — no extra listeners, no layout.
+ */
+export function useScrubVelocity(
+  progress: number,
+  threshold = 0.0009,
+  settleMs = 350,
+): boolean {
+  const [scrubbing, setScrubbing] = useState(false)
+  const prevRef = useRef(progress)
+  const timerRef = useRef(0)
+
+  useEffect(() => {
+    const delta = Math.abs(progress - prevRef.current)
+    prevRef.current = progress
+    if (delta > threshold) {
+      setScrubbing(true)
+      window.clearTimeout(timerRef.current)
+      timerRef.current = window.setTimeout(() => setScrubbing(false), settleMs)
+    }
+  }, [progress, threshold, settleMs])
+
+  useEffect(() => () => window.clearTimeout(timerRef.current), [])
+
+  return scrubbing
+}
+
+/** SSR-safe `prefers-reduced-motion` flag (live-updates on change). */
+export function usePrefersReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function')
+      return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  return reduced
 }
 
 export default useScrub
