@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SelenoGrid — Submission Deck (7 slides)</title>
+<style>
+  :root {
+    --bg: #050507;
+    --card: #0b0d12;
+    --fg: #f4f1e8;
+    --muted: #aaa79f;
+    --line: rgba(244, 241, 232, 0.12);
+    --sun: #c98212;
+    --earth: #4f8fd8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #000;
+    color: var(--fg);
+    font-family: "Space Grotesk", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  #stage {
+    width: 100vw;
+    height: 56.25vw;
+    max-height: 100vh;
+    max-width: 177.78vh;
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    padding: 6vmin 7vmin;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vmin;
+    align-items: center;
+  }
+  .slide.active { display: grid; }
+  .slide.solo { grid-template-columns: 1fr; text-align: left; }
+  .slide.center { text-align: center; justify-items: center; }
+  .kicker {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 1.5vmin;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2vmin;
+  }
+  .kicker b { color: var(--sun); font-weight: 600; }
+  h1 {
+    font-size: 7vmin;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  h1 .sun { color: var(--sun); font-style: italic; font-weight: 500; }
+  h1 .earth { color: var(--earth); font-style: italic; font-weight: 500; }
+  h1 .dim { color: var(--muted); }
+  .sub { margin-top: 2.4vmin; font-size: 2.2vmin; line-height: 1.55; color: var(--muted); max-width: 60ch; }
+  .sub strong { color: var(--fg); font-weight: 600; }
+  ul.beats { margin-top: 3vmin; list-style: none; display: grid; gap: 1.6vmin; }
+  ul.beats li {
+    font-size: 2.1vmin;
+    line-height: 1.45;
+    padding-left: 2.6vmin;
+    position: relative;
+    color: var(--fg);
+  }
+  ul.beats li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.1vmin;
+    width: 1.1vmin;
+    height: 1.1vmin;
+    border-radius: 50%;
+    background: var(--sun);
+  }
+  ul.beats li.blue::before { background: var(--earth); }
+  ul.beats li small { display: block; color: var(--muted); font-size: 1.8vmin; }
+  figure.shot {
+    border: 1px solid var(--line);
+    border-radius: 1.2vmin;
+    overflow: hidden;
+    background: var(--card);
+    max-height: 82vmin;
+    display: flex;
+    flex-direction: column;
+  }
+  figure.shot img { display: block; width: 100%; height: 64vmin; object-fit: cover; object-position: top center; }
+  figure.shot figcaption {
+    padding: 1.2vmin 1.8vmin;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 1.4vmin;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+  .big-link {
+    font-size: 4.2vmin;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    margin-top: 2vmin;
+  }
+  .big-link span { color: var(--earth); }
+  #hud {
+    position: absolute;
+    right: 2.4vmin;
+    bottom: 2vmin;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 1.4vmin;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  #notes {
+    display: none;
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.92);
+    border-top: 1px solid var(--line);
+    padding: 2vmin 7vmin;
+    font-size: 1.9vmin;
+    line-height: 1.5;
+    color: #ffe9bd;
+  }
+  #notes.show { display: block; }
+  #notes strong { color: var(--sun); }
+  @media print {
+    body { overflow: visible; display: block; }
+    #stage { width: 100%; height: auto; max-width: none; max-height: none; }
+    .slide { position: static; display: grid; height: 100vh; page-break-after: always; }
+    #hud, #notes { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 -->
+  <section class="slide solo active" data-notes="Open with your name and the one-liner. You are a solo entry, say so early, it frames everything after.">
+    <div>
+      <p class="kicker"><b>NASA Space Apps Meknes 2026</b> &nbsp; Challenge 4: best Moon landing site &nbsp; Solo entry</p>
+      <h1>SelenoGrid</h1>
+      <h1><span class="sun">See the Sun.</span> <span class="earth">Hear Earth.</span> <span class="dim">Pick the ground.</span></h1>
+      <p class="sub">A navigator that compares lunar south-pole landing sites and dates on <strong>real sunlight, real Earth visibility, and real terrain</strong>. Static site, no backend, everything computed in the browser.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-notes="The scheduling insight is the whole pitch. Land it, then move on. About 45 seconds here.">
+    <div>
+      <p class="kicker"><b>01</b> &nbsp; The problem</p>
+      <h1>A landing site is a <span class="dim">schedule,</span> not a pin.</h1>
+      <ul class="beats">
+        <li>The Sun stays low for weeks, then vanishes for weeks.</li>
+        <li class="blue">Earth hangs nearly fixed, and a ridge can cut the link.</li>
+        <li>Both windows shift with <strong>date, duration, and terrain</strong>. Static maps cannot answer which site, for this window.</li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="../screenshots/landing.webp" alt="SelenoGrid landing story" /><figcaption>THE WINDOW DECIDES THE WINNER</figcaption></figure>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-notes="One screen, 18 sites, any date. Name the three outputs: cards, verdict, custom pins.">
+    <div>
+      <p class="kicker"><b>02</b> &nbsp; Your solution</p>
+      <h1>One screen. 18 sites. <span class="dim">Any date.</span></h1>
+      <ul class="beats">
+        <li>Site cards with 360-degree horizons, Sun and Earth shares, longest windows, next sunset and earthset.</li>
+        <li class="blue">A plain-English verdict plus a full ranking you can reweight live.</li>
+        <li>Pin any custom coordinate south of 80.15°S, sampled in the browser.</li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="../screenshots/compare.webp" alt="Compare view with site cards and ranking" /><figcaption>COMPARE: CARDS, VERDICT, RANKING</figcaption></figure>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-notes="Say the number and the caveat in the same breath. The caveat is what makes the number credible.">
+    <div>
+      <p class="kicker"><b>03</b> &nbsp; NASA data you used</p>
+      <h1>Real terrain. <span class="dim">Checked geometry.</span></h1>
+      <ul class="beats">
+        <li>LRO LOLA south-polar DEM at <strong>20 m</strong>, 1,440-bin horizons per site.</li>
+        <li class="blue">Sun and Earth geometry vs <strong>JPL Horizons: about 0.02 degrees</strong>. Screening accuracy, stated openly.</li>
+        <li>Nine Artemis candidate regions plus nine science reference sites.</li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="../screenshots/moon.webp" alt="3D Moon explorer with site markers" /><figcaption>LOLA TERRAIN, HORIZONS-CHECKED GEOMETRY</figcaption></figure>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-notes="This is the live demo beat. Move a weight slider and watch the rank move. If anything fails, the backup video covers you.">
+    <div>
+      <p class="kicker"><b>04</b> &nbsp; Demo</p>
+      <h1>Move a slider. <span class="dim">Watch the rank move.</span></h1>
+      <ul class="beats">
+        <li>Transparent TOPSIS ranking: four criteria, no hidden model.</li>
+        <li class="blue">Timeline scrub and play across 30 to 365 day windows.</li>
+        <li>A 30-second in-app guide carries first-time judges.</li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="../screenshots/timeline.webp" alt="Timeline scrub across the mission window" /><figcaption>LIVE: WEIGHTS, TIMELINE, GUIDE</figcaption></figure>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-notes="End on the limit, not the hype. Screening aid is the honest frame and judges reward it.">
+    <div>
+      <p class="kicker"><b>05</b> &nbsp; Impact and next steps</p>
+      <h1>A screening aid, <span class="dim">not a certification.</span></h1>
+      <ul class="beats">
+        <li>Shortlist sites for a date window, teach the trade-off, sanity-check bigger studies.</li>
+        <li class="blue">Next: validate combined visibility against independent illumination data.</li>
+        <li>Limits are stated in the app: no thermal, power, or delta-v models yet.</li>
+      </ul>
+    </div>
+    <figure class="shot"><img src="../screenshots/atlas.webp" alt="South-pole atlas view" /><figcaption>OPEN DATA, OPEN METHOD</figcaption></figure>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide solo center" data-notes="Close with the live URL on screen for a full beat. Thank the jury and stop.">
+    <div>
+      <p class="kicker"><b>SelenoGrid</b> &nbsp; Try it live</p>
+      <p class="big-link">hatim-a.github.io<span>/selenogrid</span></p>
+      <p class="sub">Code and methods public on GitHub. Not a landing certification. A better first question.</p>
+    </div>
+  </section>
+
+  <div id="hud"><span id="count">1 / 7</span> &nbsp; Arrows: move &nbsp; N: notes &nbsp; F: fullscreen &nbsp; Print: PDF</div>
+  <div id="notes"></div>
+</div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const count = document.getElementById('count');
+  const notes = document.getElementById('notes');
+  let i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    notes.textContent = slides[i].dataset.notes || '';
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+    else if (e.key === 'ArrowLeft') show(i - 1);
+    else if (e.key.toLowerCase() === 'n') notes.classList.toggle('show');
+    else if (e.key.toLowerCase() === 'f') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    }
+  });
+  show(0);
+</script>
+</body>
+</html>
