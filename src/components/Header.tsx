@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BookOpen, Clock3, HelpCircle, LayoutGrid, Orbit } from 'lucide-react'
+import { BookOpen, Clock3, HelpCircle, LayoutGrid, Orbit, Presentation } from 'lucide-react'
 import { Logo } from '@/components/Logo'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Button } from '@/components/ui/button'
@@ -100,6 +100,23 @@ export function Header({
             <span className="pulse-dot size-1.5 rounded-full bg-success" />
             LOLA 20 m · IN-BROWSER
           </span>
+          <Button
+            asChild
+            variant="ghost"
+            size="sm"
+            className="h-8 gap-1.5 rounded-full border border-border/70 bg-card/60 px-3 text-[12px] font-medium text-foreground/80 hover:bg-secondary hover:text-foreground"
+          >
+            <a
+              href={`${import.meta.env.BASE_URL}deck.html`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the 7-slide project deck"
+              title="Open the 7-slide project deck"
+            >
+              <Presentation className="size-3.5" />
+              <span className="hidden sm:inline">Deck</span>
+            </a>
+          </Button>
           <Button
             variant="ghost"
             size="sm"
