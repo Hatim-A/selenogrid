@@ -2,7 +2,7 @@
 
 **Event:** NASA Space Apps Challenge Meknes 2026. **Format:** 5 minute pitch + 2 minute jury Q&A (updated by organizers; was 3 + 2). Required beats: the problem, your solution, NASA data you used, demo, impact and next steps. **Project:** SelenoGrid, solo entrant.
 
-**Pacing:** about 1 minute per slide. Slides 1 and 2 carry the story, slide 3 carries the proof, slide 5 lands the close. Keep one live demo beat inside slide 2 (move a weight slider, watch the rank move) with the backup video ready. Rehearse with a timer.
+**Pacing:** about 1 minute per slide. Slides 1 and 2 carry the story, slide 3 carries the proof, slide 5 lands the close. Keep one live demo beat inside slide 2 (move a weight slider, watch the rank move) with the submitted deck open in a second tab as backup. Rehearse with a timer.
 
 The through-line: a south-pole landing site is a time-dependent decision, and the public tools do not make that decision legible. SelenoGrid does, with real LOLA terrain, validated Sun/Earth geometry, and an OR layer the user can inspect and change.
 

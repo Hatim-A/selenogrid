@@ -18,23 +18,16 @@ SelenoGrid
 SelenoGrid is a browser-based navigator for lunar south-pole landing sites. It puts 18 terrain points on one screen: the nine NASA Artemis candidate regions plus nine science and permanently shadowed reference sites. Choose a date and a window from 30 to 365 days, and it recomputes locally: sunlight share, direct-to-Earth visibility, longest continuous windows, time to the next sunset or earthset, slope, and horizon relief. Every site carries a 1,440-bin horizon ray-marched on the real 20 m LOLA elevation model, and Sun and Earth geometry is checked against JPL Horizons to about 0.02 degrees. A transparent weighted ranking, with visible weights and a Pareto frontier, shows which sites survive a given priority mix. A timeline heatmap, a 3D Moon, and any custom coordinate south of 80.15 S make the trade-off legible for planners, educators, and the public. No backend: the whole model runs in the browser from open NASA data.
 ```
 
-## Project demonstration (choose ONE link)
+## Project demonstration
 
-Recommended, the 7-slide deck (title slide plus six content slides, no more
-than 7):
+The 7-slide deck (title plus six content slides, within the 7-slide limit):
 
 ```
 https://hatim-a.github.io/selenogrid/deck.html
 ```
 
-Alternative, the 30.0-second video:
-
-```
-https://hatim-a.github.io/selenogrid/demo-30s.mp4
-```
-
-Judges open the deck and press Right Arrow (or space) to advance. Speaker notes
-are hidden by default; press N to show them.
+It is a normal scrolling page. Judges can scroll, click the arrows, or use the
+arrow keys. No notes or hidden controls are required to understand it.
 
 ## Project link
 
