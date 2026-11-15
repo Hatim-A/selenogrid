@@ -118,6 +118,14 @@ Full disclosure for the repository: `/AI_DISCLOSURE.md`.
 | TOPSIS site-selection precedent (Peña-Asensio et al.) | https://arxiv.org/abs/2406.19863 |
 | Meeus, Astronomical Algorithms (ISBN record) | https://books.google.com/books/about/Astronomical_Algorithms.html?id=WSo6PgAACAAJ |
 
+## Presentation backup
+
+A silent, captioned five-minute tour of the live app is published at
+<https://hatim-a.github.io/selenogrid/guide-5min.mp4>. It is a real screen
+recording (Playwright capture of Chromium), chaptered with captions, and can be
+narrated live or played as a fallback if the live demo fails. It is not part of
+the submission form; the form uses the 7-slide deck.
+
 ## Final checks before Submit for Judging
 
 1. Project name, summary, and details pasted; character counter green.
