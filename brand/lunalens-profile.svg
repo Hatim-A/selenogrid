@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">LunaLens — lunar south-pole landing-site navigator</title>
+  <desc id="desc">Original vector artwork: a thin lens ring frames a gold-lit lunar south-pole horizon, a pale blue Earth, and a line-of-sight arc from a landing-site marker to Earth.</desc>
+
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#0e1a2c"/>
+      <stop offset="0.52" stop-color="#07101d"/>
+      <stop offset="1" stop-color="#03060c"/>
+    </radialGradient>
+
+    <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8fc4e4" stop-opacity="0.22"/>
+      <stop offset="0.5" stop-color="#5d97c0" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#5d97c0" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="earthFill" cx="30%" cy="28%" r="82%">
+      <stop offset="0" stop-color="#e2f4ff"/>
+      <stop offset="0.36" stop-color="#a8d2ea"/>
+      <stop offset="0.72" stop-color="#5a96be"/>
+      <stop offset="1" stop-color="#2c5a7d"/>
+    </radialGradient>
+
+    <linearGradient id="earthShade" x1="654" y1="264" x2="728" y2="338" gradientUnits="userSpaceOnUse">
+      <stop offset="0.4" stop-color="#02060c" stop-opacity="0"/>
+      <stop offset="1" stop-color="#02060c" stop-opacity="0.52"/>
+    </linearGradient>
+
+    <radialGradient id="siteGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f0c36a" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#f0c36a" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="horizonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f0c36a" stop-opacity="0.18"/>
+      <stop offset="0.55" stop-color="#d9a441" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#d9a441" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="terrainFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2014"/>
+      <stop offset="0.06" stop-color="#141017"/>
+      <stop offset="0.18" stop-color="#080c13"/>
+      <stop offset="1" stop-color="#03060b"/>
+    </linearGradient>
+
+    <linearGradient id="rim" x1="0" y1="0" x2="1024" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0c36a" stop-opacity="0.04"/>
+      <stop offset="0.16" stop-color="#d9a441" stop-opacity="0.2"/>
+      <stop offset="0.28" stop-color="#f0c36a" stop-opacity="0.72"/>
+      <stop offset="0.34" stop-color="#ffe3a8" stop-opacity="1"/>
+      <stop offset="0.42" stop-color="#e8b75e" stop-opacity="0.8"/>
+      <stop offset="0.55" stop-color="#d9a441" stop-opacity="0.45"/>
+      <stop offset="0.7" stop-color="#a87a32" stop-opacity="0.24"/>
+      <stop offset="0.85" stop-color="#5c451f" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#3a2c14" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <linearGradient id="lens" x1="512" y1="110" x2="512" y2="890" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cfe8f7" stop-opacity="0.5"/>
+      <stop offset="0.45" stop-color="#9fb8d0" stop-opacity="0.22"/>
+      <stop offset="0.72" stop-color="#d9a441" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#d9a441" stop-opacity="0.38"/>
+    </linearGradient>
+
+    <linearGradient id="los" x1="360" y1="684" x2="665" y2="329" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6d28c"/>
+      <stop offset="0.42" stop-color="#d9c9a8"/>
+      <stop offset="1" stop-color="#cfe8f7"/>
+    </linearGradient>
+
+    <filter id="blurSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.5"/>
+    </filter>
+
+    <filter id="cloudBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+
+    <clipPath id="earthClip">
+      <circle cx="690" cy="300" r="38"/>
+    </clipPath>
+  </defs>
+
+  <!-- deep space -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- stars kept inside the lens -->
+  <g fill="#dce9f7">
+    <circle cx="250" cy="200" r="1.2" opacity="0.36"/>
+    <circle cx="330" cy="150" r="0.7" opacity="0.22"/>
+    <circle cx="430" cy="260" r="0.9" opacity="0.27"/>
+    <circle cx="580" cy="180" r="0.7" opacity="0.22"/>
+    <circle cx="780" cy="220" r="1.1" opacity="0.32"/>
+    <circle cx="300" cy="360" r="0.7" opacity="0.2"/>
+    <circle cx="820" cy="410" r="0.8" opacity="0.22"/>
+    <circle cx="210" cy="470" r="0.7" opacity="0.2"/>
+    <circle cx="480" cy="130" r="0.6" opacity="0.18"/>
+    <circle cx="620" cy="240" r="0.6" opacity="0.18"/>
+    <circle cx="380" cy="320" r="0.8" opacity="0.22"/>
+    <circle cx="700" cy="430" r="0.7" opacity="0.2"/>
+    <circle cx="260" cy="280" r="0.9" opacity="0.25"/>
+  </g>
+
+  <!-- warm glow behind the candidate site -->
+  <ellipse cx="360" cy="684" rx="380" ry="240" fill="url(#horizonGlow)"/>
+
+  <!-- single lunar horizon with one dramatic candidate peak -->
+  <path d="M 0 790 C 70 780 120 792 180 770 C 230 752 260 766 300 748 C 330 734 345 704 360 684 C 368 676 374 682 382 694 C 392 708 404 732 430 746 C 458 760 490 740 518 720 C 540 704 562 712 588 730 C 618 752 658 750 698 760 C 738 770 778 762 818 770 C 858 778 898 792 938 786 C 968 782 1000 784 1024 788 L 1024 1024 L 0 1024 Z" fill="url(#terrainFill)"/>
+  <path d="M 0 790 C 70 780 120 792 180 770 C 230 752 260 766 300 748 C 330 734 345 704 360 684 C 368 676 374 682 382 694 C 392 708 404 732 430 746 C 458 760 490 740 518 720 C 540 704 562 712 588 730 C 618 752 658 750 698 760 C 738 770 778 762 818 770 C 858 778 898 792 938 786 C 968 782 1000 784 1024 788" fill="none" stroke="#f0c36a" stroke-width="9" opacity="0.18" filter="url(#blurSoft)"/>
+  <path d="M 0 790 C 70 780 120 792 180 770 C 230 752 260 766 300 748 C 330 734 345 704 360 684 C 368 676 374 682 382 694 C 392 708 404 732 430 746 C 458 760 490 740 518 720 C 540 704 562 712 588 730 C 618 752 658 750 698 760 C 738 770 778 762 818 770 C 858 778 898 792 938 786 C 968 782 1000 784 1024 788" fill="none" stroke="url(#rim)" stroke-width="1.7"/>
+
+  <!-- lens ring: the product metaphor and the frame -->
+  <circle cx="512" cy="500" r="390" fill="none" stroke="url(#lens)" stroke-width="6" opacity="0.07" filter="url(#blurSoft)"/>
+  <circle cx="512" cy="500" r="390" fill="none" stroke="url(#lens)" stroke-width="1.2"/>
+  <path d="M 174.3 305 A 390 390 0 0 1 317 162.3" fill="none" stroke="#eaf6ff" stroke-width="1.2" opacity="0.35"/>
+
+  <!-- line of sight -->
+  <path d="M 360 684 C 390 555 510 430 665 329" fill="none" stroke="#cfe8f7" stroke-width="5" opacity="0.15" filter="url(#blurSoft)"/>
+  <path d="M 360 684 C 390 555 510 430 665 329" fill="none" stroke="url(#los)" stroke-width="1.6" opacity="0.92"/>
+
+  <!-- Earth -->
+  <circle cx="690" cy="300" r="100" fill="url(#earthGlow)"/>
+  <circle cx="690" cy="300" r="39" fill="none" stroke="#8fc4e4" stroke-width="2.5" opacity="0.15" filter="url(#blurSoft)"/>
+  <circle cx="690" cy="300" r="38" fill="url(#earthFill)"/>
+  <g clip-path="url(#earthClip)">
+    <g filter="url(#cloudBlur)">
+      <path d="M 660 292 C 672 286 684 289 696 295 C 706 300 716 299 724 294" fill="none" stroke="#f7fcff" stroke-width="2.6" opacity="0.32"/>
+      <path d="M 664 312 C 676 307 690 310 702 316 C 712 321 720 320 726 316" fill="none" stroke="#f7fcff" stroke-width="2" opacity="0.22"/>
+    </g>
+    <rect x="652" y="262" width="76" height="76" fill="url(#earthShade)"/>
+  </g>
+  <circle cx="690" cy="300" r="38.5" fill="none" stroke="#cfe8f7" stroke-width="1" opacity="0.45"/>
+
+  <!-- candidate landing site -->
+  <circle cx="360" cy="684" r="38" fill="url(#siteGlow)" opacity="0.35"/>
+  <circle cx="360" cy="684" r="10.5" fill="none" stroke="#f0c36a" stroke-width="1.1" opacity="0.7"/>
+  <circle cx="360" cy="684" r="4" fill="#f6d28c"/>
+  <circle cx="360" cy="684" r="1.5" fill="#fff4d6"/>
+
+  <!-- wordmark, framed by the lower lens arc -->
+  <text x="512" y="850" text-anchor="middle" font-family="'Adwaita Sans', 'Liberation Sans', 'Helvetica Neue', Arial, sans-serif" font-size="58" font-weight="500" letter-spacing="0.4"><tspan fill="#f4f7fa">Luna</tspan><tspan fill="#e8b75e">Lens</tspan></text>
+</svg>

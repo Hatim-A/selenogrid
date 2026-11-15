@@ -1,0 +1,139 @@
+{
+  "archived_note": "Archived 2026-11-13 planning draft. Superseded by public/data/sites.json; not used by the app.",
+  "schema_version": "1.0.0",
+  "dataset_id": "selenogrid-sites",
+  "generated_utc": "2026-11-13T00:00:00Z",
+  "description": "Curated lunar south-pole comparison sites for SelenoGrid. Coordinates identify representative points for Sun/Earth geometry, not certified landing ellipses.",
+  "selection_summary": "Three sites were selected to separate the two main mission trade-offs: a near-pole site with near-continuous summer sunlight but a short Earth-visibility window, and two lower-latitude summit/plateau sites with longer Earth-visibility windows but regular solar night. Malapert Massif and Mons Mouton are at similar latitude but different longitude, so they also test whether a date shift changes the power/communications balance.",
+  "ephemeris_plan": {
+    "source": "JPL Horizons",
+    "window_start_ut": "2027-01-01T00:00:00Z",
+    "window_stop_ut": "2027-02-01T00:00:00Z",
+    "step": "1 h",
+    "targets": [
+      "Sun (10)",
+      "Earth (399)"
+    ],
+    "center": "coord@301",
+    "coord_type": "GEODETIC",
+    "apparent": "AIRLESS",
+    "time_type": "UT",
+    "quantities": "4"
+  },
+  "disclaimer": "This dataset is a geometric, airless, topocentric approximation for comparison and education. It does not model terrain occlusion, LOLA horizon profiles, landing-ellipse safety, Earth phasing or link budget, or operational flight constraints. Do not use it for flight operations or a certified landing-site decision.",
+  "sites": [
+    {
+      "id": "connecting-ridge",
+      "display_order": 1,
+      "name": "Connecting Ridge",
+      "short_name": "Connecting Ridge",
+      "region": "Connecting Ridge candidate landing region, between Shackleton and Henson craters",
+      "latitude_deg": -89.53432,
+      "longitude_deg_east": 209.94767,
+      "altitude_km": 0.0,
+      "coordinate_source": "Gracy & Lee (2024), LPSC 55, abstract 1695, \"Candidate landing sites for Artemis 3 in two NASA candidate landing regions nearest the lunar South Pole\": center of a 2 km-radius candidate landing site at 89.53432°S, 209.94767°E.",
+      "coordinate_accuracy_note": "Published representative point. The candidate landing site is a 2 km-radius circle, not a point; this coordinate is its published center.",
+      "artemis_status": "Proposed candidate site within the Connecting Ridge region from NASA's 2022 Artemis III candidate-region set. Connecting Ridge was not among the nine regions retained in NASA's October 2024 refinement.",
+      "why_included": "Near-pole endmember for the comparison. It is expected to maximize summer solar availability while showing how a near-pole site can still lose direct Earth line-of-sight for long intervals.",
+      "caveats": [
+        "Representative point, not a certified landing ellipse.",
+        "Altitude is set to 0 km for the Horizons query; terrain elevation and local horizon occlusion are not modeled.",
+        "Connecting Ridge is not in NASA's refined 2024 list of nine Artemis III candidate regions; it is included as a well-documented near-pole comparison site."
+      ],
+      "sources": [
+        {
+          "label": "Gracy & Lee 2024, LPSC 55, abstract 1695",
+          "url": "https://www.hou.usra.edu/meetings/lpsc2024/pdf/1695.pdf",
+          "note": "Candidate site coordinates, 2 km landing circle, and illumination/direct-to-Earth context."
+        },
+        {
+          "label": "NASA 2024 Artemis III landing-region update",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/",
+          "note": "Refined list of nine candidate regions; used to label Connecting Ridge's current Artemis status accurately."
+        }
+      ]
+    },
+    {
+      "id": "malapert-massif",
+      "display_order": 2,
+      "name": "Malapert Massif",
+      "short_name": "Malapert",
+      "region": "Malapert Massif candidate landing region, lunar south polar highlands",
+      "latitude_deg": -85.964,
+      "longitude_deg_east": 357.681,
+      "altitude_km": 0.0,
+      "coordinate_source": "Kring et al. (2025), JGR Planets, doi:10.1029/2024JE008905, citing the NASA-defined notional Artemis landing site at latitude 85.964°S, longitude 357.681°E near the summit of the Malapert massif.",
+      "coordinate_accuracy_note": "Published notional landing-site point used by NASA's Artemis III geology planning; the massif and candidate region extend well beyond this point.",
+      "artemis_status": "In NASA's refined 2024 list of nine Artemis III candidate landing regions (Malapert Massif).",
+      "why_included": "Trade-off site: a lower-latitude summit with long Earth-visibility windows, but a solar cycle that includes night during the January 2027 test window.",
+      "caveats": [
+        "Representative point, not a certified landing ellipse.",
+        "Altitude is set to 0 km for the Horizons query; the massif's relief and local horizon are not modeled.",
+        "The coordinate is a notional NASA planning site, not a selected Artemis landing site."
+      ],
+      "sources": [
+        {
+          "label": "Kring et al. 2025, JGR Planets",
+          "url": "https://doi.org/10.1029/2024JE008905",
+          "note": "States the NASA-defined notional landing site at 85.964°S, 357.681°E and analyzes the surrounding terrain."
+        },
+        {
+          "label": "LROC 1294 — Malapert Massif",
+          "url": "https://www.lroc.asu.edu/posts/1294",
+          "note": "Identifies the flat heart of the Artemis III Malapert region near 86°S, 0°E and describes the massif's relief."
+        },
+        {
+          "label": "NASA Science — Malapert region",
+          "url": "https://science.nasa.gov/image-detail/20100618/",
+          "note": "Independent NASA description of the Malapert region at 85.99°S, 357.07°E and its illumination/Earth-visibility potential."
+        },
+        {
+          "label": "NASA 2024 Artemis III landing-region update",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/",
+          "note": "Confirms Malapert Massif is one of the nine refined candidate regions."
+        }
+      ]
+    },
+    {
+      "id": "mons-mouton",
+      "display_order": 3,
+      "name": "Mons Mouton",
+      "short_name": "Mons Mouton",
+      "region": "Mons Mouton, near the western rim of Nobile crater, lunar south polar highlands",
+      "latitude_deg": -85.43,
+      "longitude_deg_east": 31.73,
+      "altitude_km": 0.0,
+      "coordinate_source": "Meier et al. (2024), LPSC 55, abstract 2086, \"Detailed geomorphologic analysis of lunar regions of interests\": VIPER study Site 102 at 85.43°S, 31.73°E on Mons Mouton, near the western edge of Nobile crater.",
+      "coordinate_accuracy_note": "Published study-site point. It is representative of the Mons Mouton area, not a certified landing ellipse.",
+      "artemis_status": "In NASA's refined 2024 list of nine Artemis III candidate landing regions (Mons Mouton).",
+      "why_included": "Longitude contrast to Malapert Massif at similar latitude. The pair tests whether a date shift, rather than a latitude change, can improve the power/communications balance.",
+      "caveats": [
+        "Representative point, not a certified landing ellipse.",
+        "Altitude is set to 0 km for the Horizons query; the plateau's relief and local horizon are not modeled.",
+        "The IAU center of Mons Mouton is 84.60°S, 31.00°E; the selected point is the published study site, not the feature center."
+      ],
+      "sources": [
+        {
+          "label": "Meier et al. 2024, LPSC 55, abstract 2086",
+          "url": "https://www.hou.usra.edu/meetings/lpsc2024/pdf/2086.pdf",
+          "note": "Site 102 coordinates at 85.43°S, 31.73°E, with >50% annual illumination and direct Earth line-of-sight context."
+        },
+        {
+          "label": "IAU/USGS Gazetteer — Mons Mouton",
+          "url": "https://planetarynames.wr.usgs.gov/Feature/16070",
+          "note": "Official feature center at 84.60°S, 31.00°E, used as a geographic cross-check."
+        },
+        {
+          "label": "NASA SVS — Mons Mouton",
+          "url": "https://svs.gsfc.nasa.gov/5074",
+          "note": "NASA visualization and description of Mons Mouton near the western rim of Nobile crater."
+        },
+        {
+          "label": "NASA 2024 Artemis III landing-region update",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/",
+          "note": "Confirms Mons Mouton is one of the nine refined candidate regions."
+        }
+      ]
+    }
+  ]
+}
