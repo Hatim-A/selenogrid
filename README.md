@@ -14,6 +14,13 @@ Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static R
 
 ![SelenoGrid Compare view](docs/screenshots/compare.webp)
 
+## Super Intelligence disclosure
+
+AI coding assistants helped write interface code and prose drafts under human
+direction. All science code and validation were human-designed, and no
+generated imagery, audio, or NASA branding is used. Full details in
+[AI_DISCLOSURE.md](AI_DISCLOSURE.md).
+
 ## The problem
 
 A landing site near the lunar south pole is not a pin on a map. It is a schedule. A site can be sunlit for most of a lunar day but radio-dark; another can see Earth continuously but sit on a steep slope. The Sun and Earth move slowly and unevenly across a polar horizon, so the usable windows depend on the date, the mission length, and the local terrain profile. Static illumination maps and slope maps show pieces of this. They do not let a scientist, engineer, or member of the public compare the whole trade in one place, on their own terms.
