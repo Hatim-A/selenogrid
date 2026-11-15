@@ -6,7 +6,7 @@ SelenoGrid is a browser-based decision-support workbench for the lunar south pol
 
 Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static React app. No backend. No API keys. No hidden model weights.
 
-**[Live demo](https://hatim-a.github.io/selenogrid/)** · [Judge guide](docs/JUDGE_GUIDE.md) · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Demo script](docs/DEMO_SCRIPT.md) · [Pitch outline](docs/PITCH.md)
+**[Live demo](https://hatim-a.github.io/selenogrid/)** · **[7-slide deck](https://hatim-a.github.io/selenogrid/deck.html)** · [Judge guide](docs/JUDGE_GUIDE.md) · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Submission sheet](docs/SUBMISSION.md) · [Pitch outline](docs/PITCH.md)
 
 > **What this is not.** NASA has not published official region centres or landing ellipses for these nine regions. The coordinates in SelenoGrid are representative terrain points selected from LOLA topography, not official landing ellipses. SelenoGrid is a comparative screening aid, not a flight-certified site-selection tool.
 
@@ -20,6 +20,17 @@ AI coding assistants helped write interface code and prose drafts under human
 direction. All science code and validation were human-designed, and no
 generated imagery, audio, or NASA branding is used. Full details in
 [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
+
+## Submission materials
+
+- **Deck (the submitted demonstration):** <https://hatim-a.github.io/selenogrid/deck.html>.
+  Seven slides, generated from `docs/deck/index.html` by `tools/build_deck.mjs`.
+- **Submission sheet:** [`docs/SUBMISSION.md`](docs/SUBMISSION.md), with the form copy,
+  the NASA and third-party source tables, and the pre-submit checklist.
+- **SI disclosure:** [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+- **Repository:** <https://github.com/Hatim-A/selenogrid>.
+
+Every public link used in the submission is reachable without a login.
 
 ## The problem
 
