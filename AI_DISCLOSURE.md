@@ -17,10 +17,14 @@ code and prose drafting under human direction**, and for nothing else.
 - **All science and data code.** The terrain pipeline, horizon ray-marching,
   Meeus/IAU ephemerides, visibility rule, event bisection, TOPSIS ranking, and
   Pareto frontier were human-designed and are validated against JPL Horizons.
-- **All imagery and audio.** Every screenshot is a capture of the running
-  application. The demo video is a screen recording of the live site. No AI
-  image generation, no AI voice, no AI music is used anywhere in the project.
-  The lunar textures are NASA data, not generated content.
+- **All imagery.** Every screenshot is a capture of the running application.
+  No AI image generation is used. The lunar textures are NASA data, not
+  generated content.
+- **Audio.** The submission deck is silent. The optional five-minute guide video
+  uses narration synthesized with Piper text-to-speech from a script written for
+  this project. The synthetic voice is disclosed in the video description, in
+  the README, in the submission sheet, and in the file metadata (title,
+  comment, and description tags).
 - **No NASA branding.** The project uses no NASA logos, flags, or mission
   identifiers in generated or submitted content. NASA data is credited as data.
 

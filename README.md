@@ -6,7 +6,7 @@ SelenoGrid is a browser-based decision-support workbench for the lunar south pol
 
 Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static React app. No backend. No API keys. No hidden model weights.
 
-**[Live demo](https://hatim-a.github.io/selenogrid/)** · **[7-slide deck](https://hatim-a.github.io/selenogrid/deck.html)** · **[5-minute guide](https://hatim-a.github.io/selenogrid/guide-5min.mp4)** · [Judge guide](docs/JUDGE_GUIDE.md) · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Submission sheet](docs/SUBMISSION.md) · [Pitch outline](docs/PITCH.md)
+**[Live demo](https://hatim-a.github.io/selenogrid/)** · **[7-slide deck](https://hatim-a.github.io/selenogrid/deck.html)** · **[Narrated 5-minute guide](https://hatim-a.github.io/selenogrid/guide-5min.mp4)** · [Judge guide](docs/JUDGE_GUIDE.md) · [Method](docs/METHOD.md) · [Sources](docs/SOURCES.md) · [Submission sheet](docs/SUBMISSION.md) · [Pitch outline](docs/PITCH.md)
 
 > **What this is not.** NASA has not published official region centres or landing ellipses for these nine regions. The coordinates in SelenoGrid are representative terrain points selected from LOLA topography, not official landing ellipses. SelenoGrid is a comparative screening aid, not a flight-certified site-selection tool.
 
@@ -18,8 +18,9 @@ Built solo for NASA Space Apps Challenge 2026, Meknes (13-15 Nov 2026). Static R
 
 AI coding assistants helped write interface code and prose drafts under human
 direction. All science code and validation were human-designed, and no
-generated imagery, audio, or NASA branding is used. Full details in
-[AI_DISCLOSURE.md](AI_DISCLOSURE.md).
+generated imagery or NASA branding is used. The optional 5-minute guide video
+uses a synthetic Piper text-to-speech narration, disclosed in the file metadata.
+Full details in [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
 
 ## Submission materials
 
