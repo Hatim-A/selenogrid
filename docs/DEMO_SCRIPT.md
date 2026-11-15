@@ -1,6 +1,8 @@
 # SelenoGrid Demo Script
 
-**Target length:** 3:00. **Format:** live screen share with spoken narration. **Audience:** NASA Space Apps judges and a general stream audience.
+**Target length:** 3:00 of live demo inside the 5-minute pitch. **Format:** live screen share with spoken narration. **Audience:** NASA Space Apps judges and a general stream audience.
+
+**Run of show (5:00 + 2:00 Q&A):** 0:00 to 0:45 hook and problem (PITCH.md slide 1), 0:45 to 3:45 this demo script, 3:45 to 4:45 validation beat plus close (slides 3 and 5), 4:45 to 5:00 buffer. If the live demo fails at any point, play `docs/demo-30s.mp4` and keep narrating.
 
 ## Before recording
 

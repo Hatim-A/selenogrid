@@ -90,8 +90,11 @@
     border-radius: 1.2vmin;
     overflow: hidden;
     background: var(--card);
+    max-height: 82vmin;
+    display: flex;
+    flex-direction: column;
   }
-  figure.shot img { display: block; width: 100%; height: auto; }
+  figure.shot img { display: block; width: 100%; height: 64vmin; object-fit: cover; object-position: top center; }
   figure.shot figcaption {
     padding: 1.2vmin 1.8vmin;
     font-family: ui-monospace, Menlo, monospace;

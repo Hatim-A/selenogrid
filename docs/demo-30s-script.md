@@ -2,7 +2,13 @@
 
 Total 30 s, five 6-second beats. Read at a calm pace, about 15 words per beat.
 Record the voiceover first, then cut the visuals to it, or screen-record the
-live app while reading. The silent base cut is `demo-30s-base.mp4` (same folder).
+live app while reading. The finished cut is `demo-30s.mp4` (same folder): a real-motion screen recording
+with burned-in beat captions, exactly 30.0 s. It doubles as the stage backup
+if the live demo fails. To add your voiceover on top:
+
+```
+ffmpeg -i demo-30s.mp4 -i voiceover.m4a -c:v copy -c:a aac -shortest demo-30s-voiced.mp4
+```
 
 ## Beat 1 (0-6 s): the problem. Visual: landing hero.
 > "A Moon landing site is not a pin on a map. It is a schedule. Sunlight and
