@@ -208,6 +208,26 @@ export default function App() {
     })
   }, [data, allSites])
 
+  // Keyboard theme toggle: T anywhere outside a form field.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+      if (event.key.toLowerCase() !== 't') return
+      const target = event.target as HTMLElement | null
+      if (target) {
+        const tag = target.tagName
+        if (target.isContentEditable || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+          return
+        }
+      }
+      event.preventDefault()
+      setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
   useEffect(() => {
     scrollTopInstant()
     setShowBackToTop(false)
